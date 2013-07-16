@@ -1,0 +1,80 @@
+<div class="span2">
+</div>
+
+<div class="span10">
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>First name:</b>
+  <%= @salesperson.first_name %>
+</p>
+
+<p>
+  <b>Last name:</b>
+  <%= @salesperson.last_name %>
+</p>
+
+<p>
+  <b>Middle name:</b>
+  <%= @salesperson.middle_name %>
+</p>
+
+<p>
+  <b>Dob:</b>
+  <%= @salesperson.dob %>
+</p>
+
+<p>
+  <b>Gender:</b>
+  <%= @salesperson.gender %>
+</p>
+
+<p>
+  <b>Join date:</b>
+  <%= @salesperson.join_date %>
+</p>
+
+<p>
+  <b>Status:</b>
+  <%= @salesperson.status %>
+</p>
+
+<p>
+  <b>Email:</b>
+  <%= @salesperson.email %>
+</p>
+
+<p>
+  <b>Street:</b>
+  <%= @salesperson.street %>
+</p>
+
+<p>
+  <b>State:</b>
+  <%= @salesperson.state %>
+</p>
+
+<p>
+  <b>City:</b>
+  <%= @salesperson.city %>
+</p>
+
+<p>
+  <b>Mobile phone:</b>
+  <%= @salesperson.mobile_phone %>
+</p>
+
+<p>
+  <b>Home phone:</b>
+  <%= @salesperson.home_phone %>
+</p>
+
+<p>
+  <b>Comment:</b>
+  <%= @salesperson.comment %>
+</p>
+
+
+<%= link_to 'Edit', edit_salesperson_path(@salesperson) %> |
+<%= link_to 'Back', salespeople_path %>
+</div>

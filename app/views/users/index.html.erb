@@ -1,0 +1,85 @@
+<div class="span2">
+      <!--Sidebar content-->
+       <div class="well sidebar-nav">
+            <ul class="nav nav-list">
+              <li class="nav-header">Filter</li>     
+            </ul>
+      </div><!--/.well -->
+</div>
+
+<div class="span10">
+<!--Body content-->
+  <div id="container" class="container-fluid">
+    <p>
+      <%= link_to 'Add New User', new_user_path, :class => "btn " %>
+    </p>
+
+  <table id="tb" class="table  table-condensed table-hover " cellspacing="0">
+    <thead>
+      <tr>
+        <th >Name</th>
+        <th class="hed">Email</th>
+        <th class="hed">Admin</th>
+        <th class="hed">Comment</th>
+        <th class="hed">Edit</th>
+        <th class="hed">Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @users.each do |user| %>
+        <tr>
+          <td class="hed"><%= user.name %></td>
+          <td><%= user.email %></td>
+          <td><%= user.admin %></td>
+          <td><%= user.comment %></td>
+          <td><%= link_to raw('<i class="icon-edit"></i>'), edit_user_path(user) %></td>
+          <td><%= link_to raw('<i class="icon-trash "></i>'), user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+<a href="#" id="name" class='uname' data-type="text" data-pk="1" data-resource="user"  data-url="/users/4" data-original-title="Select status">2</a>
+<script>
+$(function(){
+    $('.uname').editable({
+      ajaxOptions: {
+        type: 'PUT'
+      }
+    });
+});
+</script>
+
+<a href="#" id="email" data-type="date" data-pk="1" data-resource="user" data-url="/users/4" data-original-title="Select date">15/05/1984</a>
+<script>
+$(function(){
+    $('#email').editable({
+        format: 'yyyy-mm-dd',    
+        viewformat: 'dd/mm/yyyy',    
+        datepicker: {
+                weekStart: 1
+        }
+    });
+});
+$('#tb tbody tr:odd').css("backgroundColor","#fcf8e3");
+$('#tb tbody tr:even').css("backgroundColor","#d9edf7");
+</script>
+
+<div id="comments" data-type="wysihtml5" data-pk="1"><h2>awesome</h2> comment!</div>
+<script>
+$(function(){
+    $('#comments').editable({
+        url: '/post',
+        title: 'Enter comments'
+    });
+});
+</script>
+
+<br />
+
+
+
+<!--! %= debug(params) %>-->
+
+</div> <!--! end of #container -->
+</div>

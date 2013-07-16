@@ -1,0 +1,69 @@
+<%= form_for(@contract) do |f| %>
+  <% if @contract.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@contract.errors.count, "error") %> prohibited this contract from being saved:</h2>
+
+      <ul>
+      <% @contract.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :description %><br />
+    <%= f.text_field :description %>
+  </div>
+  <div class="field">
+    <%= f.label :product %><br />
+    <%= f.text_field :product %>
+  </div>
+  <div class="field">
+    <%= f.label :client %><br />
+    <%= f.text_field :client %>
+  </div>
+  <div class="field">
+    <%= f.label :salesperson %><br />
+    <%= f.text_field :salesperson %>
+  </div>
+  <div class="field">
+    <%= f.label :contact_email %><br />
+    <%= f.text_field :contact_email %>
+  </div>
+  <div class="field">
+    <%= f.label :send_date %><br />
+    <%= f.date_select :send_date %>
+  </div>
+  <div class="field">
+    <%= f.label :execute_date %><br />
+    <%= f.date_select :execute_date %>
+  </div>
+  <div class="field">
+    <%= f.label :kick_off_call %><br />
+    <%= f.date_select :kick_off_call %>
+  </div>
+  <div class="field">
+    <%= f.label :data_received_date %><br />
+    <%= f.date_select :data_received_date %>
+  </div>
+  <div class="field">
+    <%= f.label :data_run_date %><br />
+    <%= f.date_select :data_run_date %>
+  </div>
+  <div class="field">
+    <%= f.label :first_run_date_in_production %><br />
+    <%= f.date_select :first_run_date_in_production %>
+  </div>
+  <div class="field">
+    <%= f.label :status %><br />
+    <%= f.text_field :status %>
+  </div>
+  <div class="field">
+    <%= f.label :comment %><br />
+    <%= f.text_field :comment %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,86 @@
+<div class="span2">
+      <!--Sidebar content-->
+       <div class="well sidebar-nav">
+            <ul class="nav nav-list">
+              <li class="nav-header">Filter</li>     
+            </ul>
+      </div><!--/.well -->
+</div>
+
+<div class="span10">
+<!--Body content-->
+  <div id="container" class="container-fluid">
+    <p>
+      <%= link_to 'New Salesperson', new_salesperson_path, :class => "btn " %>
+    </p>
+
+<table id="tb" class="table  table-condensed table-hover " cellspacing="0">
+    <thead>
+      <tr>
+        <th class="hed">First Name</th>
+        <th class="hed">Last Name</th>
+        <th class="hed">DOB</th>
+        <th class="hed">Mobile Phone</th>
+        <th class="hed">Working Phone</th>
+        <th class="hed">Gender</th>
+        <th class="hed">Status</th>
+        <th class="hed">Join date</th>
+        <th class="hed">Email</th>
+        <th class="hed">Street</th>
+        <th class="hed">State</th>
+        <th class="hed">City</th>
+        <th class="hed">Zip</th>
+        <th class="hed">Comment</th>
+        <th class="hed">Edit</th>
+        <th class="hed">Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+        <% @salespeople.each do |salesperson| %>
+            <tr>
+            <td><%= salesperson.first_name %></td>
+            <td><%= salesperson.last_name %></td>
+            <td><%= salesperson.dob %></td>
+            <td><%= salesperson.mobile_phone %></td>
+            <td><%= salesperson.home_phone %></td>
+            <td><%= salesperson.gender %></td>
+            <td><%= salesperson.status %></td>
+            <td><%= salesperson.join_date %></td>
+            <td><%= salesperson.email %></td>
+            <td><%= salesperson.street %></td>
+            <td><%= salesperson.state %></td>
+            <td><%= salesperson.city %></td>
+            <td><%= salesperson.zip_code %></td>
+            <td>
+                <div id="comment" class="sales_comment" data-resource="salesperson" data-type="wysihtml5" data-pk="1"  data-url="/salespeople/<%= salesperson.id %>" data-value = "<%= salesperson.comment %>" >
+                    
+                </div>
+            </td>
+            <td><%= link_to raw('<i class="icon-edit"></i>'), edit_salesperson_path(salesperson) %></td>
+            <td><%= link_to raw('<i class="icon-trash "></i>'), salesperson, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+        <% end %>
+        </tbody>
+  </table>
+
+<br />
+
+<script>
+    $('#tb tbody tr:odd').css("backgroundColor","#fcf8e3");
+    $('#tb tbody tr:even').css("backgroundColor","#d9edf7");
+    $(function(){
+        $('.sales_comment').editable({
+            ajaxOptions: {
+                type: 'PUT'
+            },
+            title: 'Enter comments',
+            display: function(value, response) {
+                if(! response && !value) { $(this).empty();}
+                $(this).html(value.substring(0,10));
+            } 
+        });
+    });
+</script>
+
+</div> <!--! end of #container -->
+</div>

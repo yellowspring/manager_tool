@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>ManagerTool</title>
+  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+
+ <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container-fluid">
+          <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="brand" href="#">Manager Tool</a>
+          <div class="nav-collapse collapse">
+            <p class="navbar-text pull-right">
+              Logged in as <a href="#" class="navbar-link">Username</a>
+            </p>
+            <ul class="nav ">
+              <li><a href="#">Centcom</a></li>
+              <li><a href="#about">Recon</a></li>
+              <li><a href="#contact">Dashboard</a></li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+
+  <div class="container-fluid">
+    <div class="row-fluid">
+
+      <div class="span2 ">
+        <img src="/assets/Medlytix_logo_w_tagline.jpg" class="img-rounded">
+ 
+      </div>
+      <div  class="span10 ">
+          
+                <div class="navbar" id='my_navbar'>
+                  <div class="navbar-inner"  id='my_navbar-inner'>
+                  <ul id='my_menu' class="nav ">
+
+                        <%if session[:current].eql?('menu_contracts') %>
+                        <li class="dropdown active">
+                        <% else %>
+                          <li class="dropdown">
+                        <% end %>
+                        <a class="dropdown-toggle"
+                            data-toggle="dropdown"
+                            href="#">
+                            Contracts
+                          <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                          <li><a tabindex="1" href="/contracts">Lists</a></li>
+                          <li><a tabindex="1" href="#">Statistics</a></li>
+                        </ul>
+                      </li>
+
+    
+                        <%if session[:current].eql?('admin_user') %>
+                        <li class="dropdown active">
+                        <% else %>
+                           <li class="dropdown">
+                        <% end %>
+                        <a class="dropdown-toggle"
+                            data-toggle="dropdown"
+                            href="#">
+                            Admin
+                          <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                          <li><a tabindex="1" href="/users">Users</a></li>
+                          <li><a tabindex="1" href="/salespeople">Salespeople</a></li>
+                        </ul>
+                      </li>
+                  </ul>
+                  </div>
+                  </div>
+      </div>
+
+    </div>
+
+  <div id='my_margin' class="row-fluid">
+   
+
+        <%= yield %>
+
+  </div>
+</div>
+
+</body>
+</html>
+

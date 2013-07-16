@@ -1,0 +1,31 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  description: MyString
+  product: MyString
+  client: MyString
+  salesperson: MyString
+  contact_email: MyString
+  send_date: 2013-07-03
+  execute_date: 2013-07-03
+  kick_off_call: 2013-07-03
+  data_received_date: 2013-07-03
+  data_run_date: 2013-07-03
+  first_run_date_in_production: 2013-07-03
+  status: MyString
+  comment: MyString
+
+two:
+  description: MyString
+  product: MyString
+  client: MyString
+  salesperson: MyString
+  contact_email: MyString
+  send_date: 2013-07-03
+  execute_date: 2013-07-03
+  kick_off_call: 2013-07-03
+  data_received_date: 2013-07-03
+  data_run_date: 2013-07-03
+  first_run_date_in_production: 2013-07-03
+  status: MyString
+  comment: MyString
