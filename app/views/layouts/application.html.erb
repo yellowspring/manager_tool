@@ -22,9 +22,10 @@
               Logged in as <a href="#" class="navbar-link">Username</a>
             </p>
             <ul class="nav ">
-              <li><a href="#">Centcom</a></li>
-              <li><a href="#about">Recon</a></li>
-              <li><a href="#contact">Dashboard</a></li>
+              <li><%= link_to "Centcom","http://staging/centcom", :target => "_blank" %>
+              <li><%= link_to "Recon 2","http://srv6/recon2/", :target => "_blank" %>
+              <li><%= link_to "Dashboard","http://srv6/dashboard/", :target => "_blank" %>
+              <li><%= link_to "Redmine","http://srv6/redmine/", :target => "_blank" %>
             </ul>
           </div><!--/.nav-collapse -->
         </div>
@@ -34,56 +35,59 @@
   <div class="container-fluid">
     <div class="row-fluid">
 
-      <div class="span2 ">
-        <img src="/assets/Medlytix_logo_w_tagline.jpg" class="img-rounded">
- 
+      <div class="span12 ">
+        <img style="display:block; float:left"  src="/assets/Medlytix_logo_w_tagline.jpg" alt="banner">
       </div>
-      <div  class="span10 ">
-          
-                <div class="navbar" id='my_navbar'>
-                  <div class="navbar-inner"  id='my_navbar-inner'>
-                  <ul id='my_menu' class="nav ">
-
-                        <%if session[:current].eql?('menu_contracts') %>
-                        <li class="dropdown active">
-                        <% else %>
-                          <li class="dropdown">
-                        <% end %>
-                        <a class="dropdown-toggle"
-                            data-toggle="dropdown"
-                            href="#">
-                            Contracts
-                          <b class="caret"></b>
-                        </a>
-                        <ul class="dropdown-menu">
-                          <li><a tabindex="1" href="/contracts">Lists</a></li>
-                          <li><a tabindex="1" href="#">Statistics</a></li>
-                        </ul>
-                      </li>
-
-    
-                        <%if session[:current].eql?('admin_user') %>
-                        <li class="dropdown active">
-                        <% else %>
-                           <li class="dropdown">
-                        <% end %>
-                        <a class="dropdown-toggle"
-                            data-toggle="dropdown"
-                            href="#">
-                            Admin
-                          <b class="caret"></b>
-                        </a>
-                        <ul class="dropdown-menu">
-                          <li><a tabindex="1" href="/users">Users</a></li>
-                          <li><a tabindex="1" href="/salespeople">Salespeople</a></li>
-                        </ul>
-                      </li>
-                  </ul>
-                  </div>
-                  </div>
-      </div>
-
     </div>
+  </div>
+
+
+    <div id="menu">
+      <ul>
+            <li style="margin-left: 15px" class='selected' >
+              <a href="#">Home</a>
+            </li>
+
+
+            <%if session[:current].eql?('menu_contracts') %>
+            <li class="selected">
+            <% else %>
+              <li >
+            <% end %>
+            <a href="#">Contracts </a>
+              <ul>
+                <li><a href="#">View <img src="/assets/right.gif" class="rightarrowclass" style="border:0;"></a>
+                  <ul>
+                    <li><a href="/contracts">Proposed Contracts</a></li>
+                    <li><a href="/#">Permanent Contracts</a></li>
+                  </ul>
+                </li>
+                <li>
+                  <%= link_to 'New Contract', new_contract_path %>
+                </li>
+              </ul>
+            </li>
+
+            <%if session[:current].eql?('admin_user') %>
+            <li class="selected">
+            <% else %>
+              <li >
+            <% end %>
+            <a href="#">Admin </a>
+              <ul>
+                <li>
+                  <a href="/users">Users </a>
+                </li>
+                <li>
+                  <a href="/salespeople">salespeople </a>
+                </li>
+              </ul>
+            </li>
+      </ul>
+
+  </div>
+
+
 
   <div id='my_margin' class="row-fluid">
    
@@ -91,7 +95,7 @@
         <%= yield %>
 
   </div>
-</div>
+
 
 </body>
 </html>

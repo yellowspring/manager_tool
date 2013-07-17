@@ -12,16 +12,16 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :description %><br />
-    <%= f.text_field :description %>
+    <%= f.label :client%>
+    <%= f.text_field :client, class: "input-large popover-tx", :"data-trigger"=>"hover", rel: "popover", :"data-content"=>"Enter client name"%>
   </div>
   <div class="field">
-    <%= f.label :product %><br />
+    <%= f.label :product %>
     <%= f.text_field :product %>
   </div>
   <div class="field">
-    <%= f.label :client %><br />
-    <%= f.text_field :client %>
+  <%= f.label :description %>
+  <%= f.text_field :description %>
   </div>
   <div class="field">
     <%= f.label :salesperson %><br />
@@ -40,22 +40,6 @@
     <%= f.date_select :execute_date %>
   </div>
   <div class="field">
-    <%= f.label :kick_off_call %><br />
-    <%= f.date_select :kick_off_call %>
-  </div>
-  <div class="field">
-    <%= f.label :data_received_date %><br />
-    <%= f.date_select :data_received_date %>
-  </div>
-  <div class="field">
-    <%= f.label :data_run_date %><br />
-    <%= f.date_select :data_run_date %>
-  </div>
-  <div class="field">
-    <%= f.label :first_run_date_in_production %><br />
-    <%= f.date_select :first_run_date_in_production %>
-  </div>
-  <div class="field">
     <%= f.label :status %><br />
     <%= f.text_field :status %>
   </div>
@@ -67,3 +51,7 @@
     <%= f.submit %>
   </div>
 <% end %>
+
+<script>
+$(".popover-tx").popover();
+</script>
