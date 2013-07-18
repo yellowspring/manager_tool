@@ -12,36 +12,16 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :client%>
-    <%= f.text_field :client, class: "input-large popover-tx", :"data-trigger"=>"hover", rel: "popover", :"data-content"=>"Enter client name"%>
+    <%= f.label :client_name%>
+    <%= f.text_field :client_name, class: "input-large popover-tx", :"data-trigger"=>"hover", rel: "popover", :"data-content"=>"Enter client name"%>
   </div>
   <div class="field">
-    <%= f.label :product %>
-    <%= f.text_field :product %>
+  <%= f.label :client_state %>
+  <%= f.select :client_state , us_states %>
   </div>
   <div class="field">
-  <%= f.label :description %>
-  <%= f.text_field :description %>
-  </div>
-  <div class="field">
-    <%= f.label :salesperson %><br />
-    <%= f.text_field :salesperson %>
-  </div>
-  <div class="field">
-    <%= f.label :contact_email %><br />
-    <%= f.text_field :contact_email %>
-  </div>
-  <div class="field">
-    <%= f.label :send_date %><br />
-    <%= f.date_select :send_date %>
-  </div>
-  <div class="field">
-    <%= f.label :execute_date %><br />
-    <%= f.date_select :execute_date %>
-  </div>
-  <div class="field">
-    <%= f.label :status %><br />
-    <%= f.text_field :status %>
+    <%= f.label :client_email %><br />
+    <%= f.text_field :client_email %>
   </div>
   <div class="field">
     <%= f.label :comment %><br />

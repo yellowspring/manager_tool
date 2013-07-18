@@ -11,24 +11,22 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130705144425) do
+ActiveRecord::Schema.define(:version => 20130718194541) do
 
   create_table "contracts", :force => true do |t|
-    t.string   "description"
-    t.string   "product"
-    t.string   "client"
-    t.string   "salesperson"
-    t.string   "contact_email"
-    t.date     "send_date"
-    t.date     "execute_date"
-    t.date     "kick_off_call"
-    t.date     "data_received_date"
-    t.date     "data_run_date"
-    t.date     "first_run_date_in_production"
     t.string   "status"
     t.string   "comment"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "client_state"
+    t.string   "ca_flag"
+    t.date     "ca_date"
+    t.date     "contract_execute_date"
+    t.integer  "client_id"
+    t.string   "contract_type"
+    t.string   "client_name"
+    t.string   "client_email"
+    t.date     "baa_date"
   end
 
   create_table "sales_contractships", :force => true do |t|
@@ -41,21 +39,14 @@ ActiveRecord::Schema.define(:version => 20130705144425) do
   create_table "salespeople", :force => true do |t|
     t.string   "first_name"
     t.string   "last_name"
-    t.string   "middle_name"
-    t.date     "dob"
-    t.string   "gender"
-    t.date     "join_date"
-    t.string   "status"
+    t.string   "phone"
     t.string   "email"
-    t.string   "street"
-    t.string   "state"
-    t.string   "city"
-    t.string   "mobile_phone"
-    t.string   "home_phone"
+    t.string   "status"
+    t.string   "sales_manager"
+    t.date     "join_date"
     t.string   "comment"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "zip_code",     :limit => 10
   end
 
   create_table "users", :force => true do |t|

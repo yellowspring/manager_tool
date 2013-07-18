@@ -11,26 +11,20 @@
 <!--Body content-->
 
     <div id="container" class="container-fluid">
-    <p>
-      <%= link_to 'New Contract', new_contract_path, :class => "btn " %>
-    </p>
+
     <div style="float: right; margin-bottom: 10px">         
         <button id="enable" class="btn">enable/disable edit</button>
     </div>
     <table id="tb" class="table  table-condensed table-hover " cellspacing="0">
         <thead>
         <tr>
-            <th class='hed'>Description</th>
-            <th class='hed'>Product</th>
-            <th class='hed'>Client</th>
-            <th class='hed'>Salesperson</th>
-            <th class='hed'>Contact email</th>
-            <th class='hed'>Send date</th>
-            <th class='hed'>Execute date</th>
-            <th class='hed'>Kick off call</th>
-            <th class='hed'>Data received date</th>
-            <th class='hed'>Data run date</th>
-            <th class='hed'>First run date in production</th>
+            <th class='hed'>Client name</th>
+            <th class='hed'>Client email</th>
+            <th class='hed'>Client state</th>
+            <th class='hed'>Temorary cust_id</th>
+            <th class='hed'>Real cust_id</th>
+            <th class='hed'>Creating date</th>
+            <th class='hed'>BAA date</th>
             <th class='hed'>Status</th>
             <th class='hed'>Comment</th>
             <th class='hed'></th>
@@ -42,37 +36,21 @@
 
             <% @contracts.each do |contract| %>
               <tr>
+                <td><%= contract.client_name %></td>
                 <td>
-                    <div id="description" class="ct_description" data-resource="contract" data-type="text" data-pk="1"  data-url="/contracts/<%= contract.id %>" data-value = "<%= contract.description %>" >
+                    <div id="client_email" class="ct_description" data-resource="contract" data-type="text" data-pk="1"  data-url="/contracts/<%= contract.id %>" data-value = "<%= contract.client_email %>" >
                     </div>
                 </td>
-                <td><%= contract.product %></td>
-                <td><%= contract.client %></td>
-                <td><%= contract.salesperson %></td>
-                <td><%= contract.contact_email %></td>
+                <td><%= contract.client_state %></td>
+                <td><%= contract.id %></td>
+                <td><%= contract.client_id %></td>
                 <td>
-                    <div id="send_date" class="ct_date" data-resource="contract" data-type="date" data-pk="1"  data-url="/contracts/<%= contract.id %>" data-value = "<%= contract.send_date %>" >
-                    </div>
-                </td>
-                <td>
-                     <div id="execute_date" class="ct_date" data-resource="contract" data-type="date" data-pk="1"  data-url="/contracts/<%= contract.id %>" data-value = "<%= contract.execute_date %>" >
+                    <div id="created_at" class="ct_date" data-resource="contract" data-type="date" data-pk="1"  data-url="/contracts/<%= contract.id %>" data-value = "<%= contract.created_at %>" >
                     </div>
                 </td>
                 <td>
-                    <div id="kick_off_call" class="ct_date" data-resource="contract" data-type="date" data-pk="1"  data-url="/contracts/<%= contract.id %>" data-value = "<%= contract.kick_off_call %>" >
+                     <div id="baa_date" class="ct_date" data-resource="contract" data-type="date" data-pk="1"  data-url="/contracts/<%= contract.id %>" data-value = "<%= contract.baa_date %>" >
                     </div>
-                </td>
-                <td>
-                    <div id="data_received_date" class="ct_date" data-resource="contract" data-type="date" data-pk="1"  data-url="/contracts/<%= contract.id %>" data-value = "<%= contract.data_received_date %>" >
-                    </div>
-                </td>
-                <td>
-                     <div id="data_run_date" class="ct_date" data-resource="contract" data-type="date" data-pk="1"  data-url="/contracts/<%= contract.id %>" data-value = "<%= contract.data_run_date %>" >
-                    </div>                
-                </td>
-                <td>
-                    <div id="first_run_date_in_production" class="ct_date" data-resource="contract" data-type="date" data-pk="1"  data-url="/contracts/<%= contract.id %>" data-value = "<%= contract.first_run_date_in_production %>" >
-                    </div> 
                 </td>
                 <td><%= contract.status %></td>
                 <td><%= contract.comment %></td>

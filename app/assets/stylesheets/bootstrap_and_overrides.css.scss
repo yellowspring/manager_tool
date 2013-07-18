@@ -102,7 +102,7 @@ html, body, div, ol, ul, li{
 /* The sub menu list element is given a minimum width */
 
 #menu ul ul li {
-  min-width: 160px;
+  min-width: 180px;
 }
 
 /* the third level menu (sub sub menu) is placed to the left side of its parent*/
@@ -127,7 +127,7 @@ html, body, div, ol, ul, li{
   color: #fff;
   /*line-height: 1em;*/
   padding-bottom: 15px;
-  width: 160px;
+  width: 180px;
   height: 20px;
   border-bottom: 1px groove darkGray;
   border-right: 1px solid white;
@@ -143,7 +143,7 @@ html, body, div, ol, ul, li{
     color: #000;
 }
 #menu ul ul :hover a {
-  width: 160px;
+  width: 180px;
 }
 #menu li.selected a{
   background: #A8ADAE;

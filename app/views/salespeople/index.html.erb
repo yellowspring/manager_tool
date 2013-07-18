@@ -7,29 +7,17 @@
       </div><!--/.well -->
 </div>
 
-<div class="span10">
+<div class="span8">
 <!--Body content-->
   <div id="container" class="container-fluid">
-    <p>
-      <%= link_to 'New Salesperson', new_salesperson_path, :class => "btn " %>
-    </p>
 
 <table id="tb" class="table  table-condensed table-hover " cellspacing="0">
     <thead>
       <tr>
         <th class="hed">First Name</th>
         <th class="hed">Last Name</th>
-        <th class="hed">DOB</th>
-        <th class="hed">Mobile Phone</th>
-        <th class="hed">Working Phone</th>
-        <th class="hed">Gender</th>
-        <th class="hed">Status</th>
-        <th class="hed">Join date</th>
+        <th class="hed">Phone</th>
         <th class="hed">Email</th>
-        <th class="hed">Street</th>
-        <th class="hed">State</th>
-        <th class="hed">City</th>
-        <th class="hed">Zip</th>
         <th class="hed">Comment</th>
         <th class="hed">Edit</th>
         <th class="hed">Delete</th>
@@ -40,17 +28,8 @@
             <tr>
             <td><%= salesperson.first_name %></td>
             <td><%= salesperson.last_name %></td>
-            <td><%= salesperson.dob %></td>
-            <td><%= salesperson.mobile_phone %></td>
-            <td><%= salesperson.home_phone %></td>
-            <td><%= salesperson.gender %></td>
-            <td><%= salesperson.status %></td>
-            <td><%= salesperson.join_date %></td>
+            <td><%= salesperson.phone %></td>
             <td><%= salesperson.email %></td>
-            <td><%= salesperson.street %></td>
-            <td><%= salesperson.state %></td>
-            <td><%= salesperson.city %></td>
-            <td><%= salesperson.zip_code %></td>
             <td>
                 <div id="comment" class="sales_comment" data-resource="salesperson" data-type="wysihtml5" data-pk="1"  data-url="/salespeople/<%= salesperson.id %>" data-value = "<%= salesperson.comment %>" >
                     

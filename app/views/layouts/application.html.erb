@@ -48,7 +48,6 @@
               <a href="#">Home</a>
             </li>
 
-
             <%if session[:current].eql?('menu_contracts') %>
             <li class="selected">
             <% else %>
@@ -56,14 +55,33 @@
             <% end %>
             <a href="#">Contracts </a>
               <ul>
-                <li><a href="#">View <img src="/assets/right.gif" class="rightarrowclass" style="border:0;"></a>
+                <li><a href="#">View contracts <img src="/assets/right.gif" class="rightarrowclass" style="border:0;"></a>
                   <ul>
                     <li><a href="/contracts">Proposed Contracts</a></li>
                     <li><a href="/#">Permanent Contracts</a></li>
                   </ul>
                 </li>
+                <li><a href="#">Add a new Contract <img src="/assets/right.gif" class="rightarrowclass" style="border:0;"></a>
+                  <ul>
+                    <li><a href="/contracts/new">New client </a></li>
+                    <li><a href="/#">Existed client </a></li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+
+            <%if session[:current].eql?('menu_sales') %>
+            <li class="selected">
+            <% else %>
+              <li >
+            <% end %>
+            <a href="#">Salespeople </a>
+              <ul>
                 <li>
-                  <%= link_to 'New Contract', new_contract_path %>
+                  <a href="/salespeople">List of salespeople </a>
+                </li>
+                <li>
+                  <a href="/salespeople/new">Add a new salesperson </a>
                 </li>
               </ul>
             </li>
@@ -76,10 +94,10 @@
             <a href="#">Admin </a>
               <ul>
                 <li>
-                  <a href="/users">Users </a>
+                  <a href="/users">List of users </a>
                 </li>
                 <li>
-                  <a href="/salespeople">salespeople </a>
+                  <a href="/users/new">Add a new user </a>
                 </li>
               </ul>
             </li>
@@ -90,10 +108,7 @@
 
 
   <div id='my_margin' class="row-fluid">
-   
-
-        <%= yield %>
-
+    <%= yield %>
   </div>
 
 
