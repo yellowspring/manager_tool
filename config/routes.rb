@@ -1,4 +1,8 @@
 ManagerTool::Application.routes.draw do
+  resources :products
+
+  resources :clients
+
   resources :contracts
 
   resources :salespeople

@@ -48,17 +48,39 @@
               <a href="#">Home</a>
             </li>
 
-            <%if session[:current].eql?('menu_contracts') %>
+            <%if session[:current].eql?('menu_regular_contracts') %>
             <li class="selected">
             <% else %>
               <li >
             <% end %>
-            <a href="#">Contracts </a>
+            <a href="#">Regular contracts </a>
               <ul>
                 <li><a href="#">View contracts <img src="/assets/right.gif" class="rightarrowclass" style="border:0;"></a>
                   <ul>
                     <li><a href="/contracts">Proposed Contracts</a></li>
                     <li><a href="/#">Permanent Contracts</a></li>
+                  </ul>
+                </li>
+                <li><a href="#">Add a new Contract <img src="/assets/right.gif" class="rightarrowclass" style="border:0;"></a>
+                  <ul>
+                    <li><a href="/contracts/new">New client </a></li>
+                    <li><a href="/#">Existed client </a></li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+
+            <%if session[:current].eql?('menu_temporary_contracts') %>
+            <li class="selected">
+            <% else %>
+              <li >
+            <% end %>
+            <a href="#">Dummy contracts </a>
+              <ul>
+                <li><a href="#">View contracts <img src="/assets/right.gif" class="rightarrowclass" style="border:0;"></a>
+                  <ul>
+                    <li><a href="/contracts">Proposed Contracts</a></li>
+                    <li><a href="/#">Finished Contracts</a></li>
                   </ul>
                 </li>
                 <li><a href="#">Add a new Contract <img src="/assets/right.gif" class="rightarrowclass" style="border:0;"></a>
