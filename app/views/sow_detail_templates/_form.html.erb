@@ -1,0 +1,49 @@
+<%= form_for(@sow_detail_template) do |f| %>
+  <% if @sow_detail_template.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@sow_detail_template.errors.count, "error") %> prohibited this sow_detail_template from being saved:</h2>
+
+      <ul>
+      <% @sow_detail_template.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :commercial_rate %><br />
+    <%= f.check_box :commercial_rate %>
+  </div>
+  <div class="field">
+    <%= f.label :medicare_rate %><br />
+    <%= f.check_box :medicare_rate %>
+  </div>
+  <div class="field">
+    <%= f.label :medicaid_rate %><br />
+    <%= f.check_box :medicaid_rate %>
+  </div>
+  <div class="field">
+    <%= f.label :term %><br />
+    <%= f.check_box :term %>
+  </div>
+  <div class="field">
+    <%= f.label :development_fee %><br />
+    <%= f.check_box :development_fee %>
+  </div>
+  <div class="field">
+    <%= f.label :outgoing_monthly_fee %><br />
+    <%= f.check_box :outgoing_monthly_fee %>
+  </div>
+  <div class="field">
+    <%= f.label :transaction_net_fee %><br />
+    <%= f.check_box :transaction_net_fee %>
+  </div>
+  <div class="field">
+    <%= f.label :sow_id %><br />
+    <%= f.number_field :sow_id %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

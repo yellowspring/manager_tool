@@ -10,32 +10,30 @@
       </ul>
     </div>
   <% end %>
-
+ 
   <div class="field">
-    <%= f.label :client_name%>
-    <% if !@clients %>
-      <%= f.text_field :client_name, class: "input-large popover-tx", :"data-trigger"=>"hover", rel: "popover", :"data-content"=>"Enter client name"%>
-    <% else %>
-      <%= f.select :client_name, @clients %>
-    <% end %>
+    <%= f.label :client%>
+    <%= collection_select(:contract, :client_id, Client.find(:all), :id, :name_with_state, {:prompt => 'Please select the client'}) %>
   </div>
   <div class="field">
-  <%= f.label :client_state %>
-  <%= f.select :client_state , us_states %>
-  </div>
+    <%= f.label :CA_needed %> 
+    <%= f.check_box :ca_flag ,:style => "float:left;"%> 
+    <br><br><br>  
+  </div>  
   <div class="field">
-    <%= f.label :client_email %><br />
-    <%= f.text_field :client_email %>
-  </div>
+    <%= f.label :nda_needed %> 
+    <%= f.check_box :nda_flag ,:style => "float:left;"%> 
+    <br><br><br>  
+  </div>  
   <div class="field">
-    <%= f.label :comment %><br />
+    <%= f.label :comment %> 
     <%= f.text_field :comment %>
-  </div>
+  </div><br><br>
   <div class="actions">
     <%= f.submit %>
   </div>
 <% end %>
-
+ 
 <script>
 $(".popover-tx").popover();
 </script>

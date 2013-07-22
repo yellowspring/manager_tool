@@ -1,0 +1,57 @@
+<%= form_for(@sow) do |f| %>
+  <% if @sow.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@sow.errors.count, "error") %> prohibited this sow from being saved:</h2>
+
+      <ul>
+      <% @sow.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :sow_ko_date %><br />
+    <%= f.date_select :sow_ko_date %>
+  </div>
+  <div class="field">
+    <%= f.label :sow_production_date %><br />
+    <%= f.date_select :sow_production_date %>
+  </div>
+  <div class="field">
+    <%= f.label :sow_start_date %><br />
+    <%= f.date_select :sow_start_date %>
+  </div>
+  <div class="field">
+    <%= f.label :sow_end_date %><br />
+    <%= f.date_select :sow_end_date %>
+  </div>
+  <div class="field">
+    <%= f.label :auto_renew %><br />
+    <%= f.text_field :auto_renew %>
+  </div>
+  <div class="field">
+    <%= f.label :accept_term %><br />
+    <%= f.number_field :accept_term %>
+  </div>
+  <div class="field">
+    <%= f.label :renewal %><br />
+    <%= f.text_field :renewal %>
+  </div>
+  <div class="field">
+    <%= f.label :renew_times %><br />
+    <%= f.number_field :renew_times %>
+  </div>
+  <div class="field">
+    <%= f.label :product_id %><br />
+    <%= f.number_field :product_id %>
+  </div>
+  <div class="field">
+    <%= f.label :comment %><br />
+    <%= f.text_area :comment %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

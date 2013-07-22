@@ -1,0 +1,45 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Commercial rate:</b>
+  <%= @sow_detail_template.commercial_rate %>
+</p>
+
+<p>
+  <b>Medicare rate:</b>
+  <%= @sow_detail_template.medicare_rate %>
+</p>
+
+<p>
+  <b>Medicaid rate:</b>
+  <%= @sow_detail_template.medicaid_rate %>
+</p>
+
+<p>
+  <b>Term:</b>
+  <%= @sow_detail_template.term %>
+</p>
+
+<p>
+  <b>Development fee:</b>
+  <%= @sow_detail_template.development_fee %>
+</p>
+
+<p>
+  <b>Outgoing monthly fee:</b>
+  <%= @sow_detail_template.outgoing_monthly_fee %>
+</p>
+
+<p>
+  <b>Transaction net fee:</b>
+  <%= @sow_detail_template.transaction_net_fee %>
+</p>
+
+<p>
+  <b>Sow:</b>
+  <%= @sow_detail_template.sow_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_sow_detail_template_path(@sow_detail_template) %> |
+<%= link_to 'Back', sow_detail_templates_path %>

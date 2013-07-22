@@ -1,0 +1,96 @@
+<div class="span2">
+      <!--Sidebar content-->
+       <div class="well sidebar-nav">
+            <ul class="nav nav-list">
+              <li class="nav-header">Filter</li>     
+            </ul>
+      </div><!--/.well -->
+</div>
+
+<div class="span10">
+<!--Body content-->
+
+    <div id="container" class="container-fluid">
+
+    <div style="float: right; margin-bottom: 10px">         
+        <button id="enable" class="btn">enable/disable edit</button>
+    </div>
+    <table id="tb" class="table  table-condensed table-hover " cellspacing="0">
+        <thead>
+        <tr>
+            <th class='hed'>Client name</th>
+            <th class='hed'>Client email</th>
+            <th class='hed'>Client state</th>
+            <th class='hed'>Temorary cust_id</th>
+            <th class='hed'>Real cust_id</th>
+            <th class='hed'>Creating date</th>
+            <th class='hed'>BAA date</th>
+            <th class='hed'>Status</th>
+            <th class='hed'>Comment</th>
+            <th class='hed'></th>
+            <th class='hed'></th>
+            <th class='hed'></th>
+        </tr>
+        </thead>
+        <tbody>
+
+            <% @contracts.each do |contract| %>
+              <tr>
+                <td><%= contract.client_name %></td>
+                <td>
+                    <div id="client_email" class="ct_description" data-resource="contract" data-type="text" data-pk="1"  data-url="/contracts/<%= contract.id %>" data-value = "<%= contract.client_email %>" >
+                    </div>
+                </td>
+                <td><%= contract.client_state %></td>
+                <td><%= contract.id %></td>
+                <td><%= contract.client_id %></td>
+                <td>
+                    <div id="created_at" class="ct_date" data-resource="contract" data-type="date" data-pk="1"  data-url="/contracts/<%= contract.id %>" data-value = "<%= contract.created_at %>" >
+                    </div>
+                </td>
+                <td>
+                     <div id="baa_date" class="ct_date" data-resource="contract" data-type="date" data-pk="1"  data-url="/contracts/<%= contract.id %>" data-value = "<%= contract.baa_date %>" >
+                    </div>
+                </td>
+                <td><%= contract.status %></td>
+                <td><%= contract.comment %></td>
+                <td><%= link_to raw('<i class="icon-trash "></i>'), contract, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+              </tr>
+            <% end %>
+         </tbody>
+    </table>
+
+    <br />
+
+<script>
+    $('#tb tbody tr:odd').css("backgroundColor","#fcf8e3");
+    $('#tb tbody tr:even').css("backgroundColor","#d9edf7");
+
+    $(function(){
+        $('.ct_date').editable({
+            ajaxOptions: {
+                type: 'PUT'
+            },
+            format: 'yyyy-mm-dd',    
+            viewformat: 'dd/mm/yyyy',    
+            datepicker: {
+                    weekStart: 1
+            }
+
+        });
+        $('#enable').click(function() {
+            $('#tb .editable').editable('toggleDisabled');
+        });  
+        $('.ct_description').editable({
+            ajaxOptions: {
+                type: 'PUT'
+            },
+            title: 'Enter Description',
+
+        });
+                $('#tb .editable').editable('toggleDisabled');
+    });
+</script>
+
+</div>
+</div>

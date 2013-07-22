@@ -1,4 +1,10 @@
 ManagerTool::Application.routes.draw do
+  resources :sow_detail_templates
+
+  resources :sow_details
+
+  resources :sows
+
   resources :contracts do
     collection do
       get 'newwithclient'

@@ -1,0 +1,2 @@
+module SowDetailTemplatesHelper
+end

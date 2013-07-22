@@ -14,6 +14,7 @@ class ContractsController < ApplicationController
   # GET /contracts/1.json
   def show
     @contract = Contract.find(params[:id])
+    @client = Client.find(@contract.client_id)
 
     respond_to do |format|
       format.html # show.html.erb

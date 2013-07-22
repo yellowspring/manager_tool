@@ -1,0 +1,53 @@
+<%= form_for(@sow_detail) do |f| %>
+  <% if @sow_detail.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@sow_detail.errors.count, "error") %> prohibited this sow_detail from being saved:</h2>
+
+      <ul>
+      <% @sow_detail.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :commercial_rate %><br />
+    <%= f.text_field :commercial_rate %>
+  </div>
+  <div class="field">
+    <%= f.label :medicare_rate %><br />
+    <%= f.text_field :medicare_rate %>
+  </div>
+  <div class="field">
+    <%= f.label :medicaid_rate %><br />
+    <%= f.text_field :medicaid_rate %>
+  </div>
+  <div class="field">
+    <%= f.label :term %><br />
+    <%= f.number_field :term %>
+  </div>
+  <div class="field">
+    <%= f.label :version %><br />
+    <%= f.number_field :version %>
+  </div>
+  <div class="field">
+    <%= f.label :status %><br />
+    <%= f.text_field :status %>
+  </div>
+  <div class="field">
+    <%= f.label :development_fee %><br />
+    <%= f.text_field :development_fee %>
+  </div>
+  <div class="field">
+    <%= f.label :outgoing_monthly_fee %><br />
+    <%= f.text_field :outgoing_monthly_fee %>
+  </div>
+  <div class="field">
+    <%= f.label :transaction_net_fee %><br />
+    <%= f.text_field :transaction_net_fee %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

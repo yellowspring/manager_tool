@@ -1,0 +1,41 @@
+<%= form_for(@contract) do |f| %>
+  <% if @contract.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@contract.errors.count, "error") %> prohibited this contract from being saved:</h2>
+
+      <ul>
+      <% @contract.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :client_name%>
+    <% if !@clients %>
+      <%= f.text_field :client_name, class: "input-large popover-tx", :"data-trigger"=>"hover", rel: "popover", :"data-content"=>"Enter client name"%>
+    <% else %>
+      <%= f.select :client_name, @clients %>
+    <% end %>
+  </div>
+  <div class="field">
+  <%= f.label :client_state %>
+  <%= f.select :client_state , us_states %>
+  </div>
+  <div class="field">
+    <%= f.label :client_email %><br />
+    <%= f.text_field :client_email %>
+  </div>
+  <div class="field">
+    <%= f.label :comment %><br />
+    <%= f.text_field :comment %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+
+<script>
+$(".popover-tx").popover();
+</script>

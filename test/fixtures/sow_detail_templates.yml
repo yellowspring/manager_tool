@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  commercial_rate: false
+  medicare_rate: false
+  medicaid_rate: false
+  term: false
+  development_fee: false
+  outgoing_monthly_fee: false
+  transaction_net_fee: false
+  sow_id: 1
+
+two:
+  commercial_rate: false
+  medicare_rate: false
+  medicaid_rate: false
+  term: false
+  development_fee: false
+  outgoing_monthly_fee: false
+  transaction_net_fee: false
+  sow_id: 1

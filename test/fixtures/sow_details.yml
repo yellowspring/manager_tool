@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  commercial_rate: 1.5
+  medicare_rate: 1.5
+  medicaid_rate: 1.5
+  term: 1
+  version: 1
+  status: MyString
+  development_fee: 1.5
+  outgoing_monthly_fee: 1.5
+  transaction_net_fee: 1.5
+
+two:
+  commercial_rate: 1.5
+  medicare_rate: 1.5
+  medicaid_rate: 1.5
+  term: 1
+  version: 1
+  status: MyString
+  development_fee: 1.5
+  outgoing_monthly_fee: 1.5
+  transaction_net_fee: 1.5
