@@ -64,7 +64,7 @@
                 <li><a href="#">Add a new Contract <img src="/assets/right.gif" class="rightarrowclass" style="border:0;"></a>
                   <ul>
                     <li><a href="/contracts/new">New client </a></li>
-                    <li><a href="/#">Existed client </a></li>
+                    <li><a href="/contracts/newwithclient">Existedsd  client </a></li>
                   </ul>
                 </li>
               </ul>
@@ -104,6 +104,39 @@
                 </li>
                 <li>
                   <a href="/salespeople/new">Add a new salesperson </a>
+                </li>
+              </ul>
+            </li>
+
+
+            <%if session[:current].eql?('menu_clients') %>
+            <li class="selected">
+            <% else %>
+              <li >
+            <% end %>
+            <a href="#">Clients </a>
+              <ul>
+                <li>
+                  <a href="/clients">List of Clients </a>
+                </li>
+                <li>
+                  <a href="/clients/new">Add a new client </a>
+                </li>
+              </ul>
+            </li>
+
+            <%if session[:current].eql?('menu_products') %>
+            <li class="selected">
+            <% else %>
+              <li >
+            <% end %>
+            <a href="#">Products </a>
+              <ul>
+                <li>
+                  <a href="/products">List of Products </a>
+                </li>
+                <li>
+                  <a href="/products/new">Add a new Product </a>
                 </li>
               </ul>
             </li>

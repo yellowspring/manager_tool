@@ -1,4 +1,9 @@
 ManagerTool::Application.routes.draw do
+  resources :contracts do
+    collection do
+      get 'newwithclient'
+    end
+  end
   resources :products
 
   resources :clients

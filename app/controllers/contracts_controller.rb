@@ -32,6 +32,18 @@ class ContractsController < ApplicationController
     end
   end
 
+  # GET /contracts/new_existedclient
+  # GET /contracts/new.json
+  def newwithclient
+    @contract = Contract.new
+    @clients = Client.all(:select => 'name').map(&:name)
+
+    respond_to do |format|
+      format.html # new.html.erb
+      format.json { render json: @contract }
+    end
+  end
+
   # GET /contracts/1/edit
   def edit
     @contract = Contract.find(params[:id])

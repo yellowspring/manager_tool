@@ -13,7 +13,11 @@
 
   <div class="field">
     <%= f.label :client_name%>
-    <%= f.text_field :client_name, class: "input-large popover-tx", :"data-trigger"=>"hover", rel: "popover", :"data-content"=>"Enter client name"%>
+    <% if !@clients %>
+      <%= f.text_field :client_name, class: "input-large popover-tx", :"data-trigger"=>"hover", rel: "popover", :"data-content"=>"Enter client name"%>
+    <% else %>
+      <%= f.select :client_name, @clients %>
+    <% end %>
   </div>
   <div class="field">
   <%= f.label :client_state %>
