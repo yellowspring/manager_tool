@@ -1,41 +1,120 @@
-<h1>Listing sows</h1>
+<div class="span2">
 
-<table>
-  <tr>
-    <th>Sow ko date</th>
-    <th>Sow production date</th>
-    <th>Sow start date</th>
-    <th>Sow end date</th>
-    <th>Auto renew</th>
-    <th>Accept term</th>
-    <th>Renewal</th>
-    <th>Renew times</th>
-    <th>Product</th>
-    <th>Comment</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
+      <!--Sidebar content-->
+       <div class="well sidebar-nav">
+        <h3>Contract details</h3>
+        <table id="tb" class="table  table-condensed table-hover " cellspacing="0">
+            <thead>
+                <tr>
+                    <th class='hed'></th>
+                    <th class='hed'></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class='hed'>Client name: </td>
+                    <td><%= @contract.client.name %> </td>
+                </tr>
+                <tr>
+                    <td class='hed'>Client state: </td>
+                    <td><%= @contract.client.state %> </td>
+                </tr>
+                <tr>
+                    <td class='hed'>Real cust_id: </td>
+                    <td><%= @contract.client.cust_id  %> </td>
+                </tr>
+                 <tr>
+                    <td class='hed'>BAA: </td>
+                    <td>
+                         <div id="baa_date" class="ct_date" data-resource="contract" data-type="date" data-pk="1"  data-url="/contracts/<%= @contract.id %>" data-value = "<%= @contract.baa_date %>" >
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <div>         
+                        <button id="enable" class="btn btn-primary">enable/disable edit</button>
+                    </div>  
+                </tr>
+            </tbody>
+        </table> 
+      </div><!--/.well -->
+</div>
 
-<% @sows.each do |sow| %>
-  <tr>
-    <td><%= sow.sow_ko_date %></td>
-    <td><%= sow.sow_production_date %></td>
-    <td><%= sow.sow_start_date %></td>
-    <td><%= sow.sow_end_date %></td>
-    <td><%= sow.auto_renew %></td>
-    <td><%= sow.accept_term %></td>
-    <td><%= sow.renewal %></td>
-    <td><%= sow.renew_times %></td>
-    <td><%= sow.product_id %></td>
-    <td><%= sow.comment %></td>
-    <td><%= link_to 'Show', sow %></td>
-    <td><%= link_to 'Edit', edit_sow_path(sow) %></td>
-    <td><%= link_to 'Destroy', sow, confirm: 'Are you sure?', method: :delete %></td>
-  </tr>
-<% end %>
-</table>
+<div class="span8">
+<!--Body content-->
 
-<br />
+    <div id="container" class="container-fluid">
+        <h1>Listing SOWs </h1>
+        <% if @sows.empty? %> 
+            <div class="notice"> You do not have any SOW currently. please add one! </div>
+        <% else %>
+            <table id="tb" class="table table-striped table-condensed table-hover table-bordered" cellspacing="0">
+                <tr>
+                <th>KO date </th>
+                <th>Production date</th>
+                <th>Sow start date </th>
+                <th>Sow end date</th>
+                <th>Auto renew</th>
+                <th>Accept term</th>
+                <th>Renewal</th>
+                <th>Renew times</th>
+                <th>Product</th>
+                <th>Comment</th>
+                <th></th>
+                <th></th>
+                <th></th>
+            </tr>
 
-<%= link_to 'New Sow', new_sow_path %>
+            <% @sows.each do |sow| %>
+              <tr>
+                <td><%= sow.sow_ko_date %></td>
+                <td><%= sow.sow_production_date %></td>
+                <td><%= sow.sow_start_date %></td>
+                <td><%= sow.sow_end_date %></td>
+                <td><%= sow.auto_renew %></td>
+                <td><%= sow.accept_term %></td>
+                <td><%= sow.renewal %></td>
+                <td><%= sow.renew_times %></td>
+                <td><%= sow.product_id %></td>
+                <td><%= sow.comment %></td>
+                <td><%= link_to 'Show', sow %></td>
+                <td><%= link_to 'Edit', edit_sow_path(sow) %></td>
+                <td><%= link_to 'Destroy', sow, confirm: 'Are you sure?', method: :delete %></td>
+              </tr>
+            <% end %>
+            </table>
+       <% end %>
+        <br />
+
+        <%= link_to 'New Sow', new_contract_sow_path(@contract) %>
+
+
+<script>
+ 
+    $(function(){
+        $('.ct_date').editable({
+            ajaxOptions: {
+                type: 'PUT'
+            },
+            format: 'yyyy-mm-dd',    
+            viewformat: 'dd/mm/yyyy',    
+            datepicker: {
+                    weekStart: 1
+            }
+
+        });
+        $('#enable').click(function() {
+            $('#tb .editable').editable('toggleDisabled');
+        });  
+        $('.ct_description').editable({
+            ajaxOptions: {
+                type: 'PUT'
+            },
+            title: 'Enter Description',
+
+        });
+                $('#tb .editable').editable('toggleDisabled');
+    });
+</script>
+    </div>
+</div>

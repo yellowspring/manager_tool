@@ -10,7 +10,7 @@
       </ul>
     </div>
   <% end %>
-
+<!--
   <div class="field">
     <%= f.label :sow_ko_date %><br />
     <%= f.date_select :sow_ko_date %>
@@ -43,13 +43,14 @@
     <%= f.label :renew_times %><br />
     <%= f.number_field :renew_times %>
   </div>
+  -->
   <div class="field">
     <%= f.label :product_id %><br />
-    <%= f.number_field :product_id %>
+    <%= collection_select(:sow, :product_id, Product.find(:all), :id, :name, {:prompt => 'Please select the product'}) %>
   </div>
   <div class="field">
     <%= f.label :comment %><br />
-    <%= f.text_area :comment %>
+    <%= f.text_area :comment,:cols => 10, :rows => 5 %>
   </div>
   <div class="actions">
     <%= f.submit %>

@@ -1,9 +1,15 @@
 ManagerTool::Application.routes.draw do
-  resources :sow_detail_templates
+  resources :contracts  do 
+    resources :sows, shallow: true
+  end
+
+  resources :sows do
+    resources :sow_details, shallow: true
+    resources :sow_detail_templates, shallow: true
+  end
 
   resources :sow_details
 
-  resources :sows
 
   resources :contracts do
     collection do

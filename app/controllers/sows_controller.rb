@@ -2,7 +2,8 @@ class SowsController < ApplicationController
   # GET /sows
   # GET /sows.json
   def index
-    @sows = Sow.all
+    @contract = Contract.find(params[:contract_id])
+    @sows = Sow.find(:all, :conditions => [ "contract_id = ?", params[:contract_id]])
 
     respond_to do |format|
       format.html # index.html.erb
@@ -25,6 +26,7 @@ class SowsController < ApplicationController
   # GET /sows/new.json
   def new
     @sow = Sow.new
+    @contract = Contract.find(params[:contract_id])
 
     respond_to do |format|
       format.html # new.html.erb
