@@ -1,4 +1,5 @@
 <div class="span2">
+
       <!--Sidebar content-->
        <div class="well sidebar-nav">
             <ul class="nav nav-list">
@@ -19,15 +20,17 @@
     <table id="tb" class="table table-striped table-condensed table-hover table-bordered" cellspacing="0">
         <thead>
         <tr>
+            <th class='hed'></th>
+            <th class='hed'># </th>
             <th class='hed'>Client name </th>
             <th class='hed'>Client state </th>
             <th class='hed'># of SOWs </th>
             <th class='hed'>Real cust_id </th>
             <th class='hed'>Creating date </th>
-            <th class='hed'>BAA date </th>
+            <!--<th class='hed'>BAA date </th>
             <th class='hed'>Contract execute date </th>
             <th class='hed'>Status </th>
-            <th class='hed'>Comment </th>
+            <th class='hed'>Comment </th>-->
             <th class='hed'></th>
         </tr>
         </thead>
@@ -35,6 +38,8 @@
 
             <% @contracts.each do |contract| %>
               <tr>
+                <td><a class="btn" href="#"><i class="icon-arrow-right"></i></a>  </td> 
+                <td><%= contract.id %></td>
                 <td><%= contract.client.name %></td>
                 <td><%= contract.client.state %></td>
                 <td><%= contract.sows.count %></td>
@@ -42,7 +47,7 @@
                 <td>
                    <%= contract.created_at %>
                 </td>
-                <td>
+                  <!--<td>
                      <div id="baa_date" class="ct_date" data-resource="contract" data-type="date" data-pk="1"  data-url="/contracts/<%= contract.id %>" data-value = "<%= contract.baa_date %>" >
                     </div>
                 </td>
@@ -51,7 +56,7 @@
                     </div>
                 </td>
                 <td><%= contract.status %></td>
-                <td><%= contract.comment %></td>
+                <td><%= contract.comment %></td>-->
                 <td><%= link_to raw('<i class="icon-trash "></i>'), contract, method: :delete, data: { confirm: 'Are you sure?' } %></td>
               </tr>
             <% end %>
