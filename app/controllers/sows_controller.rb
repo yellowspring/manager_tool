@@ -43,7 +43,8 @@ class SowsController < ApplicationController
   # POST /sows.json
   def create
     @sow = Sow.new(params[:sow])
-
+    @sow.contract = Contract.find(params[:contract_id])
+    
     respond_to do |format|
       if @sow.save
         format.html { redirect_to @sow, notice: 'Sow was successfully created.' }

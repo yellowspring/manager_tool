@@ -38,7 +38,7 @@
 
             <% @contracts.each do |contract| %>
               <tr>
-                <td><%= link_to raw('<i class="icon-arrow-right"></i>'), contract_sows_url(contract)  %></td> 
+                <td><%= link_to raw('<i class="icon-arrow-right"></i>'), contract_sows_path(contract)  %></td> 
                 <td><%= contract.id %></td>
                 <td><%= contract.client.name %></td>
                 <td><%= contract.client.state %></td>
