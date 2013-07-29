@@ -71,37 +71,34 @@
                                             <th>Renew times</th>
                                             <th>Comment</th>
                                             <th></th>
-                                            <th></th>
-                                            <th></th>
                                         </tr>
-                                      <tr>
-                                        <td><%= sow.sow_ko_date %></td>
-                                        <td><%= sow.sow_production_date %></td>
-                                        <td><%= sow.sow_start_date %></td>
-                                        <td><%= sow.sow_end_date %></td>
-                                        <td><%= sow.auto_renew %></td>
-                                        <td><%= sow.accept_term %></td>
-                                        <td><%= sow.renewal %></td>
-                                        <td><%= sow.renew_times %></td>  
-                                        <td><%= sow.comment %></td>
-                                        <td><%= link_to 'Show', sow %></td>
-                                        <td><%= link_to 'Edit', edit_sow_path(sow) %></td>
-                                        <td><%= link_to 'Destroy', sow, confirm: 'Are you sure?', method: :delete %></td>
-                                      </tr>
-                                  </table>
+                                        <tr>
+                                            <td><%= sow.sow_ko_date %></td>
+                                            <td><%= sow.sow_production_date %></td>
+                                            <td><%= sow.sow_start_date %></td>
+                                            <td><%= sow.sow_end_date %></td>
+                                            <td><%= sow.auto_renew %></td>
+                                            <td><%= sow.accept_term %></td>
+                                            <td><%= sow.renewal %></td>
+                                            <td><%= sow.renew_times %></td>  
+                                            <td><%= sow.comment %></td>
+                                            <td><%= link_to 'Destroy', sow, confirm: 'Are you sure?', method: :delete %></td>
+                                        </tr>  
+                                    </table>
+                                    <%= button_to "Create details", new_sow_sow_detail_path(sow), :method => "get", class: "btn btn-info btn-small"  %>
+                                </div>
                             </div>
-                        </div>
-                     </div>    
+                        </div>    
                 <% end %>
                             
             </div>   
-       <% end %>
+        <% end %>
         <br />
 
 
-        <div class='btn'>
-            <%= link_to 'New Sow', new_contract_sow_path(@contract) %>
-        </div>
+ 
+    <%= button_to "New Sow", new_contract_sow_path(@contract), :method => "get" %>
+ 
 
 <script>
  

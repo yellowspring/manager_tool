@@ -52,7 +52,7 @@ class SowsController < ApplicationController
       if @sow.save
         @detailstemplate.sow_id = @sow.id 
         if @detailstemplate.save 
-          format.html { redirect_to @sow, notice: 'Sow was successfully created.' }
+          format.html { redirect_to contract_sows_path(@sow.contract), notice: 'Sow was successfully created.' }
           format.json { render json: @sow, status: :created, location: @sow }
         else
           format.html { render action: "new" }
@@ -85,10 +85,11 @@ class SowsController < ApplicationController
   # DELETE /sows/1.json
   def destroy
     @sow = Sow.find(params[:id])
+    @contract = @sow.contract
     @sow.destroy
 
     respond_to do |format|
-      format.html { redirect_to sows_url }
+      format.html { redirect_to contract_sows_path(@contract) }
       format.json { head :ok }
     end
   end

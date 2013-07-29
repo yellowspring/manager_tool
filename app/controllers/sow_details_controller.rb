@@ -25,6 +25,9 @@ class SowDetailsController < ApplicationController
   # GET /sow_details/new.json
   def new
     @sow_detail = SowDetail.new
+    @sow = Sow.find(params[:sow_id])
+    @contract = @sow.contract
+    @sow_detail_template = SowDetailTemplate.find(:first, :conditions => ["sow_id =?", @sow.id] )
 
     respond_to do |format|
       format.html # new.html.erb
@@ -41,10 +44,11 @@ class SowDetailsController < ApplicationController
   # POST /sow_details.json
   def create
     @sow_detail = SowDetail.new(params[:sow_detail])
+    @sow_detail.sow = Sow.find(params[:sow_id])
 
     respond_to do |format|
       if @sow_detail.save
-        format.html { redirect_to @sow_detail, notice: 'Sow detail was successfully created.' }
+        format.html { redirect_to contract_sows_path(@sow_detail.sow.contract), notice: 'Sow detail was successfully created.' }
         format.json { render json: @sow_detail, status: :created, location: @sow_detail }
       else
         format.html { render action: "new" }
