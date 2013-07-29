@@ -48,7 +48,39 @@
     <%= f.label :product_id %><br />
     <%= collection_select(:sow, :product_id, Product.find(:all), :id, :name, {:prompt => 'Please select the product'}) %>
   </div>
-  <div class="field">
+ 
+
+  <%= fields_for @detailstemplate do |fa| %>
+      <div class="field">
+        <%= fa.label :commercial_rate %>
+        <%= fa.check_box :commercial_rate, :style => "float:left;" %>
+      </div><br /><br /><br /><br />
+      <div class="field">
+        <%= fa.label :medicare_rate %> 
+        <%= fa.check_box :medicare_rate, :style => "float:left;" %>
+      </div><br /><br /><br />
+      <div class="field">
+        <%= fa.label :medicaid_rate %> 
+        <%= fa.check_box :medicaid_rate, :style => "float:left;" %>
+      </div><br /><br /><br />
+      <div class="field">
+        <%= fa.label :term %> 
+        <%= fa.check_box :term, :style => "float:left;" %>
+      </div><br /><br /><br />
+      <div class="field">
+        <%= fa.label :development_fee %> 
+        <%= fa.check_box :development_fee, :style => "float:left;" %>
+      </div><br /><br /><br />
+      <div class="field">
+        <%= fa.label :outgoing_monthly_fee %> 
+        <%= fa.check_box :outgoing_monthly_fee, :style => "float:left;" %>
+      </div><br /><br /><br />
+      <div class="field">
+        <%= fa.label :transaction_net_fee %>
+        <%= fa.check_box :transaction_net_fee, :style => "float:left;" %>
+      </div><br /><br /><br />
+   <% end %><br />
+    <div class="field">
     <%= f.label :comment %><br />
     <%= f.text_area :comment,:cols => 10, :rows => 5 %>
   </div>

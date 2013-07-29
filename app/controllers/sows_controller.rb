@@ -26,6 +26,7 @@ class SowsController < ApplicationController
   # GET /sows/new.json
   def new
     @sow = Sow.new
+    @detailstemplate = SowDetailTemplate.new;
     @contract = Contract.find(params[:contract_id])
 
     respond_to do |format|
@@ -44,11 +45,19 @@ class SowsController < ApplicationController
   def create
     @sow = Sow.new(params[:sow])
     @sow.contract = Contract.find(params[:contract_id])
+    @detailstemplate = SowDetailTemplate.new(params[:sow_detail_template]);
+
     
     respond_to do |format|
       if @sow.save
-        format.html { redirect_to @sow, notice: 'Sow was successfully created.' }
-        format.json { render json: @sow, status: :created, location: @sow }
+        @detailstemplate.sow_id = @sow.id 
+        if @detailstemplate.save 
+          format.html { redirect_to @sow, notice: 'Sow was successfully created.' }
+          format.json { render json: @sow, status: :created, location: @sow }
+        else
+          format.html { render action: "new" }
+          format.json { render json: @detailstemplate.errors, status: :unprocessable_entity }
+        end
       else
         format.html { render action: "new" }
         format.json { render json: @sow.errors, status: :unprocessable_entity }
