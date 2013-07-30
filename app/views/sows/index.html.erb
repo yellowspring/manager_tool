@@ -54,11 +54,13 @@
                         <div class="accordion-group">  
                             <div class="accordion-heading">  
                                 <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse<%= sow.id %>">  
-                                  SOW for Product: <%= Product.find(sow.product_id).name %>  
+                                  <h3 class="text-info">Statement of Work ( Product: <%= Product.find(sow.product_id).name %> ) </h3>
                                 </a>  
                             </div>  
                             <div id="collapse<%= sow.id %>" class="accordion-body collapse" style="height: 0px; ">  
                                 <div class="accordion-inner">  
+                                  
+                                    <h4 class="text-info">SOW Progress </h4>
                                     <table id="tb" class="table table-striped table-condensed table-hover table-bordered" cellspacing="0">
                                         <tr>
                                             <th>KO date </th>
@@ -85,13 +87,39 @@
                                             <td><%= link_to 'Destroy', sow, confirm: 'Are you sure?', method: :delete %></td>
                                         </tr>  
                                     </table>
-                                    <%= button_to "Create details", new_sow_sow_detail_path(sow), :method => "get", class: "btn btn-info btn-small"  %>
+                             
+                                         <%= button_to "New Draft", new_sow_sow_detail_path(sow), :method => "get", class: "btn btn-primary btn-small"  %>
+                                        <h4 class="text-info">Listing Drafts </h4>
+                                        <% if ! sow.sow_details.nil? %>
+                                            <table id="tb" class="table table-striped table-condensed table-hover table-bordered" cellspacing="0">
+                                                <tr>
+                                                    <th>Version </th>
+                                                    <% SowDetail.columns.map {|c| c.name }.each do |col| %>
+                                                        <% if exclude_column(col) and  sow.sow_detail_template.send(col) %>
+                                                            <th><%=col.capitalize %> </th>
+                                                        <% end %>
+                                                    <% end %>
+                                                    <th>Created_at </th>
+                                                </tr>
+                                                <% sow.sow_details.each do |detail| %>
+                                                     <tr>
+                                                        <th><%=detail.send(:version) %> </th>
+                                                        <% SowDetail.columns.map {|c| c.name }.each do |col| %>
+                                                            <% if exclude_column(col) and sow.sow_detail_template.send(col) %>
+                                                                <th><%=detail.send(col) %> </th>
+                                                            <% end %>
+                                                        <% end %>
+                                                        <th><%=detail.send(:created_at) %> </th>
+                                                     </tr> 
+                                                <% end %>
+                                            </table>    
+                                        <% end %>
+                                  
                                 </div>
                             </div>
                         </div>    
-                <% end %>
-                            
-            </div>   
+                    <% end %>          
+                </div>   
         <% end %>
         <br />
 

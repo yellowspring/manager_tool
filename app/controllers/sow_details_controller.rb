@@ -45,6 +45,7 @@ class SowDetailsController < ApplicationController
   def create
     @sow_detail = SowDetail.new(params[:sow_detail])
     @sow_detail.sow = Sow.find(params[:sow_id])
+    @sow_detail.version = @sow_detail.sow.sow_details.size + 1
 
     respond_to do |format|
       if @sow_detail.save
