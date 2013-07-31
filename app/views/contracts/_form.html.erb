@@ -16,15 +16,24 @@
     <%= collection_select(:contract, :client_id, Client.find(:all), :id, :name_with_state, {:prompt => 'Please select the client'}) %>
   </div>
   <div class="field">
-    <%= f.label :CA_needed %> 
+    <%= f.label "CA" %> 
     <%= f.check_box :ca_flag ,:style => "float:left;"%> 
     <br><br><br>  
   </div>  
   <div class="field">
-    <%= f.label :nda_needed %> 
+    <%= f.label "NDA" %> 
     <%= f.check_box :nda_flag ,:style => "float:left;"%> 
     <br><br><br>  
   </div>  
+  <div class="field">
+    <%= f.label :Sales %> 
+    
+   <!--/.well <% Salesperson.all.each do |s| %>
+       <label class="li">  <%= check_box_tag :salesperson_ids, s.id, @contract.salespeople.include?(s), :name => 'contract[salesperson_ids][]' %> <u><%= s.first_name %></u></label><br /> 
+    <% end %>  -->
+    <%= f.select :salesperson_ids, Salesperson.all.collect {|x| ["#{x.last_name},#{x.first_name}", x.id]}, {}, :multiple => true %>
+  <br><br><br>  
+  </div>
   <div class="field">
     <%= f.label :comment %> 
     <%= f.text_field :comment %>

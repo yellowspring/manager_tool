@@ -4,4 +4,6 @@ class Client < ActiveRecord::Base
 	def name_with_state
     	"#{name} in #{state}"
   	end
+
+  	validates :name, presence: true
 end
