@@ -2,7 +2,13 @@ class ContractsController < ApplicationController
   # GET /contracts
   # GET /contracts.json
   def index
-    @contracts = Contract.all
+    if params[:permanent] == '1'
+      @contracts = Contract.where('contract_execute_date is not NULL')
+      @permanent = "1"
+    else
+      @contracts = Contract.where('contract_execute_date is  NULL')
+      @permanent = "0"
+    end
 
     respond_to do |format|
       format.html # index.html.erb
@@ -33,17 +39,6 @@ class ContractsController < ApplicationController
     end
   end
 
-  # GET /contracts/new_existedclient
-  # GET /contracts/new.json
-  def newwithclient
-    @contract = Contract.new
-    @clients = Client.all(:select => 'name').map(&:name)
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @contract }
-    end
-  end
 
   # GET /contracts/1/edit
   def edit
@@ -89,8 +84,13 @@ class ContractsController < ApplicationController
     @contract.destroy
 
     respond_to do |format|
-      format.html { redirect_to contracts_url }
-      format.json { head :ok }
+      if params[:permanent] == '1'
+        format.html { redirect_to contracts_path(:permanent => '1') }
+        format.json { head :ok }
+      else
+        format.html { redirect_to contracts_url }
+        format.json { head :ok }
+      end
     end
   end
 end

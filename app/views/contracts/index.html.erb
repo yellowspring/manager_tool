@@ -11,12 +11,16 @@
 <div class="span8">
 <!--Body content-->
 
-    <div id="container" class="container-fluid">
+    <!--<div id="container" class="container-fluid">
 
     <div style="float: right; margin-bottom: 10px">         
         <button id="enable" class="btn">enable/disable edit</button>
-    </div>
-    <h2>List of Contracts </h2>
+    </div>-->
+    <%if @permanent == '1'%>
+        <h2>Listing Permanent Contracts </h2>
+    <% else %>
+        <h2>Listing Proposed Contracts </h2>
+    <% end %>
     <table id="tb" class="table table-striped table-condensed table-hover table-bordered" cellspacing="0">
         <thead>
         <tr>
@@ -25,6 +29,9 @@
             <th class='hed'>Client name </th>
             <th class='hed'>Client state </th>
             <th class='hed'># of SOWs </th>
+            <%if @permanent == '1'%>
+                    <th class='hed'>Contract execute date </th> 
+            <% end %>
             <th class='hed'>Real cust_id </th>
             <th class='hed'>Creating date </th>
             <!--<th class='hed'>BAA date </th>
@@ -43,7 +50,10 @@
                 <td><%= contract.client.name %></td>
                 <td><%= contract.client.state %></td>
                 <td><%= contract.sows.count %></td>
-                <td><%= contract.client.cust_id %></td>
+                <%if @permanent == '1'%>
+                    <td><%= contract.contract_execute_date %></td>
+                <% end %>
+                 <td><%= contract.client.cust_id %></td>
                 <td>
                    <%= contract.created_at %>
                 </td>
@@ -57,7 +67,11 @@
                 </td>
                 <td><%= contract.status %></td>
                 <td><%= contract.comment %></td>-->
-                <td><%= link_to raw('<i class="icon-trash "></i>'), contract, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+                <%if @permanent == '1'%>
+                    <td><%= link_to raw('<i class="icon-trash "></i>'), contract_path(contract,:permanent => '1'),  method: :delete, data: { confirm: 'Are you sure?' } %></td>
+                <% else %>
+                    <td><%= link_to raw('<i class="icon-trash "></i>'), contract_path(contract) , method: :delete, data: { confirm: 'Are you sure?' } %></td>
+                <% end %>
               </tr>
             <% end %>
          </tbody>

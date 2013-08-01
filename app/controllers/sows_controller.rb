@@ -73,7 +73,7 @@ class SowsController < ApplicationController
     respond_to do |format|
       if @sow.update_attributes(params[:sow])
         format.html { redirect_to @sow, notice: 'Sow was successfully updated.' }
-        format.json { head :ok }
+        format.json { head :no_content }
       else
         format.html { render action: "edit" }
         format.json { render json: @sow.errors, status: :unprocessable_entity }

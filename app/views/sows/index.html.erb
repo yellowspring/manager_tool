@@ -29,10 +29,35 @@
                     <td class='hed'>Real cust_id: </td>
                     <td><%= @contract.client.cust_id  %> </td>
                 </tr>
-                 <tr>
+                <tr>
                     <td class='hed'>BAA: </td>
                     <td>
                          <div id="baa_date" class="ct_date" data-resource="contract" data-type="date" data-pk="1"  data-url="/contracts/<%= @contract.id %>" data-value = "<%= @contract.baa_date %>" >
+                        </div>
+                    </td>
+                </tr>
+                <% if @contract.ca_flag == '1' %>
+                    <tr>
+                        <td class='hed'>CA: </td>
+                        <td>
+                             <div id="ca_date" class="ct_date" data-resource="contract" data-type="date" data-pk="1"  data-url="/contracts/<%= @contract.id %>" data-value = "<%= @contract.ca_date %>" >
+                            </div>
+                        </td>
+                    </tr>
+                <% end %>
+                 <% if @contract.nda_flag == '1' %>
+                    <tr>
+                        <td class='hed'>NDA: </td>
+                        <td>
+                             <div id="nda_date" class="ct_date" data-resource="contract" data-type="date" data-pk="1"  data-url="/contracts/<%= @contract.id %>" data-value = "<%= @contract.nda_date %>" >
+                            </div>
+                        </td>
+                    </tr>
+                <% end %>
+                <tr>
+                    <td class='hed'>Contract execute date: </td>
+                    <td>
+                         <div id="contract_execute_date" class="ct_date" data-resource="contract" data-type="date" data-pk="1"  data-url="/contracts/<%= @contract.id %>" data-value = "<%= @contract.contract_execute_date %>" >
                         </div>
                     </td>
                 </tr>
@@ -59,13 +84,15 @@
                
                         <div class="accordion-group">  
                             <div class="accordion-heading">  
+                                
                                 <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse<%= sow.id %>">  
-                                  <h3 class="text-info">Statement of Work ( Product: <%= Product.find(sow.product_id).name %> ) </h3>
-                                </a>  
+                                    <div class="alert alert-success">
+                                        <h3 class="text-info">Statement of Work ( Product: <%= Product.find(sow.product_id).name %> ) </h3>
+                                    </div>
+                                </a> 
                             </div>  
                             <div id="collapse<%= sow.id %>" class="accordion-body collapse" style="height: 0px; ">  
                                 <div class="accordion-inner">  
-                                  
                                     <h4 class="text-info">SOW Progress </h4>
                                     <table id="tb" class="table table-striped table-condensed table-hover table-bordered" cellspacing="0">
                                         <tr>
@@ -74,54 +101,70 @@
                                             <th>SowStartDate </th>
                                             <th>SowEndDate</th>
                                             <th>Auto renew</th>
-                                            <th>Accept term</th>
+                                            <th>Accept term (year)</th>
                                             <th>Renewal</th>
                                             <th>Renew times</th>
                                             <th>Comment</th>
                                             <th></th>
                                         </tr>
                                         <tr>
-                                            <td><%= sow.sow_ko_date %></td>
-                                            <td><%= sow.sow_production_date %></td>
-                                            <td><%= sow.sow_start_date %></td>
-                                            <td><%= sow.sow_end_date %></td>
-                                            <td><%= sow.auto_renew %></td>
-                                            <td><%= sow.accept_term %></td>
-                                            <td><%= sow.renewal %></td>
+                                            <td>
+                                                <a href="#" id="sow_ko_date" class="sow_date" data-resource="sow" data-type="date" data-pk="1" data-url="/sows/<%= sow.id %>"  data-original-title="Select date"><%= sow.sow_ko_date %></a>    
+                                            </td>
+                                             <td>
+                                                <a href="#" id="sow_production_date" class="sow_date" data-resource="sow" data-type="date" data-pk="1" data-url="/sows/<%= sow.id %>"  data-original-title="Select date"><%= sow.sow_production_date %></a>    
+                                            </td>
+                                             <td>
+                                                <a href="#" id="sow_start_date" class="sow_date" data-resource="sow" data-type="date" data-pk="1" data-url="/sows/<%= sow.id %>"  data-original-title="Select date"><%= sow.sow_start_date %></a>    
+                                            </td>
+                                             <td>
+                                                <a href="#" id="sow_end_date" class="sow_date" data-resource="sow" data-type="date" data-pk="1" data-url="/sows/<%= sow.id %>"  data-original-title="Select date"><%= sow.sow_end_date %></a>    
+                                            </td>
+                                            <td>
+                                                <a href="#" id="auto_renew" class="sow_yn"  data-resource="sow" data-type="select" data-pk="1" data-url="/sows/<%= sow.id %>" data-original-title="Select status"><%= sow.auto_renew %></a> 
+                                            </td>
+                                            <td>
+                                                <a href="#" id="accept_term" class="sow_int"  data-resource="sow" data-type="select" data-pk="1" data-url="/sows/<%= sow.id %>" data-original-title="Select status"><%= sow.accept_term %></a>   
+                                            </td>
+                                            <td>
+                                                <a href="#" id="renewal" class="sow_yn"  data-resource="sow" data-type="select" data-pk="1" data-url="/sows/<%= sow.id %>" data-original-title="Select status"><%= sow.renewal %></a>
+                                            </td>
                                             <td><%= sow.renew_times %></td>  
                                             <td><%= sow.comment %></td>
                                             <td><%= link_to 'Destroy', sow, confirm: 'Are you sure?', method: :delete %></td>
                                         </tr>  
                                     </table>
+  
 
-                                        <!--sow draft part-->
-                                         <%= button_to "New Draft", new_sow_sow_detail_path(sow), :method => "get", class: "btn btn-primary btn-small"  %>
-                                        <h4 class="text-info">Listing Drafts </h4>
-                                        <% if ! sow.sow_details.nil? %>
-                                            <table id="tb" class="table table-striped table-condensed table-hover table-bordered" cellspacing="0">
+                                    <!--sow draft part-->
+                                    <%= button_to "New Negotiation", new_sow_sow_detail_path(sow), :method => "get", class: "btn btn-primary btn-small"  %>
+                                    <h4 class="text-info">Listing Negotiations </h4>
+                                    <% if ! sow.sow_details.nil? %>
+                                        <table id="tb" class="table table-striped table-condensed table-hover table-bordered" cellspacing="0">
+                                            <tr>
+                                                <th>Version </th>
+                                                <% SowDetail.columns.map {|c| c.name }.each do |col| %>
+                                                    <% if exclude_column(col) and  sow.sow_detail_template.send(col) %>
+                                                        <th><%=col.capitalize %> </th>
+                                                    <% end %>
+                                                <% end %>
+                                                <th>Created_at </th>
+                                            </tr>
+                                            <% sow.sow_details.each do |detail| %>
                                                 <tr>
-                                                    <th>Version </th>
+                                                    <th><%=detail.send(:version) %> </th>
                                                     <% SowDetail.columns.map {|c| c.name }.each do |col| %>
-                                                        <% if exclude_column(col) and  sow.sow_detail_template.send(col) %>
-                                                            <th><%=col.capitalize %> </th>
+                                                        <% if exclude_column(col) and sow.sow_detail_template.send(col) %>
+                                                            <th><%=detail.send(col) %> </th>
                                                         <% end %>
                                                     <% end %>
-                                                    <th>Created_at </th>
-                                                </tr>
-                                                <% sow.sow_details.each do |detail| %>
-                                                     <tr>
-                                                        <th><%=detail.send(:version) %> </th>
-                                                        <% SowDetail.columns.map {|c| c.name }.each do |col| %>
-                                                            <% if exclude_column(col) and sow.sow_detail_template.send(col) %>
-                                                                <th><%=detail.send(col) %> </th>
-                                                            <% end %>
-                                                        <% end %>
-                                                        <th><%=detail.send(:created_at) %> </th>
-                                                     </tr> 
-                                                <% end %>
-                                            </table>    
-                                        <% end %>
-                                  
+                                                    <th><%=detail.send(:created_at) %> </th>
+                                                </tr> 
+                                            <% end %>
+                                        </table>    
+                                    <% end %>
+
+                                    
                                 </div>
                             </div>
                         </div>    
@@ -159,7 +202,47 @@
             title: 'Enter Description',
 
         });
-                $('#tb .editable').editable('toggleDisabled');
+
+        
+        $('.sow_date').editable({
+            format: 'yyyy-mm-dd',    
+            viewformat: 'dd/mm/yyyy',    
+            mode: 'inline',
+            datepicker: {
+                    weekStart: 1
+               }
+        });
+
+        $('.sow_yn').editable({
+            source: [
+                  {value: 'Y', text: 'Y'},
+                  {value: 'N', text: 'N'},
+               ]
+        });
+
+        $('.sow_int').editable({
+            mode: 'inline',
+            source: [
+                  {value: 1, text: '1'},
+                  {value: 2, text: '2'},
+                  {value: 3, text: '3'},
+                  {value: 4, text: '4'},
+                  {value: 5, text: '5'},
+                  {value: 6, text: '6'},
+                  {value: 7, text: '7'},
+                  {value: 8, text: '8'},
+                  {value: 9, text: '9'},
+                  {value: 10, text: '10'},
+                  {value: 11, text: '11'},
+                  {value: 12, text: '12'},
+                  {value: 13, text: '13'},
+                  {value: 14, text: '14'},
+                  {value: 15, text: '15'},
+               ]
+        });
+
+        $('#tb .editable').editable('toggleDisabled');
+
     });
 </script>
     </div>

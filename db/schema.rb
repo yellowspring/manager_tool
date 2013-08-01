@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130731210957) do
+ActiveRecord::Schema.define(:version => 20130801163756) do
 
   create_table "clients", :force => true do |t|
     t.string   "name"
@@ -36,7 +36,7 @@ ActiveRecord::Schema.define(:version => 20130731210957) do
     t.integer  "client_id"
     t.string   "contract_type"
     t.date     "baa_date"
-    t.date     "nda_data"
+    t.date     "nda_date"
     t.string   "nda_flag"
   end
 
@@ -68,15 +68,6 @@ ActiveRecord::Schema.define(:version => 20130731210957) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-
-  create_table "salespeople_contracts", :id => false, :force => true do |t|
-    t.integer  "salesperson_id"
-    t.integer  "contract_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "salespeople_contracts", ["salesperson_id", "contract_id"], :name => "index_salespeople_contracts_on_salesperson_id_and_contract_id", :unique => true
 
   create_table "sow_detail_templates", :force => true do |t|
     t.boolean  "commercial_rate"
