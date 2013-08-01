@@ -19,6 +19,12 @@
                     <td class='hed'>Client state: </td>
                     <td><%= @contract.client.state %> </td>
                 </tr>
+                <% @contract.salespeople.each do |person|  %> 
+                <tr>
+                        <td class='hed'>Sales: </td>
+                        <td><%= person.first_name + " " + person.last_name  %>  </td>
+                </tr>
+                <% end  %>    
                 <tr>
                     <td class='hed'>Real cust_id: </td>
                     <td><%= @contract.client.cust_id  %> </td>
@@ -63,10 +69,10 @@
                                     <h4 class="text-info">SOW Progress </h4>
                                     <table id="tb" class="table table-striped table-condensed table-hover table-bordered" cellspacing="0">
                                         <tr>
-                                            <th>KO date </th>
+                                            <th>KickOff date </th>
                                             <th>Production date</th>
-                                            <th>Sow start date </th>
-                                            <th>Sow end date</th>
+                                            <th>SowStartDate </th>
+                                            <th>SowEndDate</th>
                                             <th>Auto renew</th>
                                             <th>Accept term</th>
                                             <th>Renewal</th>
@@ -87,7 +93,8 @@
                                             <td><%= link_to 'Destroy', sow, confirm: 'Are you sure?', method: :delete %></td>
                                         </tr>  
                                     </table>
-                             
+
+                                        <!--sow draft part-->
                                          <%= button_to "New Draft", new_sow_sow_detail_path(sow), :method => "get", class: "btn btn-primary btn-small"  %>
                                         <h4 class="text-info">Listing Drafts </h4>
                                         <% if ! sow.sow_details.nil? %>
