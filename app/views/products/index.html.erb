@@ -1,23 +1,85 @@
+<div class="span1">
+      <!--Sidebar content-->
+ 
+</div>
+
+
+
+<div class="span10">
 <h1>Listing products</h1>
 
-<table>
-  <tr>
-    <th>Name</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
+<!--Body content-->
+  <div id="container" class="container-fluid">
 
-<% @products.each do |product| %>
-  <tr>
-    <td><%= product.name %></td>
-    <td><%= link_to 'Show', product %></td>
-    <td><%= link_to 'Edit', edit_product_path(product) %></td>
-    <td><%= link_to 'Destroy', product, confirm: 'Are you sure?', method: :delete %></td>
-  </tr>
-<% end %>
-</table>
+<table id="tb" class="table  table-condensed table-hover table-border" cellspacing="0">
+    <thead>
+      <tr>
+        <th class="hed">Name </th>
+        <th class="hed">medicaid_rate</th>
+        <th class="hed">medicare_rate</th>
+        <th class="hed">commercial_rate</th>
+        <th class="hed">monthly_fee</th>
+        <th class="hed">transaction_fee</th>
+        <th class="hed">development_fee</th>
+        <th class="hed">Edit</th>
+        <th class="hed">Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @products.each do |product| %>
+        <tr>
+          <td><%= product.name %></td>
+          <td>
+              <% if product.medicaid_rate %>
+                <i class="icon-ok"></i>
+              <% else %>
+                <i class="icon-remove"></i>
+              <% end %>
+          </td>
+          <td>
+              <% if product.medicare_rate  %>
+                <i class="icon-ok"></i>
+              <% else %>
+                <i class="icon-remove"></i>
+              <% end %>
+          </td>
+          <td>
+              <% if product.commercial_rate %>
+                <i class="icon-ok"></i>
+              <% else %>
+                <i class="icon-remove"></i>
+              <% end %>
+          </td>
+          <td>
+              <% if product.monthly_fee %>
+                <i class="icon-ok"></i>
+              <% else %>
+                <i class="icon-remove"></i>
+              <% end %>
+          </td>
+          <td>
+              <% if product.transaction_fee  %>
+                <i class="icon-ok"></i>
+              <% else %>
+                <i class="icon-remove"></i>
+              <% end %>
+          </td>
+          <td>
+              <% if product.development_fee %>
+                <i class="icon-ok"></i>
+              <% else %>
+                <i class="icon-remove"></i>
+              <% end %>
+          </td>
+          <td><%= link_to raw('<i class="icon-edit"></i>'), edit_product_path(product) %></td>
+          <td><%= link_to 'Destroy', product, confirm: 'Are you sure?', method: :delete %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 
 <br />
 
 <%= link_to 'New Product', new_product_path %>
+</div>
+</div>

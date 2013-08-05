@@ -10,7 +10,8 @@
       </ul>
     </div>
   <% end %>
- 
+
+
   <div class="field">
     <%= f.label :client%>
     <%= collection_select(:contract, :client_id, Client.find(:all), :id, :name_with_state, {:prompt => 'Please select the client'}) %>
@@ -45,4 +46,8 @@
  
 <script>
 $(".popover-tx").popover();
+$(document).ready(function()
+{
+  Numerous.init();
+});
 </script>
