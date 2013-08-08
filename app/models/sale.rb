@@ -1,4 +1,4 @@
 class Sale < ActiveRecord::Base
   belongs_to :salesperson
-  belongs_to :contract
+  belongs_to :client
 end

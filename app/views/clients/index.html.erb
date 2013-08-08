@@ -7,13 +7,14 @@
     <div id="container" class="container-fluid">
 
 
-        <h1>List of clients</h1>
+        <h1>Listing clients</h1>
 
         <table id="tb" class="table  table-condensed table-hover " cellspacing="0">
             <thead>
               <tr>
                 <th class="hed">Name </th>
                 <th class="hed">State </th>
+                 <th class="hed">City </th>
                 <th class="hed">Cust_id </th>
                 <th class="hed">Phone </th>
                 <th class="hed">Email </th>
@@ -26,7 +27,8 @@
                 <% @clients.each do |client| %>
                   <tr>
                     <td><%= client.name %></td>
-                    <td><%= client.state %></td>
+                    <td><%=  client.state %></td>
+                     <td><%=  client.city %></td>
                     <td><%= client.cust_id %></td>
                     <td><%= client.phone %></td>
                     <td><%= client.email %></td>

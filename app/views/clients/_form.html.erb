@@ -12,7 +12,7 @@
   <% end %>
 
   <div class="field">
-    <%= f.label "Name" %><br />
+    <%= f.label "Client Name" %><br />
     <%= f.text_field :name %>
   </div>
   <div class="field">
@@ -20,16 +20,28 @@
     <%= f.select :state , us_states %>
   </div>
   <div class="field">
+    <%= f.label :city %><br />
+    <%= f.text_field :city %>
+  </div>
+  <div class="field">
     <%= f.label "Cust ID".to_sym %><br />
     <%= f.text_field :cust_id %>
   </div>
   <div class="field">
-    <%= f.label :phone %><br />
+    <%= f.label :client_contact %><br />
+    <%= f.text_field :contact_name %>
+  </div>
+  <div class="field">
+    <%= f.label :contact_phone %><br />
     <%= f.text_field :phone %>
   </div>
   <div class="field">
-    <%= f.label :email %><br />
+    <%= f.label :contact_email %><br />
     <%= f.text_field :email %>
+  </div>
+  <div class="field">
+    <%= f.label :Sales %>  
+    <%= f.select :salesperson_ids, Salesperson.all.collect {|x| ["#{x.last_name},#{x.first_name}", x.id]}, {}, :multiple => true %>  
   </div>
   <div class="field">
     <%= f.label :comment %><br />
@@ -39,3 +51,8 @@
     <%= f.submit %>
   </div>
 <% end %>
+
+<script>
+  $(".popover-tx").popover();
+</script>
+

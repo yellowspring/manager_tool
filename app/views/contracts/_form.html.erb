@@ -27,15 +27,6 @@
     <br><br><br>  
   </div>  
   <div class="field">
-    <%= f.label :Sales %> 
-    
-   <!--/.well <% Salesperson.all.each do |s| %>
-       <label class="li">  <%= check_box_tag :salesperson_ids, s.id, @contract.salespeople.include?(s), :name => 'contract[salesperson_ids][]' %> <u><%= s.first_name %></u></label><br /> 
-    <% end %>  -->
-    <%= f.select :salesperson_ids, Salesperson.all.collect {|x| ["#{x.last_name},#{x.first_name}", x.id]}, {}, :multiple => true %>
-  <br><br><br>  
-  </div>
-  <div class="field">
     <%= f.label :comment %> 
     <%= f.text_field :comment %>
   </div><br><br>
@@ -46,8 +37,4 @@
  
 <script>
 $(".popover-tx").popover();
-$(document).ready(function()
-{
-  Numerous.init();
-});
 </script>

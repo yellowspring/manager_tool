@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130805133058) do
+ActiveRecord::Schema.define(:version => 20130808212438) do
 
   create_table "clients", :force => true do |t|
     t.string   "name"
@@ -22,6 +22,8 @@ ActiveRecord::Schema.define(:version => 20130805133058) do
     t.text     "comment"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "city",         :limit => 30
+    t.string   "contact_name"
   end
 
   create_table "contracts", :force => true do |t|
@@ -55,12 +57,12 @@ ActiveRecord::Schema.define(:version => 20130805133058) do
 
   create_table "sales", :force => true do |t|
     t.integer  "salesperson_id"
-    t.integer  "contract_id"
+    t.integer  "client_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "sales", ["contract_id"], :name => "index_sales_on_contract_id"
+  add_index "sales", ["client_id"], :name => "index_sales_on_contract_id"
   add_index "sales", ["salesperson_id"], :name => "index_sales_on_salesperson_id"
 
   create_table "salespeople", :force => true do |t|

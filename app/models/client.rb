@@ -1,9 +1,18 @@
 class Client < ActiveRecord::Base
 	has_many :contracts, dependent: :destroy
+	has_many :sales, dependent: :destroy
+	has_many :salespeople, through: :sales
+
+	accepts_nested_attributes_for :contracts, :sales, :salespeople
 
 	def name_with_state
-    	"#{name} in #{state}"
+		if city.nil?
+			"#{name}: #{city}, #{state}"
+		else
+			"#{name}: #{state}"
+		end
   	end
 
   	validates :name, presence: true
+  	validates :salesperson_ids, presence: true
 end
