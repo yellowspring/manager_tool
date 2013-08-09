@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130808212438) do
+ActiveRecord::Schema.define(:version => 20130809155655) do
 
   create_table "clients", :force => true do |t|
     t.string   "name"
@@ -24,6 +24,11 @@ ActiveRecord::Schema.define(:version => 20130808212438) do
     t.datetime "updated_at"
     t.string   "city",         :limit => 30
     t.string   "contact_name"
+    t.boolean  "nda_flag"
+    t.date     "baa_send_at"
+    t.date     "baa_sign_at"
+    t.date     "nda_sign_at"
+    t.date     "nda_send_at"
   end
 
   create_table "contracts", :force => true do |t|
@@ -32,14 +37,9 @@ ActiveRecord::Schema.define(:version => 20130808212438) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "client_state"
-    t.string   "ca_flag"
-    t.date     "ca_date"
     t.date     "contract_execute_date"
     t.integer  "client_id"
     t.string   "contract_type"
-    t.date     "baa_date"
-    t.date     "nda_date"
-    t.string   "nda_flag"
   end
 
   create_table "products", :force => true do |t|
@@ -113,13 +113,14 @@ ActiveRecord::Schema.define(:version => 20130808212438) do
     t.date     "sow_end_date"
     t.string   "auto_renew"
     t.integer  "accept_term"
-    t.string   "renewal"
     t.integer  "renew_times"
     t.integer  "product_id"
     t.text     "comment"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "contract_id"
+    t.date     "ca_sign_date"
+    t.boolean  "ca_flag"
   end
 
   create_table "users", :force => true do |t|

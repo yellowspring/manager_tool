@@ -28,7 +28,7 @@
     <%= f.text_field :cust_id %>
   </div>
   <div class="field">
-    <%= f.label :client_contact %><br />
+    <%= f.label :client_contact, :id=>"contact" %><br />
     <%= f.text_field :contact_name %>
   </div>
   <div class="field">
@@ -43,6 +43,26 @@
     <%= f.label :Sales %>  
     <%= f.select :salesperson_ids, Salesperson.all.collect {|x| ["#{x.last_name},#{x.first_name}", x.id]}, {}, :multiple => true %>  
   </div>
+  <div class="field" >
+    <%= f.label "BAA send date" , :id=>"baa" %> 
+    <%= f.date_select :baa_send_at , {:prompt => { :day => 'Select day', :month => 'Select month', :year => 'Select year' }},:style => "float:left;" %> 
+    <br><br><br>  
+  </div>  
+  <div class="field">
+    <%= f.label "BAA sign date", :id=>"baasign" %> 
+    <%= f.date_select :baa_sign_at ,{:prompt => { :day => 'Select day', :month => 'Select month', :year => 'Select year' }},:style => "float:left;"%> 
+    <br><br><br>  
+  </div>  
+  <div class="field">
+    <%= f.label "Sign NDA" , :id=>"nda" %> 
+    <%= f.check_box :nda_flag ,:style => "float:left;", :id=>"ndacheck"%> 
+    <br><br><br>  
+  </div>  
+  <div class="field">
+    <%= f.label "NDA sign date"  %> 
+    <%= f.date_select :nda_sign_at ,{:prompt => { :day => 'Select day', :month => 'Select month', :year => 'Select year' }},{:class => "ndadate", :disabled=>true, :style => "float:left;"} %> 
+    <br><br><br>  
+  </div>  
   <div class="field">
     <%= f.label :comment %><br />
     <%= f.text_area :comment, :cols => 20, :rows => 5%>
@@ -53,6 +73,23 @@
 <% end %>
 
 <script>
-  $(".popover-tx").popover();
+$('#contact').tooltip({'trigger':'click hover focus', 'title': 'Please input the client contact name here' });
+  $('#baa').tooltip({'trigger':'click hover focus', 'title': 'The date on which we send business associate agreement to the client' });
+  $('#baasign').tooltip({'trigger':'click hover focus', 'title': 'The date on which we sign business associate agreement' });
+  $('#nda').tooltip({'trigger':'click hover focus', 'title': 'Please check this checkbox if you need sign non-disclosure agreement' });
+
+  function enable_cb() {
+    if (this.checked) {
+      $(".ndadate").removeAttr("disabled");
+    } else {
+      $(".ndadate").attr("disabled", true);
+    }
+  }
+
+  $(function() {
+    enable_cb();
+    $("#ndacheck").click(enable_cb);
+  });
+
 </script>
 
