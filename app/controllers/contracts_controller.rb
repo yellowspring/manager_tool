@@ -32,6 +32,10 @@ class ContractsController < ApplicationController
   # GET /contracts/new.json
   def new
     @contract = Contract.new
+    @contract.contractfiles.build
+    if params[:client_id]
+      @client = Client.find(params[:client_id])
+    end
 
     respond_to do |format|
       format.html # new.html.erb
@@ -43,6 +47,7 @@ class ContractsController < ApplicationController
   # GET /contracts/1/edit
   def edit
     @contract = Contract.find(params[:id])
+    @contract.contractfiles.build
   end
 
   # POST /contracts
@@ -52,7 +57,7 @@ class ContractsController < ApplicationController
 
     respond_to do |format|
       if @contract.save
-        format.html { redirect_to contracts_url, notice: 'Contract was successfully created.' }
+        format.html { redirect_to new_contract_sow_path(@contract) , notice: 'Contract was successfully created.' }
         format.json { render json: @contract, status: :created, location: @contract }
       else
         format.html { render action: "new" }

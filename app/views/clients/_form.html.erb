@@ -45,13 +45,12 @@
   </div>
   <div class="field" >
     <%= f.label "BAA send date" , :id=>"baa" %> 
-    <%= f.date_select :baa_send_at , {:prompt => { :day => 'Select day', :month => 'Select month', :year => 'Select year' }},:style => "float:left;" %> 
+    <%= f.datepicker :baa_send_at  %> 
     <br><br><br>  
   </div>  
   <div class="field">
     <%= f.label "BAA sign date", :id=>"baasign" %> 
-    <%= f.date_select :baa_sign_at ,{:prompt => { :day => 'Select day', :month => 'Select month', :year => 'Select year' }},:style => "float:left;"%> 
-    <br><br><br>  
+    <%= f.datepicker :baa_sign_at  %>  
   </div>  
   <div class="field">
     <%= f.label "Sign NDA" , :id=>"nda" %> 
@@ -59,9 +58,8 @@
     <br><br><br>  
   </div>  
   <div class="field">
-    <%= f.label "NDA sign date"  %> 
-    <%= f.date_select :nda_sign_at ,{:prompt => { :day => 'Select day', :month => 'Select month', :year => 'Select year' }},{:class => "ndadate", :disabled=>true, :style => "float:left;"} %> 
-    <br><br><br>  
+    <%= f.label "NDA sign date" ,:id=>"ndasign" %> 
+    <%= f.datepicker :nda_sign_at  %>  
   </div>  
   <div class="field">
     <%= f.label :comment %><br />
@@ -77,6 +75,7 @@ $('#contact').tooltip({'trigger':'click hover focus', 'title': 'Please input the
   $('#baa').tooltip({'trigger':'click hover focus', 'title': 'The date on which we send business associate agreement to the client' });
   $('#baasign').tooltip({'trigger':'click hover focus', 'title': 'The date on which we sign business associate agreement' });
   $('#nda').tooltip({'trigger':'click hover focus', 'title': 'Please check this checkbox if you need sign non-disclosure agreement' });
+  $('#ndasign').tooltip({'trigger':'click hover focus', 'title': 'The date on which we sign non-disclosure agreement' });
 
   function enable_cb() {
     if (this.checked) {

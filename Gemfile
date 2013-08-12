@@ -14,6 +14,7 @@ group :assets do
   gem 'sass-rails',   '~> 3.1.4'
   gem 'coffee-rails', '~> 3.1.1'
   gem 'uglifier', '>= 1.0.3'
+  gem 'jquery-ui-rails'
 end
 
 gem 'jquery-rails'
@@ -22,6 +23,8 @@ gem 'less-rails'
 gem 'therubyracer'
 #gem 'bootstrap-x-editable-rails'
 gem 'bootstrap-editable-rails'
+gem 'carrierwave'
+gem 'jquery_datepicker'
 
 group :production do
   gem 'pg'

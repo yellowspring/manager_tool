@@ -6,7 +6,7 @@ class Client < ActiveRecord::Base
 	accepts_nested_attributes_for :contracts, :sales, :salespeople
 
 	def name_with_state
-		if city.nil?
+		if city.nil? or city =~ /^\s*$/
 			"#{name}: #{state}"
 		else
 			"#{name}: #{city}, #{state}"

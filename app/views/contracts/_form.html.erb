@@ -1,4 +1,4 @@
-<%= form_for(@contract) do |f| %>
+<%= form_for(@contract, :html => {:multipart => true}) do |f| %>
   <% if @contract.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@contract.errors.count, "error") %> prohibited this contract from being saved:</h2>
@@ -14,14 +14,26 @@
 
   <div class="field">
     <%= f.label :client%>
-    <%= collection_select(:contract, :client_id, Client.find(:all), :id, :name_with_state, {:prompt => 'Please select the client'}) %>
+    <% if ! @client.nil? %>
+      <%= collection_select(:contract, :client_id, [@client], :id, :name_with_state,{}) %>
+    <% else %>
+      <%= collection_select(:contract, :client_id, Client.find(:all), :id, :name_with_state, {:prompt => 'Please select the client'}) %>
+    <%end%>
   </div>
 
+     
+   
  
   <div class="field">
     <%= f.label :comment %> 
     <%= f.text_field :comment %>
   </div><br><br>
+
+  <%= f.fields_for :contractfiles  do |builder| %>
+    <p><%= builder.file_field :file %></p>
+    <p><%= builder.hidden_field :file_cache %></p>
+  <% end %><br />
+
   <div class="actions">
     <%= f.submit %>
   </div>

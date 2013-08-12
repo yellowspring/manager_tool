@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130811223224) do
+ActiveRecord::Schema.define(:version => 20130812162044) do
 
   create_table "clients", :force => true do |t|
     t.string   "name"
@@ -31,6 +31,13 @@ ActiveRecord::Schema.define(:version => 20130811223224) do
     t.date     "nda_send_at"
   end
 
+  create_table "contractfiles", :force => true do |t|
+    t.integer  "contract_id"
+    t.string   "file"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "contracts", :force => true do |t|
     t.string   "status"
     t.string   "comment"
@@ -47,12 +54,12 @@ ActiveRecord::Schema.define(:version => 20130811223224) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "commercial_rate"
-    t.boolean  "medicare_rate"
     t.boolean  "medicaid_rate"
-    t.boolean  "monthly_fee"
-    t.boolean  "development_fee"
-    t.boolean  "transaction_fee"
+    t.boolean  "medicare_rate"
     t.boolean  "term"
+    t.boolean  "monthly_fee"
+    t.boolean  "transaction_fee"
+    t.boolean  "development_fee"
   end
 
   create_table "sales", :force => true do |t|
@@ -77,15 +84,6 @@ ActiveRecord::Schema.define(:version => 20130811223224) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-
-  create_table "salespeople_contracts", :id => false, :force => true do |t|
-    t.integer  "salesperson_id"
-    t.integer  "contract_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "salespeople_contracts", ["salesperson_id", "contract_id"], :name => "index_salespeople_contracts_on_salesperson_id_and_contract_id", :unique => true
 
   create_table "sow_detail_templates", :force => true do |t|
     t.boolean  "commercial_rate"
