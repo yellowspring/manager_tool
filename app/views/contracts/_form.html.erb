@@ -16,11 +16,7 @@
     <%= f.label :client%>
     <%= collection_select(:contract, :client_id, Client.find(:all), :id, :name_with_state, {:prompt => 'Please select the client'}) %>
   </div>
-  <div class="field">
-    <%= f.label "Credit Agreement" %> 
-    <%= f.check_box :ca_flag ,:style => "float:left;"%> 
-    <br><br><br>  
-  </div>  
+
  
   <div class="field">
     <%= f.label :comment %> 

@@ -48,7 +48,11 @@
     <%= f.label :product_id %><br />
     <%= collection_select(:sow, :product_id, Product.find(:all), :id, :name, {:prompt => 'Please select the product'}) %>
   </div>
- 
+    <div class="field">
+    <%= f.label "Credit Agreement" %> 
+    <%= f.check_box :ca_flag ,:style => "float:left;"%> 
+    <br><br><br>  
+  </div>  
 
   <%= fields_for @detailstemplate do |fa| %>
       <div class="field">

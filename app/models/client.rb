@@ -7,9 +7,9 @@ class Client < ActiveRecord::Base
 
 	def name_with_state
 		if city.nil?
-			"#{name}: #{city}, #{state}"
-		else
 			"#{name}: #{state}"
+		else
+			"#{name}: #{city}, #{state}"
 		end
   	end
 
