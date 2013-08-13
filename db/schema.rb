@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130812162044) do
+ActiveRecord::Schema.define(:version => 20130813220538) do
 
   create_table "clients", :force => true do |t|
     t.string   "name"
@@ -56,10 +56,10 @@ ActiveRecord::Schema.define(:version => 20130812162044) do
     t.boolean  "commercial_rate"
     t.boolean  "medicaid_rate"
     t.boolean  "medicare_rate"
-    t.boolean  "term"
-    t.boolean  "monthly_fee"
     t.boolean  "transaction_fee"
-    t.boolean  "development_fee"
+    t.boolean  "score"
+    t.boolean  "subscription_fee"
+    t.boolean  "global_rate"
   end
 
   create_table "sales", :force => true do |t|
@@ -104,13 +104,14 @@ ActiveRecord::Schema.define(:version => 20130812162044) do
     t.float    "medicaid_rate"
     t.integer  "term"
     t.integer  "version"
-    t.string   "status"
-    t.float    "development_fee"
-    t.float    "outgoing_monthly_fee"
-    t.float    "transaction_net_fee"
+    t.float    "transaction_fee"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "sow_id"
+    t.integer  "subscription_fee"
+    t.string   "subtype"
+    t.integer  "global_rate"
+    t.string   "type"
   end
 
   create_table "sows", :force => true do |t|

@@ -41,11 +41,17 @@ class ProductsController < ApplicationController
   # POST /products.json
   def create
     @product = Product.new(params[:product])
+    @product.subscription_fee = @product.score
+    @product.transaction_fee  = @product.score
+    @product.commercial_rate  = ! @product.score
+    @product.medicaid_rate    = ! @product.score
+    @product.medicare_rate    = ! @product.score
+    @product.global_rate      = ! @product.score
+
 
     respond_to do |format|
       if @product.save
-        format.html { redirect_to @product, notice: 'Product was successfully created.' }
-        format.json { render json: @product, status: :created, location: @product }
+        format.html { redirect_to products_url, notice: 'Product was successfully created.' }
       else
         format.html { render action: "new" }
         format.json { render json: @product.errors, status: :unprocessable_entity }
@@ -57,10 +63,19 @@ class ProductsController < ApplicationController
   # PUT /products/1.json
   def update
     @product = Product.find(params[:id])
+    if params[:product][:score] == 0
+      score_flag = false
+    end
+    @product.subscription_fee = score_flag
+    @product.transaction_fee  = score_flag
+    @product.commercial_rate  = ! score_flag
+    @product.medicaid_rate    = ! score_flag
+    @product.medicare_rate    = ! score_flag
+    @product.global_rate      = ! score_flag
 
     respond_to do |format|
       if @product.update_attributes(params[:product])
-        format.html { redirect_to @product, notice: 'Product was successfully updated.' }
+        format.html { redirect_to products_url, notice: 'Product was successfully updated.' }
         format.json { head :ok }
       else
         format.html { render action: "edit" }

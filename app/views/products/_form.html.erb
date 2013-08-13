@@ -12,37 +12,15 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :name %><br />
+    <%= f.label "Product Name" %><br />
     <%= f.text_field :name %>
   </div>
   <div class="field">
-        <%= f.label :commercial_rate %>
-        <%= f.check_box :commercial_rate, :style => "float:left;" %>
+        <%= f.label :Type %>
+        <%= f.label :Score %>
+        <%= f.check_box :score, :title => "score", :style => "float:left;" %>
       </div><br /><br /><br /><br />
-      <div class="field">
-        <%= f.label :medicare_rate %> 
-        <%= f.check_box :medicare_rate, :style => "float:left;" %>
-      </div><br /><br /><br />
-      <div class="field">
-        <%= f.label :medicaid_rate %> 
-        <%= f.check_box :medicaid_rate, :style => "float:left;" %>
-      </div><br /><br /><br />
-      <div class="field">
-        <%= f.label :term %> 
-        <%= f.check_box :term, :style => "float:left;" %>
-      </div><br /><br /><br />
-      <div class="field">
-        <%= f.label :development_fee %> 
-        <%= f.check_box :development_fee, :style => "float:left;" %>
-      </div><br /><br /><br />
-      <div class="field">
-        <%= f.label :monthly_fee %> 
-        <%= f.check_box :monthly_fee, :style => "float:left;" %>
-      </div><br /><br /><br />
-      <div class="field">
-        <%= f.label :transaction_fee %>
-        <%= f.check_box :transaction_fee, :style => "float:left;" %>
-      </div><br /><br /><br />
+      
   <div class="actions">
     <%= f.submit %>
   </div>

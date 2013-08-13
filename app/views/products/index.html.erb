@@ -15,12 +15,13 @@
     <thead>
       <tr>
         <th class="hed">Name </th>
-        <th class="hed">medicaid_rate</th>
-        <th class="hed">medicare_rate</th>
-        <th class="hed">commercial_rate</th>
-        <th class="hed">monthly_fee</th>
-        <th class="hed">transaction_fee</th>
-        <th class="hed">development_fee</th>
+        <th class="hed">Type </th>
+        <th class="hed">Medicaid </th>
+        <th class="hed">Medicare</th>
+        <th class="hed">Commercial</th>
+        <th class="hed">Global </th>
+        <th class="hed">Subscription_fee</th>
+        <th class="hed">Transaction_fee</th>
         <th class="hed">Edit</th>
         <th class="hed">Delete</th>
       </tr>
@@ -29,6 +30,13 @@
       <% @products.each do |product| %>
         <tr>
           <td><%= product.name %></td>
+          <td>
+              <% if product.score %>
+                 score
+              <% else %>
+                non-score
+              <% end %>
+          </td>
           <td>
               <% if product.medicaid_rate %>
                 <i class="icon-ok"></i>
@@ -51,26 +59,27 @@
               <% end %>
           </td>
           <td>
-              <% if product.monthly_fee %>
+              <% if product.global_rate %>
                 <i class="icon-ok"></i>
               <% else %>
                 <i class="icon-remove"></i>
               <% end %>
           </td>
           <td>
-              <% if product.transaction_fee  %>
+              <% if product.transaction_fee %>
                 <i class="icon-ok"></i>
               <% else %>
                 <i class="icon-remove"></i>
               <% end %>
           </td>
           <td>
-              <% if product.development_fee %>
+              <% if product.subscription_fee  %>
                 <i class="icon-ok"></i>
               <% else %>
                 <i class="icon-remove"></i>
               <% end %>
           </td>
+
           <td><%= link_to raw('<i class="icon-edit"></i>'), edit_product_path(product) %></td>
           <td><%= link_to 'Destroy', product, confirm: 'Are you sure?', method: :delete %></td>
         </tr>

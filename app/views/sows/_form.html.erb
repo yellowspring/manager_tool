@@ -51,19 +51,59 @@
     <br><br><br>  
   </div>  
 
-  <%= fields_for @detailstemplate do |fa| %>
-      <div class="field">
-        <%= fa.label :commercial_rate %>
-        <%= fa.check_box :commercial_rate, :style => "float:left;" %>
-      </div><br /><br /><br /><br />
+ 
+  <%= fields_for @detail do |fa| %>
+      <div class="field" id="type" >
+        <%= fa.label "Type" %>
+        <%= fa.select :Type, [['Per Hit'],['Contingency']] %><br /><br /><br />
+      </div>
+
+      <div class="field" id="subtype" >
+        <%= fa.label "Subtype" %>
+        <%= fa.select :subtype, [['Global'],['Per Payor']] %><br /><br /><br />
+      </div>
+      
+      <div id="contingencyperpayor">
+
+        <div class="field">
+          <%= fa.label :commercial %>
+          <%= fa.text_field :commercial_rate, :style => "float:left;" %> % <br /><br /><br />
+        </div>
+
+        <div class="field">
+          <%= fa.label :medicare_rate %> 
+          <%= fa.check_box :medicare_rate, :style => "float:left;" %> % <br /><br /><br />
+        </div>
+
+        <div class="field">
+        <%= fa.label :medicaid_rate %> 
+        <%= fa.check_box :medicaid_rate, :style => "float:left;" %> % <br /><br /><br />
+        </div>
+      </div>
+
+      <div id="contingencyglobal">
+
+        <div class="field">
+          <%= fa.label :commercial %>
+          <%= fa.text_field :commercial_rate, :style => "float:left;" %> % <br /><br /><br />
+        </div>
+
+        <div class="field">
+          <%= fa.label :medicare_rate %> 
+          <%= fa.check_box :medicare_rate, :style => "float:left;" %> % <br /><br /><br />
+        </div>
+
+        <div class="field">
+        <%= fa.label :medicaid_rate %> 
+        <%= fa.check_box :medicaid_rate, :style => "float:left;" %> % <br /><br /><br />
+        </div>
+      </div>
+
       <div class="field">
         <%= fa.label :medicare_rate %> 
         <%= fa.check_box :medicare_rate, :style => "float:left;" %>
       </div><br /><br /><br />
-      <div class="field">
-        <%= fa.label :medicaid_rate %> 
-        <%= fa.check_box :medicaid_rate, :style => "float:left;" %>
-      </div><br /><br /><br />
+      
       <div class="field">
         <%= fa.label :term %> 
         <%= fa.check_box :term, :style => "float:left;" %>
@@ -81,6 +121,9 @@
         <%= fa.check_box :transaction_net_fee, :style => "float:left;" %>
       </div><br /><br /><br />
    <% end %><br />
+
+
+
     <div class="field">
     <%= f.label :comment %><br />
     <%= f.text_area :comment,:cols => 10, :rows => 5 %>
@@ -89,3 +132,22 @@
     <%= f.submit %>
   </div>
 <% end %>
+
+
+<script>
+$('#contact').tooltip({'trigger':'click hover focus', 'title': 'Please input the client contact name here' });
+  $('#baa').tooltip({'trigger':'click hover focus', 'title': 'The date on which we send business associate agreement to the client' });
+  $('#baasign').tooltip({'trigger':'click hover focus', 'title': 'The date on which we sign business associate agreement' });
+  $('#nda').tooltip({'trigger':'click hover focus', 'title': 'Please check this checkbox if you need sign non-disclosure agreement' });
+  $('#ndasign').tooltip({'trigger':'click hover focus', 'title': 'The date on which we sign non-disclosure agreement' });
+
+  $(function(){
+    $("#subtype").hide();
+
+    $('#ndacheck').click(function(){
+      $("#ndadate").slideToggle();
+    });
+
+  });
+
+</script>
