@@ -26,7 +26,7 @@ class SowsController < ApplicationController
   # GET /sows/new.json
   def new
     @sow = Sow.new
-    @detail = SowDetail.new;
+    @sow.sow_details.build
     @contract = Contract.find(params[:contract_id])
 
     respond_to do |format|
@@ -45,21 +45,15 @@ class SowsController < ApplicationController
   def create
     @sow = Sow.new(params[:sow])
     @sow.contract = Contract.find(params[:contract_id])
-    @detailstemplate = SowDetailTemplate.new(params[:sow_detail_template]);
-
     
     respond_to do |format|
       if @sow.save
-        @detailstemplate.sow_id = @sow.id 
-        if @detailstemplate.save 
-          format.html { redirect_to contract_sows_path(@sow.contract), notice: 'Sow was successfully created.' }
+        
+          format.html { redirect_to new_contract_sow_path(@sow.contract), notice: 'Sow was successfully created.' }
           format.json { render json: @sow, status: :created, location: @sow }
-        else
-          format.html { render action: "new" }
-          format.json { render json: @detailstemplate.errors, status: :unprocessable_entity }
-        end
+
       else
-        format.html { render action: "new" }
+        format.html { redirect_to new_contract_sow_path(@sow.contract) }
         format.json { render json: @sow.errors, status: :unprocessable_entity }
       end
     end
@@ -68,17 +62,17 @@ class SowsController < ApplicationController
   # PUT /sows/1
   # PUT /sows/1.json
   def update
-    @sow = Sow.find(params[:id])
+  # @sow = Sow.find(params[:id])
 
-    respond_to do |format|
-      if @sow.update_attributes(params[:sow])
-        format.html { redirect_to @sow, notice: 'Sow was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: "edit" }
-        format.json { render json: @sow.errors, status: :unprocessable_entity }
-      end
-    end
+  # respond_to do |format|
+  #   if @sow.update_attributes(params[:sow])
+  #     format.html { redirect_to @sow, notice: 'Sow was successfully updated.' }
+  #     format.json { head :no_content }
+  #   else
+  #     format.html { render action: "edit" }
+  #     format.json { render json: @sow.errors, status: :unprocessable_entity }
+  #   end
+  # end
   end
 
   # DELETE /sows/1

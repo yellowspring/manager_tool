@@ -42,20 +42,24 @@
   </div>
   -->
   <div class="field">
-    <%= f.label :product_id %><br />
-    <%= collection_select(:sow, :product_id, Product.find(:all), :id, :name, {:prompt => 'Please select the product'}) %>
+    <%= f.label :product, "Product Name",:id=>"productname" %><br />
+    <%= collection_select(:sow, :product_id, Product.find(:all), :id, :name, {:prompt => 'Please select the product'}, {:class=>'product'}) %>
   </div>
-    <div class="field">
-    <%= f.label "Credit Agreement" %> 
-    <%= f.check_box :ca_flag ,:style => "float:left;"%> 
-    <br><br><br>  
-  </div>  
 
+  
+   
  
-  <%= fields_for @detail do |fa| %>
+  <%= fields_for :sow_details do |fa| %>
+
+      <div id="file" >
+        <br /><br /><br />
+        <p><%= fa.file_field :file %></p>
+        <p><%= fa.hidden_field :file_cache %></p><br /><br /><br />
+      </div>
+
       <div class="field" id="type" >
         <%= fa.label "Type" %>
-        <%= fa.select :Type, [['Per Hit'],['Contingency']] %><br /><br /><br />
+        <%= fa.select :type, [['Per Hit'],['Contingency']] %><br /><br /><br />
       </div>
 
       <div class="field" id="subtype" >
@@ -66,68 +70,95 @@
       <div id="contingencyperpayor">
 
         <div class="field">
-          <%= fa.label :commercial %>
-          <%= fa.text_field :commercial_rate, :style => "float:left;" %> % <br /><br /><br />
+          <%= fa.label :commercial, "Commercial" %>
+          <%= fa.text_field :commercial_rate  %> % <br /><br /><br />
         </div>
 
         <div class="field">
-          <%= fa.label :medicare_rate %> 
-          <%= fa.check_box :medicare_rate, :style => "float:left;" %> % <br /><br /><br />
+          <%= fa.label :medicarerate,"Medicare" %> 
+          <%= fa.text_field :medicare_rate %> % <br /><br /><br />
         </div>
 
         <div class="field">
-        <%= fa.label :medicaid_rate %> 
-        <%= fa.check_box :medicaid_rate, :style => "float:left;" %> % <br /><br /><br />
+        <%= fa.label :medicaidrate, "Medicaid" %> 
+        <%= fa.text_field :medicaid_rate  %> % <br /><br /><br />
         </div>
       </div>
 
       <div id="contingencyglobal">
-
         <div class="field">
-          <%= fa.label :commercial %>
-          <%= fa.text_field :commercial_rate, :style => "float:left;" %> % <br /><br /><br />
-        </div>
-
-        <div class="field">
-          <%= fa.label :medicare_rate %> 
-          <%= fa.check_box :medicare_rate, :style => "float:left;" %> % <br /><br /><br />
-        </div>
-
-        <div class="field">
-        <%= fa.label :medicaid_rate %> 
-        <%= fa.check_box :medicaid_rate, :style => "float:left;" %> % <br /><br /><br />
+          <%= fa.label "Global" %>
+          <%= fa.text_field :global_rate %> % <br /><br /><br />
         </div>
       </div>
 
-      <div class="field">
-        <%= fa.label :medicare_rate %> 
-        <%= fa.check_box :medicare_rate, :style => "float:left;" %>
-      </div><br /><br /><br />
-      
-      <div class="field">
+      <div id="perhitperpayor">
+
+        <div class="field">
+          <%= fa.label :commercial, "Commercial" %>
+          <%= fa.text_field :commercial_rate  %> $ <br /><br /><br />
+        </div>
+
+        <div class="field">
+          <%= fa.label :medicarerate,"Medicare" %> 
+          <%= fa.text_field :medicare_rate %> $ <br /><br /><br />
+        </div>
+
+        <div class="field">
+        <%= fa.label :medicaidrate, "Medicaid"  %> 
+        <%= fa.text_field :medicaid_rate  %> $ <br /><br /><br />
+        </div>
+      </div>
+
+      <div id="perhitglobal">
+        <div class="field">
+          <%= fa.label "Global" %>
+          <%= fa.text_field :global_rate %> $ <br /><br /><br />
+        </div>
+      </div>
+ 
+      <div class="field" id="term" >
         <%= fa.label :term %> 
-        <%= fa.check_box :term, :style => "float:left;" %>
-      </div><br /><br /><br />
-      <div class="field">
-        <%= fa.label :development_fee %> 
-        <%= fa.check_box :development_fee, :style => "float:left;" %>
-      </div><br /><br /><br />
-      <div class="field">
-        <%= fa.label :outgoing_monthly_fee %> 
-        <%= fa.check_box :outgoing_monthly_fee, :style => "float:left;" %>
-      </div><br /><br /><br />
-      <div class="field">
-        <%= fa.label :transaction_net_fee %>
-        <%= fa.check_box :transaction_net_fee, :style => "float:left;" %>
-      </div><br /><br /><br />
+        <%= fa.text_field :term %>mo<br /><br /><br />
+      </div>
+
+      <div id="score">
+        <div class="field">
+          <%= fa.label "Monthly Fee" %> 
+          <%= fa.text_field :subscription_fee %>
+        </div><br /><br /><br />
+        <div class="field">
+          <%= fa.label "Transaction Fee" %>
+          <%= fa.text_field :transaction_fee  %>
+        </div><br /><br /><br />
+      </div>
+     
    <% end %><br />
 
+  <div id="ca_part">
+    <div class="field" >
+      <%= f.label :credit_aggrement, "Sign CA" ,:id=>"ca" %> 
+      <%= f.label :yes, "yes" %> 
+      <%= f.check_box :ca_flag ,:style => "float:left;", :id=>"casign" %> 
+      <br><br><br>  
+    </div>  
 
+    <div class="field" id="cadate" >
+      <%= f.label "casenddate", "CA Send Date",:id=>"casend"  %>
+      <%= f.datepicker :ca_send_at  %>  <br><br><br>  
+      <%= f.label "casigndate","CA Sign Date",:id=>"casigndate"  %> 
+      <%= f.datepicker :ca_sign_at  %>   <br><br><br> 
+    </div>   
+  </div>
+   
 
+   <!--
     <div class="field">
     <%= f.label :comment %><br />
     <%= f.text_area :comment,:cols => 10, :rows => 5 %>
-  </div>
+    </div>
+  -->
+  <br><br><br> 
   <div class="actions">
     <%= f.submit %>
   </div>
@@ -135,17 +166,86 @@
 
 
 <script>
-$('#contact').tooltip({'trigger':'click hover focus', 'title': 'Please input the client contact name here' });
-  $('#baa').tooltip({'trigger':'click hover focus', 'title': 'The date on which we send business associate agreement to the client' });
-  $('#baasign').tooltip({'trigger':'click hover focus', 'title': 'The date on which we sign business associate agreement' });
-  $('#nda').tooltip({'trigger':'click hover focus', 'title': 'Please check this checkbox if you need sign non-disclosure agreement' });
-  $('#ndasign').tooltip({'trigger':'click hover focus', 'title': 'The date on which we sign non-disclosure agreement' });
+$('#productname').tooltip({'trigger':'click hover focus', 'title': 'Please select the product name' });
+  $('#casend').tooltip({'trigger':'click hover focus', 'title': 'The date on which we send credit agreement to the client' });
+  $('#ca').tooltip({'trigger':'click hover focus', 'title': 'Please check this checkbox if you need sign credit agreement' });
+  $('#casigndate').tooltip({'trigger':'click hover focus', 'title': 'The date on which we sign credit agreement' });
+
+  function reset_alllevel() {
+    $("#type").hide();
+    $("#subtype").hide();
+    $("#contingencyperpayor").hide();
+    $("#contingencyglobal").hide();
+    $("#perhitperpayor").hide();
+    $("#perhitglobal").hide();
+    $("#score").hide();
+    $("#term").hide();
+    $("#file").hide();
+    $("#ca_part").hide();
+  }
+
+
+  function reset_sublevel() {
+    $("#contingencyperpayor").hide();
+    $("#contingencyglobal").hide();
+    $("#perhitperpayor").hide();
+    $("#perhitglobal").hide();
+    $("#score").hide();
+    $("#term").hide();
+    $("#file").hide();
+  }
 
   $(function(){
-    $("#subtype").hide();
+    $("#cadate").hide();
+    reset_alllevel();
+    $(".product").bind("change", function () {
+        reset_alllevel();
+        if ($(".product  option:selected").text().toLowerCase() == "payorintel" || $(".product  option:selected").text().toLowerCase() == "auto") {
+            $("#type").show();
+            $("#subtype").show();
+            $("#file").show();
+        }
+        else if($(".product  option:selected").text().toLowerCase() == "charity") {
+            $("#score").show();
+            $("#file").show();
+             $("#ca_part").show();
+        }
+    });
 
-    $('#ndacheck').click(function(){
-      $("#ndadate").slideToggle();
+    $("#subtype").bind("change", function () {
+        reset_sublevel();
+        if ($("#type option:selected").text().toLowerCase() == "per hit" && $("#subtype option:selected").text().toLowerCase() == "global") {
+            $("#perhitglobal").show();
+        } else if($("#type option:selected").text().toLowerCase() == "per hit" && $("#subtype option:selected").text().toLowerCase() == "per payor" ) {
+            $("#perhitperpayor").show();
+        } else if($("#type option:selected").text().toLowerCase() == "contingency"  && $("#subtype option:selected").text().toLowerCase() == "per payor") {
+            $("#contingencyperpayor").show();
+        } else if($("#type option:selected").text().toLowerCase() == "contingency"  && $("#subtype option:selected").text().toLowerCase() == "global") {
+            $("#contingencyglobal").show();
+        } else {
+          return;
+        }
+        $("#file").show();
+    });
+
+     $("#type").bind("change", function () {
+        reset_sublevel();
+        if ($("#type option:selected").text().toLowerCase() == "per hit" && $("#subtype option:selected").text().toLowerCase() == "global") {
+            $("#perhitglobal").show();
+        } else if($("#type option:selected").text().toLowerCase() == "per hit" && $("#subtype option:selected").text().toLowerCase() == "per payor" ) {
+            $("#perhitperpayor").show();
+        } else if($("#type option:selected").text().toLowerCase() == "contingency"  && $("#subtype option:selected").text().toLowerCase() == "per payor") {
+            $("#contingencyperpayor").show();
+        } else if($("#type option:selected").text().toLowerCase() == "contingency"  && $("#subtype option:selected").text().toLowerCase() == "global") {
+            $("#contingencyglobal").show();
+        } else {
+          return;
+        }
+        $("#file").show();
+    });
+
+     $('#casign').click(function(){
+      $("#cadate").slideToggle();
     });
 
   });

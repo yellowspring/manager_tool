@@ -2,7 +2,7 @@
 
       <!--Sidebar content-->
        <div class="well sidebar-nav">
-        <h3>Contract details</h3>
+        <h3>Contract Details</h3>
         <table id="tb" class="table  table-condensed table-hover " cellspacing="0">
             <thead>
                 <tr>
@@ -21,13 +21,31 @@
                 </tr>
                 <tr>
                     <td class='hed'>Real cust_id: </td>
-                    <td><%= @contract.client.cust_id  %> </td>
+                    <td><%= @contract.client.cust_id  %>  </td>
                 </tr>
+                <!--
                 <tr>
                     <div>         
                         <button id="enable" class="btn btn-primary">enable/disable edit</button>
                     </div>  
                 </tr>
+                -->
+            </tbody>
+        </table> 
+        <h3>Existing SOWs</h3>
+        <table id="tb" class="table  table-condensed table-hover " cellspacing="0">
+            <thead>
+                <tr>
+                    <th class='hed'></th>
+                </tr>
+            </thead>
+            <tbody>
+                 <% @contract.sows.each do |s| %>
+                     <tr>
+                        
+                        <td class='hed '>SOW for product: <span class="label label-success"> <%= Product.find(s.product_id).name %> </span></td>  
+                    </tr>
+                <% end %>
             </tbody>
         </table> 
       </div><!--/.well -->
@@ -42,7 +60,7 @@
 
 		<%= render 'form' %>
 
-		<%= link_to 'Back', contract_sows_path(@contract) %>
+		<%= link_to 'Done', contracts_url %>
 
 
 		<script>

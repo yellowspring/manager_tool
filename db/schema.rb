@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130813220538) do
+ActiveRecord::Schema.define(:version => 20130814184856) do
 
   create_table "clients", :force => true do |t|
     t.string   "name"
@@ -112,6 +112,8 @@ ActiveRecord::Schema.define(:version => 20130813220538) do
     t.string   "subtype"
     t.integer  "global_rate"
     t.string   "type"
+    t.string   "file"
+    t.binary   "filecontent"
   end
 
   create_table "sows", :force => true do |t|
@@ -129,6 +131,7 @@ ActiveRecord::Schema.define(:version => 20130813220538) do
     t.integer  "contract_id"
     t.date     "ca_sign_at"
     t.boolean  "ca_flag"
+    t.date     "ca_send_at"
   end
 
   create_table "users", :force => true do |t|

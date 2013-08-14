@@ -19,7 +19,7 @@
                     <td class='hed'>Client state: </td>
                     <td><%= @contract.client.state %> </td>
                 </tr>
-                <% @contract.salespeople.each do |person|  %> 
+                <% @contract.client.salespeople.each do |person|  %> 
                 <tr>
                         <td class='hed'>Sales: </td>
                         <td><%= person.first_name + " " + person.last_name  %>  </td>
