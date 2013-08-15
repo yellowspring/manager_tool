@@ -13,6 +13,16 @@ class Client < ActiveRecord::Base
 		end
   	end
 
+  	def list_of_sales
+  		ls = '';
+		if ! salespeople.empty?  
+		  salespeople.each do |s|
+			ls << "#{s.first_name} #{s.last_name}" << ';'
+		  end
+		end
+		return ls
+  	end
+
   	validates :name, presence: true
   	validates :salesperson_ids, presence: true
 end

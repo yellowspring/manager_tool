@@ -43,7 +43,7 @@
                  <% @contract.sows.each do |s| %>
                      <tr>
                         
-                        <td class='hed '>SOW for product: <span class="label label-success"> <%= Product.find(s.product_id).name %> </span></td>  
+                        <td class='hed '><span class="label label-success"> <%= Product.find(s.product_id).name.upcase %> </span></td>  
                     </tr>
                 <% end %>
             </tbody>
@@ -53,15 +53,13 @@
 
 <div class="span8">
 <!--Body content-->
-
+    <%= button_to 'Go to contract level', contracts_url,:class=>"btn btn-primary btn-large" %>
+     <br /><br /> 
     <div id="container" class="container-fluid">
 
 		<h1>New SOW</h1>
 
 		<%= render 'form' %>
-
-		<%= link_to 'Done', contracts_url %>
-
 
 		<script>
 

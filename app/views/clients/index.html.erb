@@ -14,9 +14,10 @@
                 <th class="hed">State </th>
                  <th class="hed">City </th>
                 <th class="hed">Cust_id </th>
-                <th class="hed">Phone </th>
-                <th class="hed">Email </th>
-                <th class="hed">Comment </th>
+                <th class="hed">Contact Name </th>
+                <th class="hed">Contact Phone </th>
+                <th class="hed">Contact Email </th>
+                <th class="hed">Sales </th>
                 <th class="hed">Edit </th>
                 <th class="hed">Delete</th>
               </tr>
@@ -28,9 +29,13 @@
                     <td><%=  client.state %></td>
                      <td><%=  client.city %></td>
                     <td><%= client.cust_id %></td>
+                    <td><%= client.contact_name %></td>
                     <td><%= client.phone %></td>
                     <td><%= client.email %></td>
-                    <td><%= client.comment %></td>
+                    <td><% client.salespeople.each do |p| %>
+                            <%=  "#{p.first_name} #{p.last_name}"   %><br \>
+                        <% end %>
+                    </td>
                     <td><%= link_to 'Edit', edit_client_path(client) %></td>
                     <td><%= link_to 'Destroy', client, confirm: 'Are you sure?', method: :delete %></td>
                   </tr>

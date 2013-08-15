@@ -12,7 +12,7 @@
   <% end %>
 
   <div class="field">
-    <%= f.label "Client Name" %><br />
+    <%= f.label :cname, "Client Name" %><br />
     <%= f.text_field :name %>
   </div>
   <div class="field">
@@ -24,19 +24,19 @@
     <%= f.text_field :city %>
   </div>
   <div class="field">
-    <%= f.label "Cust ID".to_sym %><br />
+    <%= f.label :cid, "Cust ID" %><br />
     <%= f.text_field :cust_id %>
   </div>
   <div class="field">
-    <%= f.label :client_contact, :id=>"contact" %><br />
+    <%= f.label :client_contact, "Client Contact Name", :id=>"contact" %><br />
     <%= f.text_field :contact_name %>
   </div>
   <div class="field">
-    <%= f.label :contact_phone %><br />
+    <%= f.label :contact_phone, "Contact Email" %><br />
     <%= f.text_field :phone %>
   </div>
   <div class="field">
-    <%= f.label :contact_email %><br />
+    <%= f.label :contact_email, "Contact Email" %><br />
     <%= f.text_field :email %>
   </div>
   <div class="field">
@@ -44,23 +44,24 @@
     <%= f.select :salesperson_ids, Salesperson.all.collect {|x| ["#{x.last_name},#{x.first_name}", x.id]}, {}, :multiple => true %>  
   </div>
   <div class="field" >
-    <%= f.label "BAA send date" , :id=>"baa" %> 
+    <%= f.label :bsd, "BAA Send Date" , :id=>"baa" %> 
     <%= f.datepicker :baa_send_at  %> 
     <br><br><br>  
   </div>  
   <div class="field">
-    <%= f.label "BAA sign date", :id=>"baasign" %> 
+    <%= f.label :bid, "BAA Sign Date", :id=>"baasign" %> 
     <%= f.datepicker :baa_sign_at  %>  
   </div>  <br><br><br>
   <div class="field">
-    <%= f.label "Sign NDA" , :id=>"nda" %> 
+    <%= f.label :sn, "Sign NDA ?" , :id=>"nda" %> 
+    <%= f.label :yes, "yes"   %> 
     <%= f.check_box :nda_flag ,:style => "float:left;", :id=>"ndacheck"%> 
     <br><br><br>  
   </div>  
   <div class="field" id="ndadate" >
-    <%= f.label "NDA send date"  %>
+    <%= f.label :nsd, "NDA send date"  %>
     <%= f.datepicker :nda_send_at  %>  <br><br><br>  
-    <%= f.label "NDA sign date"  %> 
+    <%= f.label :nid, "NDA sign date"  %> 
     <%= f.datepicker :nda_sign_at  %>   
   </div>  <br><br><br>  
   <div class="field">
