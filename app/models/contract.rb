@@ -8,4 +8,12 @@ class Contract < ActiveRecord::Base
 
 
 	validates :client_id, presence: true
+
+	def product_list
+		pl = ''
+		 sows.each do |s| 
+		 	pl << Product.find(s.product_id).name.upcase << " "
+		 end
+		 pl
+	end
 end

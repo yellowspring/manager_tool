@@ -34,6 +34,21 @@ html, body, div, ol, ul, li{
   color: #293033;
 }
 
+.icon-eye-open.logo-icon {
+  width: 28px;  // 14px * 2
+  height: 28px; // 14px * 2
+  background-size: 938px 318px;  // original dimensions * 2
+  background-position: -624px -48px;  // original position * 2
+}
+
+.icon-trash.logo-icon {
+  width: 28px;  // 14px * 2
+  height: 28px; // 14px * 2
+  background-size: 938px 318px;  // original dimensions * 2
+  background-position: -624px -48px;  // original position * 2
+}
+
+
 
 
 .clear{clear:both;}

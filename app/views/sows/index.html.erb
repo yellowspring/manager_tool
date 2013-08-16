@@ -29,6 +29,7 @@
                     <td class='hed'>Real cust_id: </td>
                     <td><%= @contract.client.cust_id  %> </td>
                 </tr>
+                <% if false %>
                 <tr>
                     <td class='hed'>BAA: </td>
                     <td>
@@ -36,6 +37,7 @@
                         </div>
                     </td>
                 </tr>
+
                 <% if @contract.ca_flag == '1' %>
                     <tr>
                         <td class='hed'>CA: </td>
@@ -61,6 +63,7 @@
                         </div>
                     </td>
                 </tr>
+                <% end %>
                 <tr>
                     <div>         
                         <button id="enable" class="btn btn-primary">enable/disable edit</button>
@@ -126,9 +129,7 @@
                                             <td>
                                                 <a href="#" id="accept_term" class="sow_int"  data-resource="sow" data-type="select" data-pk="1" data-url="/sows/<%= sow.id %>" data-original-title="Select status"><%= sow.accept_term %></a>   
                                             </td>
-                                            <td>
-                                                <a href="#" id="renewal" class="sow_yn"  data-resource="sow" data-type="select" data-pk="1" data-url="/sows/<%= sow.id %>" data-original-title="Select status"><%= sow.renewal %></a>
-                                            </td>
+                                      
                                             <td><%= sow.renew_times %></td>  
                                             <td><%= sow.comment %></td>
                                             <td><%= link_to 'Destroy', sow, confirm: 'Are you sure?', method: :delete %></td>
@@ -139,6 +140,7 @@
                                     <!--sow draft part-->
                                     <%= button_to "New Negotiation", new_sow_sow_detail_path(sow), :method => "get", class: "btn btn-primary btn-small"  %>
                                     <h4 class="text-info">Listing Negotiations </h4>
+                                    <% if false %>
                                     <% if ! sow.sow_details.nil? %>
                                         <table id="tb" class="table table-striped table-condensed table-hover table-bordered" cellspacing="0">
                                             <tr>
@@ -162,6 +164,7 @@
                                                 </tr> 
                                             <% end %>
                                         </table>    
+                                    <% end %>
                                     <% end %>
 
                                     
