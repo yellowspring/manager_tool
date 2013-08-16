@@ -23,6 +23,19 @@ class Client < ActiveRecord::Base
 		return ls
   	end
 
+  	def ids_of_sales
+  		ids = Array.new;
+		if ! salespeople.empty?  
+		  salespeople.each do |s|
+			ids << s.id
+		  end
+		end
+		return ids
+  	end
+
   	validates :name, presence: true
   	validates :salesperson_ids, presence: true
+  	validates :cust_id, :numericality => { :greater_than_or_equal_to => 0 }, :allow_nil => true
+  	validates :phone, :allow_nil => true,:allow_blank => true, :numericality => true,:length => { :minimum => 10, :maximum => 15 }
+  	validates_format_of :email, :allow_blank => true, :presence => false, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i
 end

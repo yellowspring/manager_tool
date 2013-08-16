@@ -53,10 +53,18 @@
 
 <div class="span8">
 <!--Body content-->
-    <%= button_to 'Go to contract level', contracts_url,:class=>"btn btn-primary btn-large" %>
-     <br /><br /> 
+         
+        <div class="span2">
+            <%= button_to 'Back to contract level', contracts_url,:class=>"btn btn-primary btn-large", :method => :get %>
+        </div>
+        <div class="span2">
+            <%= button_to 'Back to sow level', contract_sows_path(@contract),:class=>"btn btn-primary btn-large", :method => :get %>
+        </div>
+    
+     
+     
     <div id="container" class="container-fluid">
-
+        <br /><br /> <br /> <br /><br /> <br /> 
 		<h1>New SOW</h1>
 
 		<%= render 'form' %>

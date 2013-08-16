@@ -48,7 +48,9 @@ html, body, div, ol, ul, li{
   background-position: -624px -48px;  // original position * 2
 }
 
-
+.table thead th { 
+  background-color: #ccffff;
+}
 
 
 .clear{clear:both;}
