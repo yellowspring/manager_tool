@@ -4,32 +4,6 @@
 <!--Body content-->
     <div id="container" class="container-fluid">
 
-        <form class="form-inline " method="get">
-          <ul class="nav nav-pills">
-          <li>
-            <label>file status...</label>
-                <% option_status = [['all',-1],['not picked up', 0],['picked
-            up',1],['overridden',2] ]%>
-                <%= select_tag("status", options_for_select(option_status,
-            session[:payerintel_st])) %>
-              </li>
-              <li>
-                <label>customer...</label>
-                <% option_name = [['all',-1]]%>
-                <% @custinfos.each do |info| %>
-                  <% option_name.push(["#{info.cust_id} -
-            #{info.cust_business_name} " ,info.cust_id]) %>
-                <% end %>
-                <%= select_tag("custid", options_for_select(option_name,
-            session[:payerintel_id])) %>
-              </li>
-              <li class='active'>
-                <input type="submit" value="Filter" />
-              </li>
-            </ul>
-        </form>
-
-
         <h1>Listing clients</h1><br \> <br \>
         <div>         
             <button id="enable" class="btn btn-primary">enable/disable edit</button>
@@ -109,7 +83,7 @@
 
                     <td>
                          <div id="salesperson_ids" class="sp" data-resource="client" data-type="checklist" data-pk="1"  data-url="/clients/<%= client.id%>"  
-                             data-value = [<%= client.ids_of_sales %>]  >
+                             data-value = [<%= client.ids_of_sales %>] data-original-title="Select Salespeople" >
                         </div>
                     </td> 
 
@@ -179,10 +153,9 @@
         $('.sp').editable({   
             source: [
             <% Salesperson.find(:all).each do |p| %>
-                {value: <%= p.id %>, text: <%= "'#{p.first_name} #{p.last_name}'".gsub(/&/, "&amp;").gsub(/\"/, "&quot;").html_safe %>},
-            <% end %>
-                
-               ]
+                {value: <%= p.id %>, text: <%="'#{p.first_name} #{p.last_name}'".gsub(/&/, "&amp;").gsub(/\"/, "&quot;").html_safe %>},
+            <% end %>  
+            ]
         });
 
         $('#enable').click(function() {

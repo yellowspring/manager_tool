@@ -3,4 +3,6 @@ class Contractfile < ActiveRecord::Base
 
 	mount_uploader :file, AvatarUploader
 	attr_accessible :file,:file_cache
+
+	validates :file, presence: true
 end

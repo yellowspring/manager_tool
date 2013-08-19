@@ -33,6 +33,15 @@ class Client < ActiveRecord::Base
 		return ids.join(",")
   	end
 
+  	def self.clients_id_and_name
+  		option_list = Array.new();
+  		option_list << ["All", 0];
+  		Client.find(:all).each do |c|
+  			option_list << ["#{c.name.upcase}: #{c.city.upcase} #{c.state.upcase}", c.id]
+  		end
+  		option_list.sort
+  	end
+
   	validates :name, presence: true
   	validates :salesperson_ids, presence: true
   	validates :cust_id, :numericality => { :greater_than_or_equal_to => 0 }, :allow_nil => true

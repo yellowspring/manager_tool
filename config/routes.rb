@@ -1,4 +1,5 @@
 ManagerTool::Application.routes.draw do
+  root :to => "clients#index"
  
   resources :contracts  do 
     resources :sows, shallow: true

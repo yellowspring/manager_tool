@@ -1,4 +1,4 @@
-<%= form_for([@contract, @sow]) do |f| %>
+<%= form_for([@sow]) do |f| %>
   <% if @sow.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@sow.errors.count, "error") %> prohibited this sow from being saved:</h2>
@@ -10,47 +10,13 @@
       </ul>
     </div>
   <% end %>
-<!--
-  <div class="field">
-    <%= f.label :sow_ko_date %><br />
-    <%= f.date_select :sow_ko_date %>
-  </div>
-  <div class="field">
-    <%= f.label :sow_production_date %><br />
-    <%= f.date_select :sow_production_date %>
-  </div>
-  <div class="field">
-    <%= f.label :sow_start_date %><br />
-    <%= f.date_select :sow_start_date %>
-  </div>
-  <div class="field">
-    <%= f.label :sow_end_date %><br />
-    <%= f.date_select :sow_end_date %>
-  </div>
-  <div class="field">
-    <%= f.label :auto_renew %><br />
-    <%= f.text_field :auto_renew %>
-  </div>
-  <div class="field">
-    <%= f.label :accept_term %><br />
-    <%= f.number_field :accept_term %>
-  </div>
 
-  <div class="field">
-    <%= f.label :renew_times %><br />
-    <%= f.number_field :renew_times %>
-  </div>
-  -->
   <div class="field">
     <%= f.label :product, "Product Name",:id=>"productname" %><br />
-    <% ary = Array.new() %>
-    <% @contract.sows.each do |asow| %>
-      <% ary << asow.product_id %>
-    <% end %>
-    <%= collection_select(:sow, :product_id, Product.find_all_not_in(ary), :id, :name, {:prompt => 'Please select the product'}, {:class=>'productselect'}) %>
+    <%= collection_select(:sow, :product_id, Product.where("id = #{@sow.product_id}"), :id, :name, {:prompt => 'Please select the product'}, {:class=>'productselect'}) %>
   </div>
 
-  <%= f.fields_for :sow_details do |fa| %>
+  <%= f.fields_for :sow_details, f.object.sow_details.build  do |fa| %>
 
       <div id="file" >
         <br /><br /><br />
@@ -167,7 +133,7 @@
 
 
 <script>
-$('#productname').tooltip({'trigger':'click hover focus', 'title': 'Please select the product name' });
+  $('#productname').tooltip({'trigger':'click hover focus', 'title': 'Please select the product name' });
   $('#casend').tooltip({'trigger':'click hover focus', 'title': 'The date on which we send credit agreement to the client' });
   $('#ca').tooltip({'trigger':'click hover focus', 'title': 'Please check this checkbox if you need sign credit agreement' });
   $('#casigndate').tooltip({'trigger':'click hover focus', 'title': 'The date on which we sign credit agreement' });
@@ -200,8 +166,7 @@ $('#productname').tooltip({'trigger':'click hover focus', 'title': 'Please selec
     $("#cadate").hide();
 
     reset_alllevel();
-    $(".productselect").bind("change", function () {
-        reset_alllevel();
+ 
         if ($(".productselect  option:selected").text().toLowerCase() == "payorintel" || $(".productselect  option:selected").text().toLowerCase() == "auto") {
             $("#type").show();
             $("#subtype").show();
@@ -214,8 +179,7 @@ $('#productname').tooltip({'trigger':'click hover focus', 'title': 'Please selec
             $("#ca_part").show();
             $("#submitbutton").show();
         }
-    });
-
+   
     $("#subtype").bind("change", function () {
         reset_sublevel();
         if ($("#type option:selected").text().toLowerCase() == "per hit" && $("#subtype option:selected").text().toLowerCase() == "global") {

@@ -4,12 +4,7 @@
        <div class="well sidebar-nav">
         <h3>Contract Details</h3>
         <table id="tb" class="table  table-condensed table-hover " cellspacing="0">
-            <thead>
-                <tr>
-                    <th class='hed'></th>
-                    <th class='hed'></th>
-                </tr>
-            </thead>
+ 
             <tbody>
                 <tr>
                     <td class='hed'>Client name: </td>
@@ -34,68 +29,65 @@
         </table> 
         <h3>Existing SOWs</h3>
         <table id="tb" class="table  table-condensed table-hover " cellspacing="0">
-            <thead>
-                <tr>
-                    <th class='hed'></th>
-                </tr>
-            </thead>
+ 
             <tbody>
                  <% @contract.sows.each do |s| %>
-                     <tr>
-                        
+                     <tr>  
                         <td class='hed '><span class="label label-success"> <%= Product.find(s.product_id).name.upcase %> </span></td>  
                     </tr>
                 <% end %>
             </tbody>
         </table> 
+
+        <hr>
+            <%= button_to 'Back to contract level', contracts_url,:class=>"btn btn-primary  ", :method => :get %>
+      
+         
+            <%= button_to 'Back to sow level', contract_sows_path(@contract),:class=>"btn btn-primary", :method => :get %>
+     
       </div><!--/.well -->
 </div>
 
 <div class="span8">
 <!--Body content-->
-         
-        <div class="span2">
-            <%= button_to 'Back to contract level', contracts_url,:class=>"btn btn-primary btn-large", :method => :get %>
-        </div>
-        <div class="span2">
-            <%= button_to 'Back to sow level', contract_sows_path(@contract),:class=>"btn btn-primary btn-large", :method => :get %>
-        </div>
+
     
      
      
     <div id="container" class="container-fluid">
-        <br /><br /> <br /> <br /><br /> <br /> 
+ 
 		<h1>New SOW</h1>
 
 		<%= render 'form' %>
 
-		<script>
-
-		    $(function(){
-		        $('.ct_date').editable({
-		            ajaxOptions: {
-		                type: 'PUT'
-		            },
-		            format: 'yyyy-mm-dd',    
-		            viewformat: 'dd/mm/yyyy',    
-		            datepicker: {
-		                    weekStart: 1
-		            }
-
-		        });
-		        $('#enable').click(function() {
-		            $('#tb .editable').editable('toggleDisabled');
-		        });  
-		        $('.ct_description').editable({
-		            ajaxOptions: {
-		                type: 'PUT'
-		            },
-		            title: 'Enter Description',
-
-		        });
-		                $('#tb .editable').editable('toggleDisabled');
-		    });
-		</script>
 
 	</div>
+            <script>
+
+            $(function(){
+                $('.ct_date').editable({
+                    ajaxOptions: {
+                        type: 'PUT'
+                    },
+                    format: 'yyyy-mm-dd',    
+                    viewformat: 'dd/mm/yyyy',    
+                    datepicker: {
+                            weekStart: 1
+                    }
+
+                });
+                $('#enable').click(function() {
+                    $('#tb .editable').editable('toggleDisabled');
+                });  
+                $('.ct_description').editable({
+                    ajaxOptions: {
+                        type: 'PUT'
+                    },
+                    title: 'Enter Description',
+
+                });
+                        $('#tb .editable').editable('toggleDisabled');
+            });
+        </script>
+
 </div>

@@ -38,6 +38,7 @@ class SowsController < ApplicationController
   # GET /sows/1/edit
   def edit
     @sow = Sow.find(params[:id])
+    @contract = Contract.find(params[:contract_id])
   end
 
   # POST /sows
@@ -62,17 +63,17 @@ class SowsController < ApplicationController
   # PUT /sows/1
   # PUT /sows/1.json
   def update
-  # @sow = Sow.find(params[:id])
+  @sow = Sow.find(params[:id])
 
-  # respond_to do |format|
-  #   if @sow.update_attributes(params[:sow])
-  #     format.html { redirect_to @sow, notice: 'Sow was successfully updated.' }
-  #     format.json { head :no_content }
-  #   else
-  #     format.html { render action: "edit" }
-  #     format.json { render json: @sow.errors, status: :unprocessable_entity }
-  #   end
-  # end
+    respond_to do |format|
+      if @sow.update_attributes(params[:sow])
+        format.html { redirect_to  contract_sows_path(@sow.contract), notice: 'Sow was successfully created.' }
+        format.json { head :no_content }
+      else
+        format.html { render action: "edit" }
+        format.json { render json: @sow.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
   # DELETE /sows/1

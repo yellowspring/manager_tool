@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130815185612) do
+ActiveRecord::Schema.define(:version => 20130819155940) do
 
   create_table "clients", :force => true do |t|
     t.string   "name"
@@ -56,8 +56,8 @@ ActiveRecord::Schema.define(:version => 20130815185612) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "commercial_rate"
-    t.boolean  "medicare_rate"
     t.boolean  "medicaid_rate"
+    t.boolean  "medicare_rate"
     t.boolean  "transaction_fee"
     t.boolean  "score"
     t.boolean  "subscription_fee"
@@ -87,15 +87,6 @@ ActiveRecord::Schema.define(:version => 20130815185612) do
     t.datetime "updated_at"
   end
 
-  create_table "salespeople_contracts", :id => false, :force => true do |t|
-    t.integer  "salesperson_id"
-    t.integer  "contract_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "salespeople_contracts", ["salesperson_id", "contract_id"], :name => "index_salespeople_contracts_on_salesperson_id_and_contract_id", :unique => true
-
   create_table "sow_detail_templates", :force => true do |t|
     t.boolean  "commercial_rate"
     t.boolean  "medicare_rate"
@@ -122,7 +113,7 @@ ActiveRecord::Schema.define(:version => 20130815185612) do
     t.integer  "subscription_fee"
     t.string   "subtype"
     t.integer  "global_rate"
-    t.string   "type"
+    t.string   "maintype"
     t.string   "file"
     t.binary   "filecontent"
   end

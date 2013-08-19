@@ -2,12 +2,14 @@ class ContractsController < ApplicationController
   # GET /contracts
   # GET /contracts.json
   def index
-    if params[:permanent] == '1'
-      @contracts = Contract.where('contract_execute_date is not NULL')
-      @permanent = "1"
+    if ! params[:cid].nil? && params[:cid].to_i > 0
+      session[:cid] = params[:cid]
+      session[:history] = params[:history]
+      @contracts = Contract.where("client_id = #{params[:cid]}") 
     else
-      @contracts = Contract.where('contract_execute_date is  NULL')
-      @permanent = "0"
+      session[:cid] = 0
+      session[:history] = params[:history]
+      @contracts = Contract.find(:all, :order => 'created_at DESC' )
     end
 
     respond_to do |format|
@@ -73,7 +75,7 @@ class ContractsController < ApplicationController
 
     respond_to do |format|
       if @contract.update_attributes(params[:contract])
-        format.html { redirect_to @contract, notice: 'Contract was successfully updated.' }
+        format.html { redirect_to contracts_path, notice: 'Contract was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

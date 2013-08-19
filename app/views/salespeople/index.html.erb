@@ -1,17 +1,9 @@
-<div class="span2">
-      <!--Sidebar content-->
-       <div class="well sidebar-nav">
-            <ul class="nav nav-list">
-              <li class="nav-header">Filter</li>     
-            </ul>
-      </div><!--/.well -->
-</div>
-
-<div class="span8">
+ 
+<div class="span12">
 <!--Body content-->
   <div id="container" class="container-fluid">
 
-<table id="tb" class="table  table-condensed table-hover " cellspacing="0">
+<table id="tb" class="table  table-condensed table-hover table-bordered " cellspacing="0">
     <thead>
       <tr>
         <th class="hed">First Name</th>
@@ -45,8 +37,7 @@
 <br />
 
 <script>
-    $('#tb tbody tr:odd').css("backgroundColor","#fcf8e3");
-    $('#tb tbody tr:even').css("backgroundColor","#d9edf7");
+ 
     $(function(){
         $('.sales_comment').editable({
             ajaxOptions: {
