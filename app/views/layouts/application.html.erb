@@ -56,7 +56,7 @@
             <a href="#">Client Management </a>
               <ul>
                 <li>
-                  <a href="/clients">Edit </a>
+                  <a href="/clients">View </a>
                 </li>
                 <li>
                   <a href="/clients/new">Add </a>
@@ -72,11 +72,8 @@
             <% end %>
             <a href="#">Contracts Management </a>
               <ul>
-                <li><a href="#">View contracts <img src="/assets/right.gif" class="rightarrowclass" style="border:0;"></a>
-                  <ul>
-                    <li><a href="/contracts">Proposed Contracts</a></li>
-                    <li><%= link_to 'Permanent Contracts', contracts_path(:permanent => '1') %></li>
-                  </ul>
+                 <li>
+                  <a href="/contracts">View </a>
                 </li>
                 <li><a href="#">Add a new Contract <img src="/assets/right.gif" class="rightarrowclass" style="border:0;"></a>
                   <ul>

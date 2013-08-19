@@ -30,7 +30,7 @@ class Client < ActiveRecord::Base
 			ids << s.id
 		  end
 		end
-		return ids
+		return ids.join(",")
   	end
 
   	validates :name, presence: true
