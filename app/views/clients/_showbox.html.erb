@@ -1,0 +1,136 @@
+ <% client = @clients.first %>
+ <div class="row">
+         <div class="span3">
+             <h2>Client Info </h2>
+
+             <table id="tb" class="table  table-condensed table-hover " cellspacing="0">
+ 
+                <tbody>
+                    <tr>
+                        <td class='hed'>Client name: </td>
+                        <td><%= client.name %> </td>
+                    </tr>
+                    <tr>
+                        <td class='hed'>Client state: </td>
+                         <td><%= client.state %> </td>    
+                    </tr>
+                    <tr>
+                        <td class='hed'>Client city: </td>
+                        <td> <%= client.city %> </td>
+                    </tr>
+                    <tr>
+                        <td class='hed'>Real cust_id: </td>
+                        <td> <%= client.cust_id %> </td>
+                    </tr>
+                    <tr>
+                        <td class='hed'>Real cust_id: </td>
+                        <td> <%= client.cust_id %> </td>
+                    </tr>
+                    <tr>
+                        <td class='hed'>Contact name: </td>
+                        <td> <%= client.contact_name %> </td>
+                    </tr>
+                    <tr>
+                        <td class='hed'>Contact phone: </td>
+                        <td> <%= client.phone %> </td>
+                    </tr>
+                    <tr>
+                        <td class='hed'>Contact email: </td>
+                        <td> <%= client.email %> </td>
+                    </tr>
+                    <tr>
+                        <td class='hed'>Sales: </td>
+                        <td> <%= client.list_of_sales %> </td>
+                    </tr>
+                    <tr>
+                        <td class='hed'>Create date: </td>
+                        <td> <%= client.created_at %> </td>
+                    </tr>
+                    <!--
+                    <tr>
+                        <div>         
+                            <button id="enable" class="btn btn-primary">enable/disable edit</button>
+                        </div>  
+                    </tr>
+                    -->
+                </tbody>
+            </table> 
+
+             <p>
+                <a class="btn" href="#">Click meeee &raquo;</a>
+             </p>
+         </div><!-- .span4 -->
+
+         <div class="span3">
+         <h2>BAA Info </h2>
+         <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+         <p><a class="btn" href="#">Click meeee &raquo;</a></p>
+         </div><!-- .span4 -->
+   
+         <div class="span3">
+         <h2>Contract Info </h2>
+           <table id="tb" class="table  table-condensed table-hover " cellspacing="0">
+ 
+                <tbody>
+                    <tr>
+                        <td class='hed'>Client name: </td>
+                        <td><%= client.contracts.first.contract_execute_date %> </td>
+                    </tr>
+                    <tr>
+                        <td class='hed'>Client state: </td>
+                         <td><%= client.state %> </td>    
+                    </tr>
+                    <tr>
+                        <td class='hed'>Client city: </td>
+                        <td> <%= client.city %> </td>
+                    </tr>
+                    <tr>
+                        <td class='hed'>Real cust_id: </td>
+                        <td> <%= client.cust_id %> </td>
+                    </tr>
+                    <tr>
+                        <td class='hed'>Real cust_id: </td>
+                        <td> <%= client.cust_id %> </td>
+                    </tr>
+                    <tr>
+                        <td class='hed'>Contact name: </td>
+                        <td> <%= client.contact_name %> </td>
+                    </tr>
+                    <tr>
+                        <td class='hed'>Contact phone: </td>
+                        <td> <%= client.phone %> </td>
+                    </tr>
+                    <tr>
+                        <td class='hed'>Contact email: </td>
+                        <td> <%= client.email %> </td>
+                    </tr>
+                    <tr>
+                        <td class='hed'>Create date: </td>
+                        <td> <%= client.contracts.first.created_at %> </td>
+                    </tr>
+                </tbody>
+            </table> 
+
+            <p><a class="btn" href="#">Click meeee &raquo;</a></p>
+         </div><!-- .span4 -->
+   
+         <div class="span3" id="xixi">
+         <h2>SOW Info </h2>
+         <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+         <p><a class="btn" href="#">Click meeee &raquo;</a></p>
+         </div><!-- .span4 -->
+
+         <div class="span3">
+         <h2>SOW haha </h2>
+         <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+         <p><a class="btn" href="#">Click meeee &raquo;</a></p>
+         </div><!-- .span4 -->
+   
+ </div><!-- .row -->
+
+ <script>
+ $(function(){
+         $('#xixi').hide(); // hide div's on load using parent class as a starting point     
+         
+    });
+ </script>

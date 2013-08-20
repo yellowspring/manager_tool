@@ -1,0 +1,169 @@
+ 
+
+<div class="span12">
+<!--Body content-->
+    <div id="container" class="container-fluid">
+
+        <h1>Listing clients</h1><br \> <br \>
+        <div>         
+            <button id="enable" class="btn btn-primary">enable/disable edit</button>
+        </div>  <br \>  
+        <!-- <div id="table-container" style="overflow:auto; height: 500px;"> -->
+        <table id="tb" class="table  table-condensed table-hover table-bordered" cellspacing="1" style="margin-right:50px;" >
+            <thead>
+              <tr>
+                <th class="hed">Name </th>
+                <th class="hed">State </th>
+                 <th class="hed">City </th>
+                <th class="hed">Cust_id </th>
+                <th class="hed">BAA send date </th>
+                <th class="hed">BAA sign date </th>
+                <th class="hed">NDA send date </th>
+                <th class="hed">NDA sign date </th>
+                <th class="hed">Contact Name </th>
+                <th class="hed">Contact Phone </th>
+                <th class="hed">Contact Email </th>
+                <th class="hed">Sales </th>
+                <th class="hed">View Contracts </th>
+                <th class="hed">Delete</th>
+              </tr>
+            </thead>
+            <tbody>
+                <% @clients.each do |client| %>
+                  <tr>
+                    <td><%= client.name %></td>
+                    <td><%=  client.state %></td>
+ 
+                    <td>
+                         <div id="city" class="cityname" data-resource="client" data-type="text" data-pk="1"  data-url="/clients/<%= client.id%>" data-value = "<%= client.city %>" >
+                        </div>
+                    </td> 
+
+                    <td>
+                         <div id="cust_id" class="ct_date" data-resource="client" data-type="text" data-pk="1"  data-url="/clients/<%= client.id%>" data-value = "<%= client.cust_id %>" >
+                        </div>
+                    </td> 
+
+                    <td>
+                         <div id="baa_send_at" class="ct_date" data-resource="client" data-type="date" data-pk="1"  data-url="/clients/<%= client.id%>" data-value = "<%= client.baa_send_at %>" >
+                        </div>
+                    </td>
+                    <td>
+                         <div id="baa_sign_at" class="ct_date" data-resource="client" data-type="date" data-pk="1"  data-url="/clients/<%= client.id%>" data-value = "<%= client.baa_sign_at %>" >
+                        </div>
+                    </td>
+                    <% if client.nda_flag == false %>
+                        <td><%= client.nda_send_at %>N/A</td>
+                        <td><%= client.nda_sign_at %>N/A</td>
+                    <% else %>
+                         <td>
+                            <div id="nda_send_at" class="ct_date" data-resource="client" data-type="date" data-pk="1"  data-url="/clients/<%= client.id%>" data-value = "<%= client.nda_send_at %>" >
+                            </div>
+                         </td>
+                         <td>
+                            <div id="nda_sign_at" class="ct_date" data-resource="client" data-type="date" data-pk="1"  data-url="/clients/<%= client.id%>" data-value = "<%= client.nda_sign_at %>" >
+                            </div>
+                         </td>
+                    <% end %>
+
+                    <td>
+                         <div id="contact_name" class="contactname" data-resource="client" data-type="text" data-pk="1"  data-url="/clients/<%= client.id%>" data-value = "<%= client.contact_name %>" >
+                        </div>
+                    </td> 
+
+                    <td>
+                         <div id="phone" class="phonenum" data-resource="client" data-type="text" data-pk="1"  data-url="/clients/<%= client.id%>" data-value = "<%= client.phone %>" >
+                        </div>
+                    </td> 
+
+                    <td>
+                         <div id="email" class="emailaddress" data-resource="client" data-type="text" data-pk="1"  data-url="/clients/<%= client.id%>" data-value = "<%= client.email %>" >
+                        </div>
+                    </td> 
+
+                    <td>
+                         <div id="salesperson_ids" class="sp" data-resource="client" data-type="checklist" data-pk="1"  data-url="/clients/<%= client.id%>"  
+                             data-value = [<%= client.ids_of_sales %>] data-original-title="Select Salespeople" >
+                        </div>
+                    </td> 
+
+               
+                    <td><%= link_to raw('<i class="icon-eye-open"></i>'), contracts_path(:cid=>client.id) %></td>
+                    <td><%= link_to raw('<i class="icon-trash "></i>'), client, confirm: 'Are you sure?', method: :delete %></td>
+                  </tr>
+                <% end %>
+            </tbody>
+        </table>
+
+        <br />
+
+    <script>
+    
+    </script>
+
+    </div> <!--! end of #container -->
+
+    <script>
+ 
+    $(function(){
+        $('.ct_date').editable({
+            ajaxOptions: {
+                type: 'PUT'
+            },
+            format: 'yyyy-mm-dd',    
+            viewformat: 'mm/dd/yyyy',    
+            datepicker: {
+                    weekStart: 1
+            }
+
+        });
+
+        $('.cityname').editable({
+            ajaxOptions: {
+                type: 'PUT'
+            },
+            title: 'Enter City Name',
+
+        });
+
+        $('.contactname').editable({
+            ajaxOptions: {
+                type: 'PUT'
+            },
+            title: 'Enter Contact Name',
+
+        });
+
+        $('.phonenum').editable({
+            ajaxOptions: {
+                type: 'PUT'
+            },
+            title: 'Enter Phone Number',
+
+        });
+
+        $('.emailaddress').editable({
+            ajaxOptions: {
+                type: 'PUT'
+            },
+            title: 'Enter Email Address',
+
+        });
+
+        $('.sp').editable({   
+            source: [
+            <% Salesperson.find(:all).each do |p| %>
+                {value: <%= p.id %>, text: <%="'#{p.first_name} #{p.last_name}'".gsub(/&/, "&amp;").gsub(/\"/, "&quot;").html_safe %>},
+            <% end %>  
+            ]
+        });
+
+        $('#enable').click(function() {
+            $('#tb .editable').editable('toggleDisabled');
+        });  
+
+        $('#tb .editable').editable('toggleDisabled');
+
+    });
+</script>
+</div>

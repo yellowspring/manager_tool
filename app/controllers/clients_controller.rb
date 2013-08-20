@@ -2,7 +2,14 @@ class ClientsController < ApplicationController
   # GET /clients
   # GET /clients.json
   def index
-    @clients = Client.all
+    if params[:clientid].nil? || params[:clientid].to_s == '0'
+      @clients = Client.all
+      session[:clientid] = 0
+    else
+      @clients = Client.where(:id=>params[:clientid])
+      session[:clientid] = params[:clientid]
+    end
+    
 
     respond_to do |format|
       format.html # index.html.erb
