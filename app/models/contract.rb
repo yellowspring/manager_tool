@@ -14,6 +14,9 @@ class Contract < ActiveRecord::Base
 		 sows.each do |s| 
 		 	pl << Product.find(s.product_id).name.upcase << " "
 		 end
-		 pl
+		if pl.empty?
+			pl = "N/A"
+		end
+		pl
 	end
 end

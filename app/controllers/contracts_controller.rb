@@ -5,11 +5,11 @@ class ContractsController < ApplicationController
     if ! params[:cid].nil? && params[:cid].to_i > 0
       session[:cid] = params[:cid]
       session[:history] = params[:history]
-      @contracts = Contract.where("client_id = #{params[:cid]}") 
+      @contracts = Contract.where("client_id = #{params[:cid]}").order(:client_id)
     else
       session[:cid] = 0
       session[:history] = params[:history]
-      @contracts = Contract.find(:all, :order => 'created_at DESC' )
+      @contracts = Contract.find(:all, :order => ' client_id, created_at DESC' )
     end
 
     respond_to do |format|

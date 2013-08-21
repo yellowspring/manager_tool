@@ -6,4 +6,9 @@ class Sow < ActiveRecord::Base
 
 
 	validates :product_id, presence: true
+
+
+	def product
+		Product.find(product_id).name.upcase  
+	end
 end

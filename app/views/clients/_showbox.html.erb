@@ -23,10 +23,6 @@
                         <td> <%= client.cust_id %> </td>
                     </tr>
                     <tr>
-                        <td class='hed'>Real cust_id: </td>
-                        <td> <%= client.cust_id %> </td>
-                    </tr>
-                    <tr>
                         <td class='hed'>Contact name: </td>
                         <td> <%= client.contact_name %> </td>
                     </tr>
@@ -57,7 +53,7 @@
             </table> 
 
              <p>
-                <a class="btn" href="#">Click meeee &raquo;</a>
+                <a class="btn" href="#">More </a>
              </p>
          </div><!-- .span4 -->
 
@@ -67,70 +63,163 @@
          <p><a class="btn" href="#">Click meeee &raquo;</a></p>
          </div><!-- .span4 -->
    
-         <div class="span3">
-         <h2>Contract Info </h2>
-           <table id="tb" class="table  table-condensed table-hover " cellspacing="0">
- 
-                <tbody>
-                    <tr>
-                        <td class='hed'>Client name: </td>
-                        <td><%= client.contracts.first.contract_execute_date %> </td>
-                    </tr>
-                    <tr>
-                        <td class='hed'>Client state: </td>
-                         <td><%= client.state %> </td>    
-                    </tr>
-                    <tr>
-                        <td class='hed'>Client city: </td>
-                        <td> <%= client.city %> </td>
-                    </tr>
-                    <tr>
-                        <td class='hed'>Real cust_id: </td>
-                        <td> <%= client.cust_id %> </td>
-                    </tr>
-                    <tr>
-                        <td class='hed'>Real cust_id: </td>
-                        <td> <%= client.cust_id %> </td>
-                    </tr>
-                    <tr>
-                        <td class='hed'>Contact name: </td>
-                        <td> <%= client.contact_name %> </td>
-                    </tr>
-                    <tr>
-                        <td class='hed'>Contact phone: </td>
-                        <td> <%= client.phone %> </td>
-                    </tr>
-                    <tr>
-                        <td class='hed'>Contact email: </td>
-                        <td> <%= client.email %> </td>
-                    </tr>
-                    <tr>
-                        <td class='hed'>Create date: </td>
-                        <td> <%= client.contracts.first.created_at %> </td>
-                    </tr>
-                </tbody>
-            </table> 
+        <div class="span3">
+        <h2>Contract Info </h2>
+            <% if client.contracts.count > 1 %>
+                <div class="accordion" id="accordion2">
+                <% client.contracts.each do |contract| %>
+                      <div class="accordion-group">
+                        <div class="accordion-heading">
+                          <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse<%= client.contracts.index(contract) %>">
+                            Contract #<%= client.contracts.index(contract) + 1 %>: <span class="badge badge-info"><%= contract.product_list%></span>
+                          </a>
+                        </div>
+                        <div id="collapse<%= client.contracts.index(contract) %>" class="accordion-body collapse ">
+                          <div class="accordion-inner">
+                                <table id="tb" class="table  table-condensed table-hover table-bordered " cellspacing="0">
+             
+                                    <tbody>
+                                        <tr>
+                                            <td class='hed'>Send date: </td>
+                                            <td> <%= contract.contract_send_at %> </td>
+                                        </tr>
+                                        <tr>
+                                            <td class='hed'>Sign date: </td>
+                                            <td> <%= contract.contract_sign_at %> </td>
+                                        </tr>
+                                        <tr>
+                                            <td class='hed'>File: </td>
+                                            <td> 
+                                                <% if contract.contractfiles.empty? %>
+                                                    N/A
+                                                <% else %>
+                                                    <% if session[:history].nil? || session[:history].upcase == 'CURRENT'  %>
+                                                    <span class="badge badge-important">
+                                                        <%= " V#{contract.contractfiles.count}  " %>
+                                                        <%= link_to raw('<i class=" icon-download icon-white" ></i>'), "#{contract.contractfiles.last.file}" %> 
+                                                    </span>
+                                                    <% else %>
+                                                        <% count = 1 %>
+                                                        <% contract.contractfiles.each do |f| %>
+                                                            <%= " V#{count}  " %>
+                                                            <%= link_to raw('<i class=" icon-download" ></i>'), "#{f.file}" %> 
+                                                            <% count = count + 1 %>
+                                                            <br />
+                                                        <% end %>
+                                                    <% end %>
+                                                <% end %>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class='hed'>Create date: </td>
+                                            <td> <%= client.contracts.first.created_at %> </td>
+                                        </tr>
+                                        <tr>
+                                            <td class='hed'>Comment: </td>
+                                            <td><%= contract.comment %> </td>
+                                        </tr>
+                                    </tbody>
+                                </table> <br />
+                                <p><a class="btn" href="#">Click meeee &raquo;</a></p>
+                          </div>
+                        </div>
+                      </div>
+                     
+                <% end %> <!-- .end of each -->
+                </div> <!--end of accordion2-->
+            <% elsif client.contracts.count == 1 %>
+                <% contract = client.contracts.first %>
+                 <table id="tb" class="table  table-condensed table-hover " cellspacing="0">
+                    <tbody>
+                        <tr>
+                            <td class='hed'>Contract #: </td>
+                            <td><span class="badge badge-success"><%= client.contracts.index(contract) + 1 %></span> </td>
+                        </tr>
+                        <tr>
+                            <td class='hed'>Product #: </td>
+                            <td> <%= contract.product_list%></td>
+                        </tr>
+                        <tr>
+                            <td class='hed'>Send date: </td>
+                            <td> <%= contract.contract_send_at %> </td>
+                        </tr>
+                        <tr>
+                            <td class='hed'>Sign date: </td>
+                            <td> <%= contract.contract_sign_at %> </td>
+                        </tr>
+                        <tr>
+                            <td class='hed'>File: </td>
+                            <td> 
+                                <% if contract.contractfiles.empty? %>
+                                    N/A
+                                <% else %>
+                                    <% if session[:history].nil? || session[:history].upcase == 'CURRENT'  %>
+                                    <span class="badge badge-important">
+                                        <%= " V#{contract.contractfiles.count}  " %>
+                                        <%= link_to raw('<i class=" icon-download icon-white" ></i>'), "#{contract.contractfiles.last.file}" %> 
+                                    </span>
+                                    <% else %>
+                                        <% count = 1 %>
+                                        <% contract.contractfiles.each do |f| %>
+                                            <%= " V#{count}  " %>
+                                            <%= link_to raw('<i class=" icon-download" ></i>'), "#{f.file}" %> 
+                                            <% count = count + 1 %>
+                                            <br />
+                                        <% end %>
+                                    <% end %>
+                                <% end %>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class='hed'>Create date: </td>
+                            <td> <%= client.contracts.first.created_at %> </td>
+                        </tr>
+                    </tbody>
+                </table> <br />
+                 <p><a class="btn" href="#">Click meeee &raquo;</a></p>
+             <% end %><!-- .end of if -->
 
-            <p><a class="btn" href="#">Click meeee &raquo;</a></p>
-         </div><!-- .span4 -->
-   
-         <div class="span3" id="xixi">
-         <h2>SOW Info </h2>
-         <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-         <p><a class="btn" href="#">Click meeee &raquo;</a></p>
-         </div><!-- .span4 -->
+         </div><!-- .end of contracts -->
+         
+         <% client.contracts.each do |contract| %>
+             <div class="span3 contract<%= client.contracts.index(contract) %>" >
+             <h2>SOW Info </h2>
+                <% contract.sows.each do |sow| %>
+                    <table id="tb" class="table  table-condensed table-hover mytable" cellspacing="0">
+                        <tbody>
+                            <tr>
+                                <td class='hed'>SOW #: </td>
+                                <td><span class="badge badge-success"><%= contract.sows.index(sow) + 1 %></span> </td>
+                            </tr>
+                            <tr>
+                                <td class='hed'>Product: </td>
+                                <td><span class="badge badge-info"><%= sow.product %></span> </td>
+                            </tr>  
+                            <tr>
+                                <td class='hed'>Kickoff date: </td>
+                                <td> <%= sow.sow_ko_date %>  </td>
+                            </tr>  
+                        </tbody>
+                    </table>  <br /><br />
+                <% end %>
+            
 
-         <div class="span3">
-         <h2>SOW haha </h2>
-         <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-         <p><a class="btn" href="#">Click meeee &raquo;</a></p>
-         </div><!-- .span4 -->
+             <p><a class="btn" href="#">Click meeee &raquo;</a></p>
+             </div> 
+         <% end %><!-- .end of sows -->
+
+  
    
  </div><!-- .row -->
 
  <script>
  $(function(){
-         $('#xixi').hide(); // hide div's on load using parent class as a starting point     
-         
+    $('#xixi').hide(); // hide div's on load using parent class as a starting point     
+
+
+    $(".myswitch>a").hover(function(){
+        $('.iswitch').toggleClass('icon-white');
+    });
+  
     });
  </script>

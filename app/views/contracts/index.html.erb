@@ -1,20 +1,13 @@
 
-
-<div class="span12">
+ 
 <!--Body content-->
 
-
-    <!--<div id="container" class="container-fluid">
-
-    <div style="float: right; margin-bottom: 10px">         
-        <button id="enable" class="btn">enable/disable edit</button>
-    </div>-->
- 
+     <br /><br />
     <h2>Listing Contracts </h2> 
 
     <div>         
             <button id="enable" class="btn btn-primary">enable/disable edit</button>
-    </div> <br \> 
+    </div>  
 
     <br /><br />
 
@@ -140,34 +133,32 @@
 
     <br />
 
-<script>
+    <script>
 
 
-    $(function(){
-        $('.ct_date').editable({
-            ajaxOptions: {
-                type: 'PUT'
-            },
-            format: 'yyyy-mm-dd',    
-            viewformat: 'dd/mm/yyyy',    
-            datepicker: {
-                    weekStart: 1
-            }
+        $(function(){
+            $('.ct_date').editable({
+                ajaxOptions: {
+                    type: 'PUT'
+                },
+                format: 'yyyy-mm-dd',    
+                viewformat: 'dd/mm/yyyy',    
+                datepicker: {
+                        weekStart: 1
+                }
 
-        });
-        $('#enable').click(function() {
-            $('#tb .editable').editable('toggleDisabled');
-        });  
-        $('.ct_description').editable({
-            ajaxOptions: {
-                type: 'PUT'
-            },
-            title: 'Enter Description',
-
-        });
+            });
+            $('#enable').click(function() {
                 $('#tb .editable').editable('toggleDisabled');
-    });
-</script>
+            });  
+            $('.ct_description').editable({
+                ajaxOptions: {
+                    type: 'PUT'
+                },
+                title: 'Enter Description',
 
-</div>
-</div>
+            });
+                    $('#tb .editable').editable('toggleDisabled');
+        });
+    </script>
+ 

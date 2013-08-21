@@ -167,13 +167,13 @@
 
     reset_alllevel();
  
-        if ($(".productselect  option:selected").text().toLowerCase() == "payorintel" || $(".productselect  option:selected").text().toLowerCase() == "auto") {
+        if ($(".productselect  option:selected").text().toLowerCase() == "payorintel" || $(".productselect  option:selected").text().toLowerCase() == "autointel") {
             $("#type").show();
             $("#subtype").show();
             $("#file").show();
             $("#submitbutton").show();
         }
-        else if($(".productselect  option:selected").text().toLowerCase() == "charity") {
+        else if($(".productselect  option:selected").text().toLowerCase() == "charity" || $(".productselect  option:selected").text().toLowerCase() == "payment") {
             $("#score").show();
             $("#file").show();
             $("#ca_part").show();
