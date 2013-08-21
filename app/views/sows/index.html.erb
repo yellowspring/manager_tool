@@ -90,30 +90,31 @@
 <% if @sows.empty? %> 
     <div class="notice"> You do not have any SOW currently. please add one! </div>
 <% else %>
+              <table id="tb" class="table  table-condensed table-hover table-bordered" cellspacing="0">
+                <thead>
+                <tr>
+                    <th class='hed'>Product </th>
+                    <th class='hed'>KickOff date </th>
+                    <th class='hed'>Production date</th>
+                    <th class='hed'>Start date </th>
+                    <th class='hed'>End date</th>
+                    <th class='hed'>Auto renew</th>
+                    <th class='hed'>Accept term (mo)</th>
+                    <th class='hed'>Renew times</th>
+                    <th class='hed'>Version </th>
+                    <th class='hed'>Uploade </th>
+                    <th class='hed'>Comment </th>
+                    <th class='hed'>Delete </th>
+                </tr>
+                </thead>
         
             <% @sows.each do |sow| %>
        
                
-                <table id="tb" class="table  table-condensed table-hover table-bordered" cellspacing="0">
-                    <thead>
-                    <tr>
-                        <th class='hed'>Product </th>
-                        <th class='hed'>KickOff date </th>
-                        <th class='hed'>Production date</th>
-                        <th class='hed'>Start date </th>
-                        <th class='hed'>End date</th>
-                        <th class='hed'>Auto renew</th>
-                        <th class='hed'>Accept term (mo)</th>
-                        <th class='hed'>Renew times</th>
-                        <th class='hed'>Version </th>
-                        <th class='hed'>Uploade </th>
-                        <th class='hed'>Comment </th>
-                        <th class='hed'>Delete </th>
-                    </tr>
-                    </thead>
+              
                     <tr>
                         <td>
-                            <%= Product.find(sow.product_id).name %>
+                            <%= Product.find(sow.product_id).name.upcase %>
                         </td>
                         <td>
                             <a href="#" id="sow_ko_date" class="sow_date" data-resource="sow" data-type="date" data-pk="1" data-url="/sows/<%= sow.id %>"  data-original-title="Select date"><%= sow.sow_ko_date %></a>    
@@ -159,9 +160,10 @@
                         <td><%= sow.comment %></td>
                         <td><%= link_to raw('<i class="icon-trash "></i>'), sow, confirm: 'Are you sure?', method: :delete %></td>
                     </tr>  
-                </table>
+               
 
-            <% end %>          
+            <% end %>
+             </table>      
 <% end %>
 <br />
 
