@@ -1,0 +1,66 @@
+ <h2>SOW Info </h2>
+    <% if contract.nil? %>
+        <p> N/A </P>
+    <% else %>
+        <% contract.sows.each do |sow| %>
+            <table id="tb" class="table  table-condensed table-hover mytable" cellspacing="0">
+                <tbody>
+                    <tr>
+                        <td class='hed'>SOW #: </td>
+                        <td><span class="badge badge-success"><%= contract.sows.index(sow) + 1 %></span> </td>
+                    </tr>
+                    <tr>
+                        <td class='hed'>Product: </td>
+                        <td><span class="badge badge-info"><%= sow.product %></span> </td>
+                    </tr>  
+                    <tr>
+                        <td class='hed'>Kickoff date: </td>
+                        <td> <%= sow.sow_ko_date %>  </td>
+                    </tr>  
+                    <tr>
+                        <td class='hed'>Production date: </td>
+                        <td> <%= sow.sow_production_date %>  </td>
+                    </tr>  
+                    <tr>
+                        <td class='hed'>Start date: </td>
+                        <td> <%= sow.sow_start_date %>  </td>
+                    </tr> 
+                    <tr>
+                        <td class='hed'>End date: </td>
+                        <td> <%= sow.sow_end_date %>  </td>
+                    </tr> 
+                    <tr>
+                        <td class='hed'>Auto renew: </td>
+                        <td> <%= sow.auto_renew %>  </td>
+                    </tr>
+                    <tr>
+                        <td class='hed'>File: </td>
+                        <% count = 1 %>
+                        <td>
+                            <% sow.sow_details.each do |f| %>
+                                <% if sow.sow_details.count == count %>
+                                    <span class="badge badge-important">
+                                <% else %>
+                                    <span class="badge ">
+                                <% end %>
+                                <%= " V#{count}  " %>
+                                <% if sow.sow_details.count == count %>
+                                    <%= link_to raw('<i class=" icon-download icon-white" ></i>'), "#{f.file}" %> 
+                                <% else %>
+                                    <%= link_to raw('<i class=" icon-download icon-white" ></i>'), "#{f.file}" %> 
+                                <% end %>
+                                </span>
+                                <% count = count + 1 %>
+                                <br />
+                            <% end %> 
+                        </td>
+                    </tr>                 
+                    <tr>
+                        <td class='hed'>Create Date: </td>
+                        <td> <%= sow.created_at %>  </td>
+                    </tr> 
+                </tbody>
+            </table>  <br />
+        <% end %>
+        <p><a class="btn" href="#">Click meeee &raquo;</a></p>
+    <% end %>

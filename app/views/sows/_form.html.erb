@@ -47,7 +47,7 @@
     <% @contract.sows.each do |asow| %>
       <% ary << asow.product_id %>
     <% end %>
-    <%= collection_select(:sow, :product_id, Product.find_all_not_in(ary), :id, :name, {:prompt => 'Please select the product'}, {:class=>'productselect'}) %>
+    <%= collection_select(:sow, :product_id, Product.find_all_not_in(ary), :id, :formal_name, {:prompt => 'Please select the product'}, {:class=>'productselect'}) %>
   </div>
 
   <%= f.fields_for :sow_details do |fa| %>

@@ -71,6 +71,7 @@
                       <div class="accordion-group">
                         <div class="accordion-heading">
                           <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse<%= client.contracts.index(contract) %>">
+                            <i class="icon-chevron-down"></i>
                             Contract #<%= client.contracts.index(contract) + 1 %>: <span class="badge badge-info"><%= contract.product_list%></span>
                           </a>
                         </div>
@@ -136,7 +137,7 @@
                             <td><span class="badge badge-success"><%= client.contracts.index(contract) + 1 %></span> </td>
                         </tr>
                         <tr>
-                            <td class='hed'>Product #: </td>
+                            <td class='hed'>Products: </td>
                             <td> <%= contract.product_list%></td>
                         </tr>
                         <tr>
@@ -181,32 +182,24 @@
 
          </div><!-- .end of contracts -->
          
-         <% client.contracts.each do |contract| %>
-             <div class="span3 contract<%= client.contracts.index(contract) %>" >
-             <h2>SOW Info </h2>
-                <% contract.sows.each do |sow| %>
-                    <table id="tb" class="table  table-condensed table-hover mytable" cellspacing="0">
-                        <tbody>
-                            <tr>
-                                <td class='hed'>SOW #: </td>
-                                <td><span class="badge badge-success"><%= contract.sows.index(sow) + 1 %></span> </td>
-                            </tr>
-                            <tr>
-                                <td class='hed'>Product: </td>
-                                <td><span class="badge badge-info"><%= sow.product %></span> </td>
-                            </tr>  
-                            <tr>
-                                <td class='hed'>Kickoff date: </td>
-                                <td> <%= sow.sow_ko_date %>  </td>
-                            </tr>  
-                        </tbody>
-                    </table>  <br /><br />
-                <% end %>
-            
 
-             <p><a class="btn" href="#">Click meeee &raquo;</a></p>
-             </div> 
-         <% end %><!-- .end of sows -->
+        <% if client.contracts.count > 1 %>
+            <% client.contracts.each do |contract| %>
+                <div class="span3 allsows"  id="collapse<%= client.contracts.index(contract) %>sows" >
+                  <%= render 'showsow', contract: contract %>
+                </div> 
+            <% end %> <!-- .end of  client.contracts.each -->
+        <% elsif client.contracts.count == 1 %>
+            <% contract = client.contracts.first %>
+            <div class="span3" >
+                <%= render 'showsow', contract: contract %>   
+            </div> 
+        <% else %>
+            <% contract = nil %>
+            <div class="span3" >
+                <%= render 'showsow', contract: contract %>   
+            </div> 
+        <% end %><!-- .end of sows -->
 
   
    
@@ -214,12 +207,24 @@
 
  <script>
  $(function(){
-    $('#xixi').hide(); // hide div's on load using parent class as a starting point     
+    $('.allsows').hide(); // hide div's on load using parent class as a starting point     
 
 
     $(".myswitch>a").hover(function(){
         $('.iswitch').toggleClass('icon-white');
     });
+    
+    <% client.contracts.each do |contract| %>
+        $("#collapse<%= client.contracts.index(contract) %>").on('show', function() {
+            $('.allsows').hide();
+            $("#collapse<%= client.contracts.index(contract) %>").siblings(".accordion-heading").find('.accordion-toggle i').toggleClass('icon-chevron-down icon-chevron-up');
+            $("#collapse<%= client.contracts.index(contract) %>sows").show();
+        });
+        $("#collapse<%= client.contracts.index(contract) %>").on('hide', function() {
+            $('.allsows').hide();
+            $(".icon-chevron-up").removeClass("icon-chevron-up").addClass("icon-chevron-down");
+        });
+    <% end %>
   
     });
  </script>
