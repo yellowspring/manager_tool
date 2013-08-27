@@ -53,17 +53,59 @@
             </table> 
 
              <p>
-                <a class="btn" href="#">More </a>
+                 
              </p>
          </div><!-- .span4 -->
 
          <div class="span3">
          <h2>BAA Info </h2>
-         <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-         <p><a class="btn" href="#">Click meeee &raquo;</a></p>
+            <table id="tb" class="table  table-condensed table-hover " cellspacing="0">
+                <tbody>
+                    <tr>
+                        <td class='hed'>BAA send date: </td>
+                        <td> <%= client.baa_send_at %> </td>
+                    </tr>
+                    <tr>
+                        <td class='hed'>BAA sign date: </td>
+                        <td> <%= client.baa_sign_at %> </td>
+                    </tr>
+                    <tr>
+                            <td class='hed'>BAA File: </td>
+                            <td> 
+                                <% if client.baafiles.empty? %>
+                                    N/A
+                                <% else %>
+                                    <% if session[:history].nil? || session[:history].upcase == 'CURRENT'  %>
+                                    <span class="badge badge-important">
+                                        <%= " V#{client.baafiles.count}  " %>
+                                        <%= link_to raw('<i class=" icon-download icon-white" ></i>'), "#{client.baafiles.last.file}" %> 
+                                    </span>
+                                    <% else %>
+                                        <% count = 1 %>
+                                        <% client.baafiles.each do |f| %>
+                                            <%= " V#{count}  " %>
+                                            <%= link_to raw('<i class=" icon-download" ></i>'), "#{f.file}" %> 
+                                            <% count = count + 1 %>
+                                            <br />
+                                        <% end %>
+                                    <% end %>
+                                <% end %>
+                            </td>
+                        </tr>
+                    <tr>
+                        <td class='hed'>NDA send date: </td>
+                        <td> <%= client.baa_send_at %> </td>
+                    </tr>
+                    <tr>
+                        <td class='hed'>NDA sign date: </td>
+                        <td> <%= client.nda_sign_at %> </td>
+                    </tr> 
+                </tbody>
+            </table> 
+         
          </div><!-- .span4 -->
    
-        <div class="span3">
+        <div class="span3"><!-- .start of contract -->
         <h2>Contract Info </h2>
             <% if client.contracts.count > 1 %>
                 <div class="accordion" id="accordion2">
@@ -121,7 +163,7 @@
                                         </tr>
                                     </tbody>
                                 </table> <br />
-                                <p><a class="btn" href="#">Click meeee &raquo;</a></p>
+                                <p> <%=link_to "Details", contracts_url(:cid=>client.id)%></p>
                           </div>
                         </div>
                       </div>
@@ -177,7 +219,8 @@
                         </tr>
                     </tbody>
                 </table> <br />
-                 <p><a class="btn" href="#">Click meeee &raquo;</a></p>
+
+                <%=link_to "Details", contracts_url(:cid=>client.id)%> 
              <% end %><!-- .end of if -->
 
          </div><!-- .end of contracts -->

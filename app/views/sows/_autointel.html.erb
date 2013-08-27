@@ -1,4 +1,20 @@
-<div class="field"  >
-        <%= fa.label :state1,"State" %>
-        <%= fa.select :state1, [['Per Hit'],['Contingency']], :prompt=>"Select" %><br /><br /><br />
-</div>
+  <% sow.autointel_rates.build %>
+  <%= f.fields_for :autointel_rates do |fa| %>
+
+    
+  	 
+
+      <div class="field"  id="type">
+        <%= fa.label :maintype,"Type" %>
+        <%= fa.select  :dummyfield, [['Per Hit'],['Contingency']], :prompt=>"Select" %><br /><br /><br />
+      </div>
+
+      <div id="autointel">
+         <%= fa.label :autolabel, "States" %> 
+         <input type="button" value="Add State" class="btn" id="addstate" /><br /><br />
+          <fieldset id="autointelstate">
+          </fieldset>
+          
+      </div>
+     
+   <% end %><br />

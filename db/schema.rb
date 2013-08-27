@@ -11,7 +11,37 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130825181929) do
+ActiveRecord::Schema.define(:version => 20130827135946) do
+
+  create_table "autointel_rates", :force => true do |t|
+    t.integer  "sow_id"
+    t.integer  "version"
+    t.string   "state"
+    t.float    "rate"
+    t.integer  "term"
+    t.string   "maintype"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "baafiles", :force => true do |t|
+    t.integer  "client_id"
+    t.string   "file"
+    t.binary   "filecontent"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "charity_rates", :force => true do |t|
+    t.integer  "sow_id"
+    t.integer  "version"
+    t.float    "transaction_fee"
+    t.float    "subscription_fee"
+    t.integer  "term"
+    t.string   "maintype"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "clients", :force => true do |t|
     t.string   "name"
@@ -51,13 +81,46 @@ ActiveRecord::Schema.define(:version => 20130825181929) do
     t.date     "contract_sign_at"
   end
 
+  create_table "ndafiles", :force => true do |t|
+    t.integer  "client_id"
+    t.string   "file"
+    t.binary   "filecontent"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "payment_rates", :force => true do |t|
+    t.integer  "sow_id"
+    t.integer  "version"
+    t.float    "transaction_fee"
+    t.float    "subscription_fee"
+    t.integer  "term"
+    t.string   "maintype"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "payorintel_rates", :force => true do |t|
+    t.integer  "sow_id"
+    t.integer  "version"
+    t.integer  "term"
+    t.string   "maintype"
+    t.string   "subtype"
+    t.float    "commercial"
+    t.float    "medicare"
+    t.float    "medicaid"
+    t.float    "global"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "products", :force => true do |t|
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "commercial_rate"
-    t.boolean  "medicare_rate"
     t.boolean  "medicaid_rate"
+    t.boolean  "medicare_rate"
     t.boolean  "transaction_fee"
     t.boolean  "score"
     t.boolean  "subscription_fee"
@@ -87,15 +150,6 @@ ActiveRecord::Schema.define(:version => 20130825181929) do
     t.datetime "updated_at"
   end
 
-  create_table "salespeople_contracts", :id => false, :force => true do |t|
-    t.integer  "salesperson_id"
-    t.integer  "contract_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "salespeople_contracts", ["salesperson_id", "contract_id"], :name => "index_salespeople_contracts_on_salesperson_id_and_contract_id", :unique => true
-
   create_table "sow_detail_templates", :force => true do |t|
     t.boolean  "commercial_rate"
     t.boolean  "medicare_rate"
@@ -115,17 +169,28 @@ ActiveRecord::Schema.define(:version => 20130825181929) do
     t.float    "medicaid_rate"
     t.integer  "term"
     t.integer  "version"
-    t.float    "transaction_fee"
+    t.float    "payment_transaction_fee"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "sow_id"
-    t.integer  "subscription_fee"
+    t.integer  "payment_subscription_fee"
     t.string   "subtype"
     t.integer  "global_rate"
     t.string   "maintype"
     t.string   "file"
     t.binary   "filecontent"
     t.string   "autointel"
+    t.float    "charity_transaction_fee"
+    t.float    "charity_subscription_fee"
+  end
+
+  create_table "sow_files", :force => true do |t|
+    t.integer  "sow_id"
+    t.integer  "version"
+    t.string   "file"
+    t.binary   "file_content"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "sows", :force => true do |t|

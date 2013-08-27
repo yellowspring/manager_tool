@@ -26,7 +26,7 @@ class SowsController < ApplicationController
   # GET /sows/new.json
   def new
     @sow = Sow.new
-    @sow.sow_details.build
+    @sow.sow_files.build
     @contract = Contract.find(params[:contract_id])
 
     respond_to do |format|

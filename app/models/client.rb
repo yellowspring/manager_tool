@@ -1,9 +1,11 @@
 class Client < ActiveRecord::Base
 	has_many :contracts, dependent: :destroy
+	has_many :baafiles, dependent: :destroy
+	has_many :ndafiles, dependent: :destroy
 	has_many :sales, dependent: :destroy
 	has_many :salespeople, through: :sales
 
-	accepts_nested_attributes_for :contracts, :sales, :salespeople
+	accepts_nested_attributes_for :contracts, :sales, :salespeople, :baafiles, :ndafiles
 
 	def name_with_state
 		if city.nil? or city =~ /^\s*$/

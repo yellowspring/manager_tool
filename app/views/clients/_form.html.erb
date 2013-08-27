@@ -44,6 +44,9 @@
     <%= f.label :Sales %>  
     <%= f.select :salesperson_ids, Salesperson.all.collect {|x| ["#{x.last_name},#{x.first_name}", x.id]}, {}, :multiple => true %>  
   </div>
+
+  <fieldset>
+
   <div class="field" >
     <%= f.label :bsd, "BAA Send Date" , :id=>"baa" %> 
     <%= f.datepicker :baa_send_at  %> 
@@ -52,19 +55,34 @@
   <div class="field">
     <%= f.label :bid, "BAA Sign Date", :id=>"baasign" %> 
     <%= f.datepicker :baa_sign_at  %>  
-  </div>  <br><br><br>
+  </div>  <br>
+   <%= f.fields_for :baafiles, f.object.baafiles.build  do |builder| %>
+    <p><%= builder.file_field :file %></p>
+    <p><%= builder.hidden_field :file_cache %></p>
+  <% end %><br /> 
+  </fieldset>
+
   <div class="field">
     <%= f.label :sn, "Sign NDA ?" , :id=>"nda" %> 
     <%= f.label :yes, "yes"   %> 
     <%= f.check_box :nda_flag ,:style => "float:left;", :id=>"ndacheck"%> 
     <br><br><br>  
   </div>  
-  <div class="field" id="ndadate" >
+
+  <fieldset  id="ndadate" >
+  <div class="field" >
     <%= f.label :nsd, "NDA send date"  %>
     <%= f.datepicker :nda_send_at  %>  <br><br><br>  
     <%= f.label :nid, "NDA sign date"  %> 
     <%= f.datepicker :nda_sign_at  %>   
-  </div>  <br><br><br>  
+  </div>  
+  <%= f.fields_for :ndafiles, f.object.ndafiles.build  do |builder| %>
+    <p><%= builder.file_field :file %></p>
+    <p><%= builder.hidden_field :file_cache %></p>
+  <% end %><br /><br> 
+  </fieldset>
+
+
   <div class="field">
     <%= f.label :comment %><br />
     <%= f.text_area :comment, :cols => 20, :rows => 5%>
