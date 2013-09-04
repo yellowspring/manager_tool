@@ -27,6 +27,7 @@ class SowsController < ApplicationController
   def new
     @sow = Sow.new
     @sow.sow_files.build
+    @sow.autointel_rates.build
     @contract = Contract.find(params[:contract_id])
 
     respond_to do |format|
@@ -38,6 +39,7 @@ class SowsController < ApplicationController
   # GET /sows/1/edit
   def edit
     @sow = Sow.find(params[:id])
+    @sow.autointel_rates.build(@sow.autointel_rates.last.clone.attributes)
     @contract = Contract.find(params[:contract_id])
   end
 

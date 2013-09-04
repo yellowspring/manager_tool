@@ -6,15 +6,66 @@
 
       <div class="field"  id="type">
         <%= fa.label :maintype,"Type" %>
-        <%= fa.select  :dummyfield, [['Per Hit'],['Contingency']], :prompt=>"Select" %><br /><br /><br />
+        <%= fa.select  :maintype, [['Per Hit'],['Contingency']], :prompt=>"Select" %><br /><br /><br />
       </div>
 
-      <div id="autointel">
-         <%= fa.label :autolabel, "States" %> 
-         <input type="button" value="Add State" class="btn" id="addstate" /><br /><br />
-          <fieldset id="autointelstate">
-          </fieldset>
-          
-      </div>
+
+      <table>
+ 
+        <tbody>
+          <% state_index = 0 %>
+          <% column_num = 4 %>
+          <% row_num = ( us_states.length.to_f / column_num ).ceil %>
+          <% row_num.times do %>
+            <tr>
+              
+                <% if state_index < us_states.length %>
+                  <td style="width: 150px;text-align:right;">
+                    <%= us_states[state_index][0] %>
+                  </td> 
+                  <td>
+                    <%= fa.text_field us_states[state_index][1].to_sym, :value => '$', :style => "color: red; width: 150px;margin: 10px",:class => "stateinput" %>
+                  </td>  
+                <% else %>
+                  <td></td><td></td>
+                <% end %>
+
+                <% if (state_index + row_num) < us_states.length %>
+                  <td style="width: 250px;text-align:right;">
+                    <%= us_states[state_index + row_num][0] %>
+                  </td> 
+                  <td>
+                    <%= fa.text_field us_states[state_index + row_num][1].to_sym, :value => '$', :style => "color: red; width: 150px;margin: 10px",:class => "stateinput" %>
+                  </td>  
+                <% else %>
+                  <td></td><td></td>
+                <% end %>
+
+                <% if (state_index + 2 * row_num) < us_states.length %>
+                  <td style="width: 150px;text-align:right;">
+                    <%= us_states[state_index + 2 * row_num][0] %>
+                  </td> 
+                  <td>
+                    <%= fa.text_field us_states[state_index + 2 * row_num][1].to_sym, :value => '$', :style => "color: red; width: 150px;margin: 10px",:class => "stateinput" %>
+                  </td>  
+                <% else %>
+                  <td></td><td></td>
+                <% end %>
+                
+                 <% if (state_index + 3 * row_num) < us_states.length %>
+                  <td style="width: 150px;text-align:right;">
+                    <%= us_states[state_index + 3 * row_num][0] %>
+                  </td> 
+                  <td>
+                    <%= fa.text_field us_states[state_index + 3 * row_num][1].to_sym, :value => '$', :style => "color: red; width: 150px;margin: 10px",:class => "stateinput" %>
+                  </td>  
+                <% else %>
+                  <td></td><td></td>
+                <% end %>
+            </tr>
+            <% state_index = state_index + 1 %>
+          <% end %>
+        </tbody>
+      </table>
      
    <% end %><br />
