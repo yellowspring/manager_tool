@@ -1,0 +1,128 @@
+  <% if sow.payorintel_rates.empty? %>
+     <% sow.payorintel_rates.build %>
+  <% else %>
+     <% sow.payorintel_rates.build(sow.payorintel_rates.last.dup.attributes) %>
+  <% end %>
+ 
+  
+  <%= f.fields_for :payorintel_rates, sow.payorintel_rates.last do |fa| %>
+ 
+      <div class="field"  id="payorintel_type">
+        <%= fa.label :maintype,"Type" %>
+        <%= fa.select  :maintype, [['Per Hit'],['Contingency']], :prompt=>"Select" %><br /><br /><br />
+      </div>
+
+      <div class="field"  id="payorintel_subtype">
+        <%= fa.label :subtype,"Subtype" %>
+        <%= fa.select  :subtype, [['Global'],['Per Payor']], :prompt=>"Select" %><br /><br /><br />
+      </div>
+
+       <table id='perpayor_table'>
+        <thead>
+          <th></th>
+          <th class="tablesign"></th>
+        </thead>
+        <tbody>
+            <tr>
+                  <td style="width: 150px;text-align:center;">
+                    <%= fa.label :commercial,"Commercial" %>
+                  </td> 
+
+                  <td>
+                   <%= fa.text_field :commercial, :class=>"payorvalue" %> 
+                  </td>  
+            </tr>
+            <tr>
+                  <td style="width: 150px;text-align:center;">
+                    <%= fa.label :medicare,"Medicare" %>
+                  </td> 
+                  <td>
+                   <%= fa.text_field :medicare, :class=>"payorvalue" %> 
+                  </td>  
+            </tr>
+            <tr>
+                  <td style="width: 150px;text-align:center;">
+                    <%= fa.label :medicaid,"Medicaid" %> 
+                  </td> 
+                  <td>
+                   <%= fa.text_field :medicaid, :class=>"payorvalue" %> 
+                  </td>  
+            </tr>
+        </tbody>
+      </table>
+
+      <table id='global_table'>
+        <thead>
+          <th></th>
+          <th class="tablesign"></th>
+        </thead>
+        <tbody>
+            <tr>
+                  <td  >
+                     <%= fa.label :global,"Global" %>
+                  </td> 
+
+                  <td>
+                   <%= fa.text_field :global, :class=>"globalvalue"  %> 
+                  </td>  
+            </tr>
+        </tbody>
+      </table>
+     
+
+     
+   <% end %><br />
+
+
+   <script>
+ 
+  $(function(){
+     function hide_table() {
+        $("#perpayor_table").hide();
+        $("#global_table").hide();
+     }
+     hide_table();
+
+     if ($("#payorintel_type  option:selected").text().toLowerCase() == "per hit" ) {
+       $(".tablesign").each(function() { $(this).html('$');});
+     } else  if (  $(".payorintel_type  option:selected").text().toLowerCase() == "contingency" ) {
+       $(".tablesign").each(function() { $(this).html('%');});
+     }
+
+     if ($("#payorintel_subtype  option:selected").text().toLowerCase() == "global" ) {
+        $("#global_table").show();
+     } else  if ($("#payorintel_subtype  option:selected").text().toLowerCase() == "per payor" ) {
+        $("#perpayor_table").show();
+     }
+
+     $("#payorintel_type").bind("change", function () {
+        
+          if ($("#payorintel_type option:selected").text().toLowerCase() == "per hit" ) {
+            $(".tablesign").each(function() { $(this).html('$');});
+          
+          } else if($("#payorintel_type option:selected").text().toLowerCase() == "contingency" ) {
+              $(".tablesign").each(function() { $(this).html('%');});
+          } else {
+            return;
+          }
+    });
+
+    $("#payorintel_subtype").bind("change", function () {
+        if ( $("#payorintel_subtype option:selected").text().toLowerCase() == "global") {
+             hide_table();
+            $("#global_table").show();
+            $(".payorvalue").each(function() { $(this).val('');});
+        } else if( $("#payorintel_subtype option:selected").text().toLowerCase() == "per payor" ) {
+            hide_table();
+            $("#perpayor_table").show();
+             $(".globalvalue").each(function() { $(this).val('');});
+        } else {
+          hide_table();
+          return;
+        }
+    });
+   
+
+  });
+
+</script>

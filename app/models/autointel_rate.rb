@@ -1,8 +1,6 @@
 class AutointelRate < ActiveRecord::Base
 	include 
 	belongs_to :sow
-	 
-	before_save :standardise_numbers
 
 
 	def rate_with_sign(col)
@@ -75,15 +73,11 @@ class AutointelRate < ActiveRecord::Base
 	    ]
 	end
 
-	protected
-
-    # Called before this object is saved to the DB
     def standardise_numbers
     	us_states.each do |f|
-    		if ! self.send(f[1]).nil?
-    			rate_value = self.send(f[1])
-    			rate_value.gsub(/[^\./d]/, '');
-    			self.write_attribute(f[1], rate_value)
+    		define_method "#{f[1]}=" do |rate_value|
+    			rate_value.to_s.gsub(/[^\.\d]/, '').to_f
+    			self.update_attribute(f[1], rate_value)
     		end       
     	end
     end
