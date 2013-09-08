@@ -10,6 +10,7 @@
       <div class="field"  id="autointel_type">
         <%= fa.label :maintype,"Type" %>
         <%= fa.select  :maintype, [['Per Hit'],['Contingency']], :prompt=>"Select" %><br /><br /><br />
+        <%= fa.hidden_field :version, :value => (@sow.version + 1) %>
       </div>
 
 
@@ -93,8 +94,12 @@
 
      if ($("#autointel_type  option:selected").text().toLowerCase() == "per hit" ) {
        $(".tablesign").each(function() { $(this).html('$');});
+       $("#autointel_table").show();
      } else  if (  $(".autointel_type  option:selected").text().toLowerCase() == "contingency" ) {
        $(".tablesign").each(function() { $(this).html('%');});
+       $("#autointel_table").show();
+     } else {
+       $("#autointel_table").hide();
      }
 
      $("#autointel_type").bind("change", function () {

@@ -1,0 +1,25 @@
+  <% if sow.payment_rates.empty? %>
+     <% sow.payment_rates.build %>
+  <% else %>
+     <% sow.payment_rates.build(sow.payment_rates.last.dup.attributes) %>
+  <% end %>
+ 
+  
+  <%= f.fields_for :payment_rates, sow.payment_rates.last do |fa| %>
+ 
+      <div id="score_payment">
+        <div class="field">
+          <%= fa.label "Payment Monthly Fee ($)" %> 
+          <%= fa.text_field :subscription_fee  %>
+        </div><br /><br /><br />
+        <div class="field">
+          <%= fa.label "Payment Transaction Fee ($)" %>
+          <%= fa.text_field :transaction_fee  %>
+          <%= fa.hidden_field :version, :value => (@sow.version + 1) %>
+        </div><br /><br /><br />
+      </div>
+     
+   <% end %><br />
+
+
+   

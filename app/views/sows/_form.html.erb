@@ -18,12 +18,13 @@
     <%= collection_select(:sow, :product_id, Product.find_all_in(ary), :id, :formal_name, {:prompt => 'Please select the product'}, {:class=>'productselect'}) %>
   </div>
 
-   <%= f.fields_for :sow_files do |fi| %>
+   <%= f.fields_for :sow_files, f.object.sow_files.build do |fi| %>
 
       <div id="file" >
         <br /><br /><br />
         <p><%= fi.file_field :file %></p>
-        <p><%= fi.hidden_field :file_cache %></p><br /><br /><br />
+        <%= fi.hidden_field :version, :value => (@sow.version + 1) %>
+        <%= fi.hidden_field :file_cache %><br /><br /><br />
       </div>
    <% end %>
 
@@ -35,6 +36,13 @@
     <%= render :partial=>"autointel",:locals=>{:f=>f,:sow=>@sow} %>
   </div>
 
+  <div id="payment">
+    <%= render :partial=>"payment",:locals=>{:f=>f,:sow=>@sow} %>
+  </div>
+
+  <div id="charity">
+    <%= render :partial=>"charity",:locals=>{:f=>f,:sow=>@sow} %>
+  </div>
 
  <br> 
   <div class="actions" id = "submitbutton">
@@ -45,68 +53,47 @@
 
 <script>
   $('#productname').tooltip({'trigger':'click hover focus', 'title': 'Please select the product name' });
-  $('#casend').tooltip({'trigger':'click hover focus', 'title': 'The date on which we send credit agreement to the client' });
-  $('#ca').tooltip({'trigger':'click hover focus', 'title': 'Please check this checkbox if you need sign credit agreement' });
-  $('#casigndate').tooltip({'trigger':'click hover focus', 'title': 'The date on which we sign credit agreement' });
+  //$('#casend').tooltip({'trigger':'click hover focus', 'title': 'The date on which we send credit agreement to the client' });
+  //$('#ca').tooltip({'trigger':'click hover focus', 'title': 'Please check this checkbox if you need sign credit agreement' });
+  //$('#casigndate').tooltip({'trigger':'click hover focus', 'title': 'The date on which we sign credit agreement' });
 
   function reset_alllevel() {
-    $("#type").hide();
-    $("#subtype").hide();
-    $("#contingencyperpayor").hide();
-    $("#contingencyglobal").hide();
-    $("#perhitperpayor").hide();
-    $("#perhitglobal").hide();
-    $("#score_payment").hide();
-    $("#score_charity").hide();
-    $("#term").hide();
-    $("#file").hide();
-    $("#ca_part").hide();
-    $("#submitbutton").hide();
+
     $("#autointel").hide();
     $("#payorintel").hide();
+    $("#charity").hide();
+    $("#payment").hide();
+    $("#submitbutton").hide();
   }
 
-
-  function reset_sublevel() {
-    $("#contingencyperpayor").hide();
-    $("#contingencyglobal").hide();
-    $("#perhitperpayor").hide();
-    $("#perhitglobal").hide();
-    $("#score").hide();
-    $("#term").hide();
-    $("#autointel").hide();
-  }
-
+ 
   $(function(){
-    $("#cadate").hide();
+    //$("#cadate").hide();
     reset_alllevel();
 
     if ($(".productselect  option:selected").text().toLowerCase() == "payorintel" ) {
-              $("#payorintel").show();
-               
+              $("#payorintel").show();     
               $("#file").show();
               $("#submitbutton").show();
     } else if (  $(".productselect  option:selected").text().toLowerCase() == "autointel" ) {
               $("#file").show();
-              $(".autointel").show();
+              $("#autointel").show();
               $("#submitbutton").show();
     } else if($(".productselect  option:selected").text().toLowerCase() == "charity" ) {
-            $("#score_charity").show();
               $("#file").show();
-              $("#ca_part").show();
+              $("#charity").show();
               $("#submitbutton").show();
     } else if(  $(".productselect  option:selected").text().toLowerCase() == "payment") {
-              $("#score_payment").show();
               $("#file").show();
-              $("#ca_part").show();
+              $("#payment").show();
               $("#submitbutton").show();
 
     } else if ($(".productselect  option:selected").text().toLowerCase() == "payment and charity") {
-        $("#score_payment").show();
-        $("#score_charity").show();
-        $("#file").show();
-        $("#ca_part").show();
-        $("#submitbutton").show();
+              $("#file").show();
+              $("#payment").show();
+              $("#charity").show();
+              $("#submitbutton").show();
+
     }
 
 
@@ -116,7 +103,6 @@
         reset_alllevel();
         if ($(".productselect  option:selected").text().toLowerCase() == "payorintel" ) {
             $("#payorintel").show();
-      
             $("#file").show();
             $("#submitbutton").show();
         } else if ( $(".productselect  option:selected").text().toLowerCase() == "autointel" ) {
@@ -125,21 +111,18 @@
             $("#submitbutton").show();
 
         } else if($(".productselect  option:selected").text().toLowerCase() == "charity" ) {
-            $("#score_charity").show();
-            $("#file").show();
-            $("#ca_part").show();
-            $("#submitbutton").show();
+              $("#file").show();
+              $("#charity").show();
+              $("#submitbutton").show();
         } else if( $(".productselect  option:selected").text().toLowerCase() == "payment") {
-            $("#score_payment").show();
-            $("#file").show();
-            $("#ca_part").show();
-            $("#submitbutton").show();
+              $("#file").show();
+              $("#payment").show();
+              $("#submitbutton").show();
         } else if( $(".productselect  option:selected").text().toLowerCase() == "payment and charity") {
-            $("#score_payment").show();
-            $("#score_charity").show();
-            $("#file").show();
-            $("#ca_part").show();
-            $("#submitbutton").show();
+              $("#file").show();
+              $("#payment").show();
+              $("#charity").show();
+              $("#submitbutton").show();
         }
     });
 

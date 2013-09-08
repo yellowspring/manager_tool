@@ -1,0 +1,25 @@
+  <% if sow.charity_rates.empty? %>
+     <% sow.charity_rates.build %>
+  <% else %>
+     <% sow.charity_rates.build(sow.charity_rates.last.dup.attributes) %>
+  <% end %>
+ 
+  
+  <%= f.fields_for :charity_rates, sow.charity_rates.last do |fa| %>
+ 
+      <div id="score_charity">
+        <div class="field">
+          <%= fa.label :chmons, "Charity Monthly Fee ($)" %> 
+          <%= fa.text_field :subscription_fee  %>
+        </div><br /><br /><br />
+        <div class="field">
+          <%= fa.label :chtrans, "Charity Transaction Fee ($)" %>
+          <%= fa.text_field :transaction_fee  %>
+          <%= fa.hidden_field :version, :value => (@sow.version + 1) %>
+        </div><br /><br /><br />
+      </div>
+     
+   <% end %><br />
+
+
+   

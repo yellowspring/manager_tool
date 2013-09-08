@@ -54,9 +54,10 @@ class SowsController < ApplicationController
         
           format.html { redirect_to new_contract_sow_path(@sow.contract), notice: 'Sow was successfully created.' }
           format.json { render json: @sow, status: :created, location: @sow }
-
       else
-        format.html { redirect_to new_contract_sow_path(@sow.contract) }
+        @contract = Contract.find(params[:contract_id])
+        @path = [@contract,@sow]
+        format.html { render action: "new" }
         format.json { render json: @sow.errors, status: :unprocessable_entity }
       end
     end
