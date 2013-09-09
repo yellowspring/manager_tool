@@ -1,8 +1,10 @@
  <!--Body content-->
     <div id="container" class="container-fluid">
-        <div class="row">
+        <div class="row-fluid">
             <br \>
+
             <div class="span4" >
+
                  <form class="form-inline " method="get">
                       <ul class="nav nav-pills">
                         <li>
@@ -14,20 +16,21 @@
                         </li>
                       </ul>
                 </form>    
-            </div>
-            <div class="span9">
-<!--                     <div class="hero-unit">
-                        <h2>Awesome responsive layout</h2>
-                    </div><!-- .hero-unit -->  
-        
                
+        
+            </div> 
+            <div class="span8">
+                
+                   
+                    <button id="enable" class="btn btn-primary">enable/disable edit</button>
+                 
             </div><!--end of span9-->
-        </div><!--end of row-->
+        </div><!--end of row--> <br \> 
+
+        
 
         <% if session[:clientid].to_s == '0' %>
-            <div>         
-                <button id="enable" class="btn btn-primary">enable/disable edit</button>
-            </div>  <br \>  
+           
             <!-- <div id="table-container" style="overflow:auto; height: 500px;"> -->
             <table id="tb" class="table  table-condensed table-hover table-bordered" cellspacing="1" style="margin-right:50px;" >
                 <thead>
@@ -175,6 +178,44 @@
             <% end %>  
             ]
         });
+
+         $('.sow_date').editable({
+            format: 'yyyy-mm-dd',    
+            viewformat: 'mm/dd/yyyy',    
+            mode: 'inline',
+            datepicker: {
+                    weekStart: 1
+               }
+        });
+
+        $('.sow_yn').editable({
+            source: [
+                  {value: 'Y', text: 'Y'},
+                  {value: 'N', text: 'N'},
+               ]
+        });
+
+        $('.sow_int').editable({
+            mode: 'inline',
+            source: [
+                  {value: 1, text: '1'},
+                  {value: 2, text: '2'},
+                  {value: 3, text: '3'},
+                  {value: 4, text: '4'},
+                  {value: 5, text: '5'},
+                  {value: 6, text: '6'},
+                  {value: 7, text: '7'},
+                  {value: 8, text: '8'},
+                  {value: 9, text: '9'},
+                  {value: 10, text: '10'},
+                  {value: 11, text: '11'},
+                  {value: 12, text: '12'},
+                  {value: 13, text: '13'},
+                  {value: 14, text: '14'},
+                  {value: 15, text: '15'},
+               ]
+        });
+
 
         $('#enable').click(function() {
             $('#tb .editable').editable('toggleDisabled');

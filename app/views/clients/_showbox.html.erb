@@ -16,27 +16,47 @@
                     </tr>
                     <tr>
                         <td class='hed'>Client city: </td>
-                        <td> <%= client.city %> </td>
+                        <td>
+                             <div id="city" class="cityname" data-resource="client" data-type="text" data-pk="1"  data-url="/clients/<%= client.id%>" data-value = "<%= client.city %>" >
+                            </div>
+                        </td> 
                     </tr>
                     <tr>
                         <td class='hed'>Real cust_id: </td>
-                        <td> <%= client.cust_id %> </td>
+                        <td>
+                             <div id="cust_id" class="ct_date" data-resource="client" data-type="text" data-pk="1"  data-url="/clients/<%= client.id%>" data-value = "<%= client.cust_id %>" >
+                            </div>
+                        </td> 
+
                     </tr>
                     <tr>
                         <td class='hed'>Contact name: </td>
-                        <td> <%= client.contact_name %> </td>
+                        <td>
+                             <div id="contact_name" class="contactname" data-resource="client" data-type="text" data-pk="1"  data-url="/clients/<%= client.id%>" data-value = "<%= client.contact_name %>" >
+                            </div>
+                        </td> 
                     </tr>
                     <tr>
                         <td class='hed'>Contact phone: </td>
-                        <td> <%= client.phone %> </td>
+                        <td>
+                             <div id="phone" class="phonenum" data-resource="client" data-type="text" data-pk="1"  data-url="/clients/<%= client.id%>" data-value = "<%= client.phone %>" >
+                            </div>
+                        </td>
                     </tr>
                     <tr>
                         <td class='hed'>Contact email: </td>
-                        <td> <%= client.email %> </td>
+                        <td>
+                             <div id="email" class="emailaddress" data-resource="client" data-type="text" data-pk="1"  data-url="/clients/<%= client.id%>" data-value = "<%= client.email %>" >
+                            </div>
+                        </td> 
                     </tr>
                     <tr>
                         <td class='hed'>Sales: </td>
-                        <td> <%= client.list_of_sales %> </td>
+                        <td>
+                             <div id="salesperson_ids" class="sp" data-resource="client" data-type="checklist" data-pk="1"  data-url="/clients/<%= client.id%>"  
+                                 data-value = [<%= client.ids_of_sales %>] data-original-title="Select Salespeople" >
+                            </div>
+                        </td> 
                     </tr>
                     <tr>
                         <td class='hed'>Create date: </td>
@@ -63,11 +83,17 @@
                 <tbody>
                     <tr>
                         <td class='hed'>BAA send date: </td>
-                        <td> <%= client.baa_send_at %> </td>
+                        <td>
+                            <div id="baa_send_at" class="ct_date" data-resource="client" data-type="date" data-pk="1"  data-url="/clients/<%= client.id%>" data-value = "<%= client.baa_send_at %>" >
+                            </div>
+                        </td>
                     </tr>
                     <tr>
                         <td class='hed'>BAA sign date: </td>
-                        <td> <%= client.baa_sign_at %> </td>
+                         <td>
+                             <div id="baa_sign_at" class="ct_date" data-resource="client" data-type="date" data-pk="1"  data-url="/clients/<%= client.id%>" data-value = "<%= client.baa_sign_at %>" >
+                            </div>
+                        </td>
                     </tr>
                     <tr>
                             <td class='hed'>BAA File: </td>
@@ -124,11 +150,17 @@
                                     <tbody>
                                         <tr>
                                             <td class='hed'>Send date: </td>
-                                            <td> <%= contract.contract_send_at %> </td>
+                                            <td>
+                                                <div id="contract_send_at" class="ct_date" data-resource="contract" data-type="date" data-pk="1"  data-url="/contracts/<%= contract.id%>" data-value = "<%= contract.contract_send_at %>" >
+                                                </div>
+                                            </td>
                                         </tr>
                                         <tr>
                                             <td class='hed'>Sign date: </td>
-                                            <td> <%= contract.contract_sign_at %> </td>
+                                            <td>
+                                                <div id="contract_sign_at" class="ct_date" data-resource="contract" data-type="date" data-pk="1"  data-url="/contracts/<%= contract.id%>" data-value = "<%= contract.contract_sign_at %>" >
+                                                </div>
+                                            </td>
                                         </tr>
                                         <tr>
                                             <td class='hed'>File: </td>
@@ -184,11 +216,17 @@
                         </tr>
                         <tr>
                             <td class='hed'>Send date: </td>
-                            <td> <%= contract.contract_send_at %> </td>
+                            <td>
+                                <div id="contract_send_at" class="ct_date" data-resource="contract" data-type="date" data-pk="1"  data-url="/contracts/<%= contract.id%>" data-value = "<%= contract.contract_send_at %>" >
+                                </div>
+                            </td>
                         </tr>
                         <tr>
                             <td class='hed'>Sign date: </td>
-                            <td> <%= contract.contract_sign_at %> </td>
+                            <td>
+                                <div id="contract_sign_at" class="ct_date" data-resource="contract" data-type="date" data-pk="1"  data-url="/contracts/<%= contract.id%>" data-value = "<%= contract.contract_sign_at %>" >
+                                </div>
+                            </td>
                         </tr>
                         <tr>
                             <td class='hed'>File: </td>
