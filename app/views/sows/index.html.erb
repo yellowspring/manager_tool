@@ -73,9 +73,12 @@
                 <% end %>
             </tbody>
         </table> 
-         <div class="span2">
-            <%= button_to 'Back to contract level', contracts_url,:class=>"btn btn-primary  ", :method => :get %>
-        </div><br />
+        <div class="span2">
+            <%= link_to 'Back to client level', clients_path(:clientid => @contract.client_id), :action => "index", :class=>"btn btn-small  ", :method => :get %>
+        </div><br /><br /><br />
+        <div class="span2">
+            <%= link_to 'Back to contract level', contracts_url,:class=>"btn btn-small  ", :method => :get %>
+        </div><br /><br /><br />
       </div><!--/.well -->
 </div>
  

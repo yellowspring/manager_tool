@@ -75,7 +75,7 @@ class ContractsController < ApplicationController
 
     respond_to do |format|
       if @contract.update_attributes(params[:contract])
-        format.html { redirect_to contracts_path, notice: 'Contract was successfully updated.' }
+        format.html { redirect_to clients_path(:clientid => @contract.client_id), notice: 'Contract was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

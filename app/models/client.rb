@@ -37,7 +37,7 @@ class Client < ActiveRecord::Base
 
   	def self.clients_id_and_name
   		option_list = Array.new();
-  		option_list << ["All", 0];
+  		#option_list << ["All", 0];
   		Client.find(:all).each do |c|
   			option_list << ["#{c.name_with_state.upcase}", c.id]
   		end

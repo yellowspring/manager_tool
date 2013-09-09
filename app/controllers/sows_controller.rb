@@ -70,7 +70,7 @@ class SowsController < ApplicationController
 
     respond_to do |format|
       if @sow.update_attributes(params[:sow])
-        format.html { redirect_to  contract_sows_path(@sow.contract), notice: 'Sow was successfully created.' }
+        format.html { redirect_to clients_path(:clientid => @sow.contract.client_id), notice: 'Sow was successfully created.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

@@ -41,10 +41,11 @@
         </table> 
 
         <hr>
-            <%= button_to 'Back to contract level', contracts_url,:class=>"btn btn-primary  ", :method => :get %>
+        	<%= button_to 'Back to client level', clients_path(:clientid => @contract.client_id),:class=>"btn btn-small  ", :method => :get %>
+            <%= button_to 'Back to contract level', contracts_url,:class=>"btn btn-small  ", :method => :get %>
       
          
-            <%= button_to 'Back to sow level', contract_sows_path(@contract),:class=>"btn btn-primary", :method => :get %>
+            <%= button_to 'Back to sow level', contract_sows_path(@contract),:class=>"btn btn-small", :method => :get %>
      
       </div><!--/.well -->
 </div>

@@ -11,7 +11,7 @@
                             <h1>
                                 <span class="label label-warning">CLIENT
                                 <% option_status = Client.clients_id_and_name %>
-                                <%= select_tag("clientid", options_for_select(option_status, session[:clientid]), :id=>"myclient") %> </span>
+                                <%= select_tag("clientid", options_for_select(option_status, session[:clientid]), :id=>"myclient", :prompt => "Please select") %> </span>
                             </h1>
                         </li>
                       </ul>
@@ -22,7 +22,7 @@
             <div class="span8">
                 
                    
-                    <button id="enable" class="btn btn-primary">enable/disable edit</button>
+                   
                  
             </div><!--end of span9-->
         </div><!--end of row--> <br \> 
@@ -32,7 +32,7 @@
         <% if session[:clientid].to_s == '0' %>
            
             <!-- <div id="table-container" style="overflow:auto; height: 500px;"> -->
-            <table id="tb" class="table  table-condensed table-hover table-bordered" cellspacing="1" style="margin-right:50px;" >
+            <!--<table id="tb" class="table  table-condensed table-hover table-bordered" cellspacing="1" style="margin-right:50px;" >
                 <thead>
                   <tr>
                     <th class="hed">Name </th>
@@ -116,8 +116,9 @@
                       </tr>
                     <% end %>
                 </tbody>
-            </table>
+            </table> -->
         <% else %>
+         <button id="enable" class="btn btn-small">enable/disable edit</button>
              <%= render 'showbox' %>
         <% end %>
 
@@ -214,6 +215,12 @@
                   {value: 14, text: '14'},
                   {value: 15, text: '15'},
                ]
+        });
+
+        $('.commenttext').editable({
+          url: '/post',
+          title: 'Enter comments',
+          rows: 10
         });
 
 

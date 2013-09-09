@@ -100,7 +100,13 @@ $('#contact').tooltip({'trigger':'click hover focus', 'title': 'Please input the
   $('#ndasign').tooltip({'trigger':'click hover focus', 'title': 'The date on which we sign non-disclosure agreement' });
 
   $(function(){
-    $("#ndadate").hide();
+    
+
+    if ($('#ndacheck').is(':checked')) {
+        $("#ndadate").show();
+    } else {
+        $("#ndadate").hide();
+    } 
 
     $('#ndacheck').click(function(){
       $("#ndadate").slideToggle();

@@ -2,7 +2,7 @@ class ClientsController < ApplicationController
   # GET /clients
   # GET /clients.json
   def index
-    if params[:clientid].nil? || params[:clientid].to_s == '0'
+    if params[:clientid].nil? || params[:clientid].to_s.empty?
       @clients = Client.all
       session[:clientid] = 0
     else
@@ -67,7 +67,7 @@ class ClientsController < ApplicationController
 
     respond_to do |format|
       if @client.update_attributes(params[:client])
-        format.html { redirect_to @client, notice: 'Client was successfully updated.' }
+        format.html { redirect_to clients_path(:clientid => @client.id), notice: 'Client was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

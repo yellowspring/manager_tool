@@ -46,7 +46,7 @@
                     </tr>
 
                     <tr>
-                        <td class='hed'>Accept term: </td>
+                        <td class='hed'>Accept term(mo): </td>
                         <td>
                             <a href="#" id="accept_term" class="sow_int"  data-resource="sow" data-type="select" data-pk="1" data-url="/sows/<%= sow.id %>" data-original-title="Select status"><%= sow.accept_term %></a>   
                         </td>
@@ -56,14 +56,14 @@
                         <td class='hed'>File: </td>
                         <% count = 1 %>
                         <td>
-                            <% sow.sow_details.each do |f| %>
-                                <% if sow.sow_details.count == count %>
+                            <% sow.sow_files.each do |f| %>
+                                <% if sow.sow_files.count == count %>
                                     <span class="badge badge-important">
                                 <% else %>
                                     <span class="badge ">
                                 <% end %>
                                 <%= " V#{count}  " %>
-                                <% if sow.sow_details.count == count %>
+                                <% if sow.sow_files.count == count %>
                                     <%= link_to raw('<i class=" icon-download icon-white" ></i>'), "#{f.file}" %> 
                                 <% else %>
                                     <%= link_to raw('<i class=" icon-download icon-white" ></i>'), "#{f.file}" %> 
@@ -73,7 +73,15 @@
                                 <br />
                             <% end %> 
                         </td>
-                    </tr>                 
+                    </tr> 
+                    <tr>
+                        <td class='hed'>New version: </td>
+                         <td>
+                            <span class="badge  badge-inverse">
+                            <%= link_to raw('<i class="icon-upload  icon-white"></i>'), edit_sow_path(sow,:contract_id=>contract.id)   %>
+                            </span>
+                        </td>
+                    </tr>               
                     <tr>
                         <td class='hed'>Create Date: </td>
                         <td> <%= sow.created_at %>  </td>
@@ -81,5 +89,5 @@
                 </tbody>
             </table>  <br />
         <% end %>
-        <p> <%=link_to "Details", contract_sows_url(contract)%></p>
+        <p> <%=link_to "New Sow",  new_contract_sow_path(contract) %></p>
     <% end %>
