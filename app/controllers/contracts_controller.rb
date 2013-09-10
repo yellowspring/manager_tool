@@ -92,10 +92,10 @@ class ContractsController < ApplicationController
 
     respond_to do |format|
       if params[:permanent] == '1'
-        format.html { redirect_to contracts_path(:permanent => '1') }
+        format.html { redirect_to clients_path(:clientid => @contract.client_id) }
         format.json { head :ok }
       else
-        format.html { redirect_to contracts_url }
+        format.html { redirect_to clients_path(:clientid => @contract.client_id) }
         format.json { head :ok }
       end
     end

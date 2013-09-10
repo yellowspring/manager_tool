@@ -21,7 +21,34 @@
     <%end%>
   </div>
 
-     
+   <%= f.fields_for :contractfiles, f.object.contractfiles.build  do |builder| %>
+    <p><%= builder.file_field :file %></p>
+    <p><%= builder.hidden_field :file_cache %></p>
+  <% end %><br />
+
+
+
+  <div id="ca_part">
+    <div class="field" >
+      <%= f.label :credit_aggrement, "Sign CA" ,:id=>"ca" %> 
+      <%= f.label :yes, "yes" %> 
+      <%= f.check_box :ca_flag ,:style => "float:left;", :id=>"casign" %> 
+      <br><br><br>  
+    </div>  
+
+  <fieldset  id="cadate" >
+    <div class="field" >
+      <%= f.label "casenddate", "CA Send Date",:id=>"casend"  %>
+      <%= f.datepicker :ca_send_at  %>  <br><br><br>  
+      <%= f.label "casigndate","CA Sign Date",:id=>"casigndate"  %> 
+      <%= f.datepicker :ca_sign_at  %>   <br><br><br> 
+    </div>  
+    <%= f.fields_for :ca_files, f.object.ca_files.build  do |builder| %>
+      <p><%= builder.file_field :file %></p>
+      <p><%= builder.hidden_field :file_cache %></p>
+    <% end %><br /><br> 
+  </fieldset>
+</div>  
    
  
   <div class="field">
@@ -29,10 +56,7 @@
     <%= f.text_field :comment %>
   </div><br><br>
 
-  <%= f.fields_for :contractfiles, f.object.contractfiles.build  do |builder| %>
-    <p><%= builder.file_field :file %></p>
-    <p><%= builder.hidden_field :file_cache %></p>
-  <% end %><br />
+ 
 
   <div class="actions">
     <%= f.submit %>
@@ -41,4 +65,18 @@
  
 <script>
 $(".popover-tx").popover();
+$('#casend').tooltip({'trigger':'click hover focus', 'title': 'The date on which we send credit agreement to the client' });
+  $('#ca').tooltip({'trigger':'click hover focus', 'title': 'Please check this checkbox if you need sign credit agreement' });
+  $('#casigndate').tooltip({'trigger':'click hover focus', 'title': 'The date on which we sign credit agreement' });
+
+
+  $(function(){
+    $("#cadate").hide();
+
+     $('#casign').click(function(){
+      $("#cadate").slideToggle();
+    });
+
+  });
+
 </script>

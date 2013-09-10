@@ -10,7 +10,7 @@ class ClientsController < ApplicationController
       session[:clientid] = params[:clientid]
     end
     
-
+    session[:history] = 'current'
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @clients }

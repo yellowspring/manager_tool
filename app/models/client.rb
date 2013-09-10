@@ -1,11 +1,14 @@
 class Client < ActiveRecord::Base
-	has_many :contracts, dependent: :destroy
+	has_many :contracts, dependent: :destroy, :order => "id"
 	has_many :baafiles, dependent: :destroy
 	has_many :ndafiles, dependent: :destroy
 	has_many :sales, dependent: :destroy
 	has_many :salespeople, through: :sales
 
+
 	accepts_nested_attributes_for :contracts, :sales, :salespeople, :baafiles, :ndafiles
+	accepts_nested_attributes_for :baafiles,  :reject_if => :child_invalide,:allow_destroy => true 
+	accepts_nested_attributes_for :ndafiles,  :reject_if => :child_invalide,:allow_destroy => true 
 
 	def name_with_state
 		if city.nil? or city =~ /^\s*$/
@@ -49,4 +52,12 @@ class Client < ActiveRecord::Base
   	validates :cust_id, :numericality => { :greater_than_or_equal_to => 0 }, :allow_nil => true
   	validates :phone, :allow_nil => true,:allow_blank => true, :numericality => true,:length => { :minimum => 10, :maximum => 15 }
   	validates_format_of :email, :allow_blank => true, :presence => false, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i
+
+  	private
+
+		def child_invalide(attributes)
+			attributes.all? do  |key, value| 
+					value.blank?   
+			end	
+		end
 end

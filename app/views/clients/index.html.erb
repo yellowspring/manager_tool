@@ -220,7 +220,13 @@
         $('.commenttext').editable({
           url: '/post',
           title: 'Enter comments',
-          rows: 10
+          rows: 16,
+         display: function(value, response) {
+              if(! response && ! value ) { $(this).empty();}
+              else {
+                $(this).html(value.substring(0,30) + '...');
+              }
+          }
         });
 
 

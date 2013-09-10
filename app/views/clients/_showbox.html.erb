@@ -1,6 +1,6 @@
  <% client = @clients.first %>
  <div class="row">
-         <div class="span3">
+         <div class="span4">
              <h2>Client Info </h2>
 
              <table id="tb" class="table  table-condensed table-hover " cellspacing="0">
@@ -130,30 +130,55 @@
                             </span>
                         </td>
                     </tr>
-                    <tr>
-                        <td class='hed'>NDA send date: </td>
-                        <td> <%= client.baa_send_at %> </td>
-                    </tr>
-                    <tr>
-                        <td class='hed'>NDA sign date: </td>
-                        <td> <%= client.nda_sign_at %> </td>
-                    </tr> 
+                    <% if client.nda_flag == true %>
+                        <tr>
+                            <td class='hed'>NDA send date: </td>
+                            <td> <%= client.baa_send_at %> </td>
+                        </tr>
+                        <tr>
+                            <td class='hed'>NDA sign date: </td>
+                            <td> <%= client.nda_sign_at %> </td>
+                        </tr> 
+                        <tr>
+                            <td class='hed'>NDA File: </td>
+                            <td> 
+                                <% if client.ndafiles.empty? %>
+                                    N/A
+                                <% else %>
+                                    <% if session[:history].nil? || session[:history].upcase == 'CURRENT'  %>
+                                    <span class="badge badge-important">
+                                        <%= " V#{client.ndafiles.count}  " %>
+                                        <%= link_to raw('<i class=" icon-download icon-white" ></i>'), "#{client.ndafiles.last.file}" %> 
+                                    </span>
+                                    <% else %>
+                                        <% count = 1 %>
+                                        <% client.ndafiles.each do |f| %>
+                                            <%= " V#{count}  " %>
+                                            <%= link_to raw('<i class=" icon-download" ></i>'), "#{f.file}" %> 
+                                            <% count = count + 1 %>
+                                            <br />
+                                        <% end %>
+                                    <% end %>
+                                <% end %>
+                            </td>
+                        </tr>
+                    <% end %>
                 </tbody>
             </table> 
          
          </div><!-- .span4 -->
    
-        <div class="span3"><!-- .start of contract -->
+        <div class="span4"><!-- .start of contract -->
         <h2>Contract Info </h2>
             <% if client.contracts.count > 1 %>
                  
                 <% client.contracts.each do |contract| %>
                       <div class="contract-group<%= client.contracts.index(contract)%>">
-                        <div >
-                          <a class="contract-heading<%= client.contracts.index(contract) %>" href="#" style="text-decoration: none; border-bottom: 1px solid #999999;">
+                        <div id="contract_heading">
+                          <a class="contract-heading<%= client.contracts.index(contract) %>" href="#"  >
                             <i class="icon-chevron-down"></i>
-                            Contract #<%= client.contracts.index(contract) + 1 %>: <span class="badge badge-info"><%= contract.product_list%></span>
-                          </a> <br />  <br /> <br />
+                            Contract #<%= client.contracts.index(contract) + 1 %>:
+                          </a>  <span class="badge badge-info"><%= contract.product_list%></span><br />  <br /> <br />
                         </div>
                         <div id="collapse<%= client.contracts.index(contract) %>" >
                           <div >
@@ -205,7 +230,38 @@
                                                 </span>
                                             </td>
                                         </tr>
-                                        
+                                        <% if contract.ca_flag == true %>
+                                            <tr>
+                                                <td class='hed'>CA File: </td>
+                                                <td> 
+                                                    <% if contract.ca_files.empty? %>
+                                                        N/A
+                                                    <% else %>
+                                                        <% if session[:history].nil? || session[:history].upcase == 'CURRENT'  %>
+                                                        <span class="badge badge-important">
+                                                            <%= " V#{contract.ca_files.count}  " %>
+                                                            <%= link_to raw('<i class=" icon-download icon-white" ></i>'), "#{contract.ca_files.last.file}" %> 
+                                                        </span>
+                                                        <% else %>
+                                                            <% count = 1 %>
+                                                            <% contract.ca_files.each do |f| %>
+                                                                <%= " V#{count}  " %>
+                                                                <%= link_to raw('<i class=" icon-download" ></i>'), "#{f.file}" %> 
+                                                                <% count = count + 1 %>
+                                                                <br />
+                                                            <% end %>
+                                                        <% end %>
+                                                    <% end %>
+                                                </td>
+                                             </tr>
+                                        <% end %>
+                                        <tr>
+                                            <td class='hed'>Comment: </td>
+                                            <td
+                                            <div id="comment" class="commenttext" data-resource="contract" data-type="textarea" data-pk="1"  data-url="/contracts/<%= contract.id%>" data-value = "<%= contract.comment %>" >
+                                            </div>
+                                            </td>
+                                        </tr>
                                         <tr>
                                             <td class='hed'>Create date: </td>
                                             <td> <%= client.contracts.first.created_at %> </td>
@@ -252,7 +308,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td class='hed'>File: </td>
+                            <td class='hed'>Contract file: </td>
                             <td> 
                                 <% if contract.contractfiles.empty? %>
                                     N/A
@@ -282,6 +338,31 @@
                                 </span>
                             </td>
                         </tr>
+                        <% if contract.ca_flag == true %>
+                            <tr>
+                                <td class='hed'>CA File: </td>
+                                <td> 
+                                    <% if contract.ca_files.empty? %>
+                                        N/A
+                                    <% else %>
+                                        <% if session[:history].nil? || session[:history].upcase == 'CURRENT'  %>
+                                        <span class="badge badge-important">
+                                            <%= " V#{contract.ca_files.count}  " %>
+                                            <%= link_to raw('<i class=" icon-download icon-white" ></i>'), "#{contract.ca_files.last.file}" %> 
+                                        </span>
+                                        <% else %>
+                                            <% count = 1 %>
+                                            <% contract.ca_files.each do |f| %>
+                                                <%= " V#{count}  " %>
+                                                <%= link_to raw('<i class=" icon-download" ></i>'), "#{f.file}" %> 
+                                                <% count = count + 1 %>
+                                                <br />
+                                            <% end %>
+                                        <% end %>
+                                    <% end %>
+                                </td>
+                             </tr>
+                        <% end %>
                         <tr>
                             <td class='hed'>Comment: </td>
                             <td
@@ -308,13 +389,13 @@
 
         <% if client.contracts.count > 1 %>
             <% client.contracts.each do |contract| %>
-                <div class="span3 allsows"  id="collapse<%= client.contracts.index(contract) %>sows" >
+                <div class="span4 allsows"  id="sow_collapse<%= client.contracts.index(contract) %>" >
                   <%= render 'showsow', contract: contract %>
                 </div> 
             <% end %> <!-- .end of  client.contracts.each -->
         <% elsif client.contracts.count == 1 %>
             <% contract = client.contracts.first %>
-            <div class="span3" >
+            <div class="span4" >
                 <%= render 'showsow', contract: contract %>   
             </div> 
         <% else %>
@@ -332,7 +413,9 @@
  function hide_contracts() {
 
     <% client.contracts.each do |contract| %>
-        $("#collapse<%= client.contracts.index(contract) %>").hide();
+        $("#collapse<%= client.contracts.index(contract) %>").delay(50).hide(0);
+         $("#sow_collapse<%= client.contracts.index(contract) %>").delay(50).hide(0);
+        $(".contract-heading<%= client.contracts.index(contract) %> i").attr("class","icon-chevron-down");
     <% end %>
   }
 
@@ -352,31 +435,23 @@
                
                 $('.allsows').hide();
                 if ( $("#collapse<%= client.contracts.index(contract)%>").is(':hidden') ) {
-                    $("#collapse<%= client.contracts.index(contract)%>").show();
-                    $(".contract-heading<%= client.contracts.index(contract) %> i").toggleClass('icon-chevron-down icon-chevron-up');
+                    hide_contracts();
+                    $("#collapse<%= client.contracts.index(contract)%>").delay(50).show(0);
+                    $("#sow_collapse<%= client.contracts.index(contract)%>").delay(50).show(0);
+                    $(".contract-heading<%= client.contracts.index(contract) %> i").attr("class","icon-chevron-up");
                     //$("#collapse<%= client.contracts.index(contract)%>").siblings(".contract-heading").find('this .i').toggleClass('icon-chevron-down icon-chevron-up');
-                    $("#collapse<%= client.contracts.index(contract) %>sows").show();
                 } else {
                     hide_contracts();
-                    $(".contract-heading<%= client.contracts.index(contract) %> i").toggleClass('icon-chevron-down icon-chevron-up');
-                     $("#collapse<%= client.contracts.index(contract) %>sows").hide();
+                    $(".contract-heading<%= client.contracts.index(contract) %> i").attr("class","icon-chevron-down");
+                    $("#collapse<%= client.contracts.index(contract) %>").delay(50).hide(0);
+                    $("#sow_collapse<%= client.contracts.index(contract) %>").delay(50).hide(0);
                 }
                 
             });
 
    <% end %>
     
-    <% client.contracts.each do |contract| %>
-        $("#collapse<%= client.contracts.index(contract) %>").on('show', function() {
-            $('.allsows').hide();
-            $("#collapse<%= client.contracts.index(contract) %>").siblings(".contract-heading<%= client.contracts.index(contract)%>").find('.accordion-toggle i').toggleClass('icon-chevron-down icon-chevron-up');
-            $("#collapse<%= client.contracts.index(contract) %>sows").show();
-        });
-        $("#collapse<%= client.contracts.index(contract) %>").on('hide', function() {
-            $('.allsows').hide();
-            $(".icon-chevron-up").removeClass("icon-chevron-up").addClass("icon-chevron-down");
-        });
-    <% end %>
+   
   
     });
  </script>

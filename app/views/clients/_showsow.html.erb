@@ -56,22 +56,29 @@
                         <td class='hed'>File: </td>
                         <% count = 1 %>
                         <td>
-                            <% sow.sow_files.each do |f| %>
-                                <% if sow.sow_files.count == count %>
-                                    <span class="badge badge-important">
-                                <% else %>
-                                    <span class="badge ">
-                                <% end %>
-                                <%= " V#{count}  " %>
-                                <% if sow.sow_files.count == count %>
-                                    <%= link_to raw('<i class=" icon-download icon-white" ></i>'), "#{f.file}" %> 
-                                <% else %>
-                                    <%= link_to raw('<i class=" icon-download icon-white" ></i>'), "#{f.file}" %> 
-                                <% end %>
-                                </span>
-                                <% count = count + 1 %>
-                                <br />
-                            <% end %> 
+                            <% if session[:history].nil? || session[:history].upcase == 'CURRENT'  %>
+                                <span class="badge badge-important">
+                                    <%= " V#{sow.sow_files.count}  " %>
+                                    <%= link_to raw('<i class=" icon-download icon-white" ></i>'), "#{sow.sow_files.last.file}" %>
+                                 </span>
+                            <% else %>
+                                <% sow.sow_files.each do |f| %>
+                                    <% if sow.sow_files.count == count %>
+                                        <span class="badge badge-important">
+                                    <% else %>
+                                        <span class="badge ">
+                                    <% end %>
+                                    <%= " V#{count}  " %>
+                                    <% if sow.sow_files.count == count %>
+                                        <%= link_to raw('<i class=" icon-download icon-white" ></i>'), "#{f.file}" %> 
+                                    <% else %>
+                                        <%= link_to raw('<i class=" icon-download icon-white" ></i>'), "#{f.file}" %> 
+                                    <% end %>
+                                    </span>
+                                    <% count = count + 1 %>
+                                    <br />
+                                <% end %> 
+                            <% end %>
                         </td>
                     </tr> 
                     <tr>

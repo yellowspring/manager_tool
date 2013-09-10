@@ -108,10 +108,11 @@
           if ($("#autointel_type option:selected").text().toLowerCase() == "per hit" ) {
             $("#autointel_table").show();
             $(".tablesign").each(function() { $(this).html('$');});
-          
+            $(".stateinput").each(function() { $(this).val(''); });
           } else if($("#autointel_type option:selected").text().toLowerCase() == "contingency" ) {
               $("#autointel_table").show();
               $(".tablesign").each(function() { $(this).html('%');});
+              $(".stateinput").each(function() { $(this).val(''); });
           } else {
             return;
           }
