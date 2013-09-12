@@ -93,86 +93,53 @@
 <% if @sows.empty? %> 
     <div class="notice"> You do not have any SOW currently. please add one! </div>
 <% else %>
+        <% @sows.each do |sow| %>
               <table id="tb" class="table  table-condensed table-hover table-bordered" cellspacing="0">
                 <thead>
                 <tr>
                     <th class='hed'>Product </th>
-                    <th class='hed'>KickOff date </th>
-                    <th class='hed'>Production date</th>
-                    <th class='hed'>Start date </th>
-                    <th class='hed'>End date</th>
-                    <th class='hed'>Auto renew</th>
-                    <th class='hed'>Accept term (mo)</th>
-                    <th class='hed'>Renew times</th>
                     <th class='hed'>Version </th>
-                    <th class='hed'>Uploade </th>
-                    <th class='hed'>Comment </th>
-                    <th class='hed'>Delete </th>
+                    <th class='hed'>Details </th>
                 </tr>
                 </thead>
-        
-            <% @sows.each do |sow| %>
-       
-               
-              
-                    <tr>
-                        <td>
-                            <%= Product.find(sow.product_id).name.upcase %>
-                        </td>
-                        <td>
-                            <a href="#" id="sow_ko_date" class="sow_date" data-resource="sow" data-type="date" data-pk="1" data-url="/sows/<%= sow.id %>"  data-original-title="Select date"><%= sow.sow_ko_date %></a>    
-                        </td>
-                         <td>
-                            <a href="#" id="sow_production_date" class="sow_date" data-resource="sow" data-type="date" data-pk="1" data-url="/sows/<%= sow.id %>"  data-original-title="Select date"><%= sow.sow_production_date %></a>    
-                        </td>
-                         <td>
-                            <a href="#" id="sow_start_date" class="sow_date" data-resource="sow" data-type="date" data-pk="1" data-url="/sows/<%= sow.id %>"  data-original-title="Select date"><%= sow.sow_start_date %></a>    
-                        </td>
-                         <td>
-                            <a href="#" id="sow_end_date" class="sow_date" data-resource="sow" data-type="date" data-pk="1" data-url="/sows/<%= sow.id %>"  data-original-title="Select date"><%= sow.sow_end_date %></a>    
-                        </td>
-                        <td>
-                            <a href="#" id="auto_renew" class="sow_yn"  data-resource="sow" data-type="select" data-pk="1" data-url="/sows/<%= sow.id %>" data-original-title="Select status"><%= sow.auto_renew %></a> 
-                        </td>
-                        <td>
-                            <a href="#" id="accept_term" class="sow_int"  data-resource="sow" data-type="select" data-pk="1" data-url="/sows/<%= sow.id %>" data-original-title="Select status"><%= sow.accept_term %></a>   
-                        </td>
-                  
-                        <td><% if  sow.renew_times.nil? %>
-                            0
-                            <% else %>
-                                <%= sow.renew_times %>
-                            <% end %>
-                        </td> 
-                        <td>
-                            <% if sow.sow_details.empty? %>
-                                N/A
-                            <% else %>
-                             <% count = 1 %>
-                             <% sow.sow_details.each do |f| %>
-                                <%= " V#{count}  " %>
-                                <%= link_to raw('<i class=" icon-download" ></i>'), "#{f.file}" %> 
-                                <% count = count + 1 %>
-                                <br />
-                             <% end %>
-                            <% end %>
-                        </td>  
-                        <td>
-                            <%= link_to raw('<i class="icon-upload"></i>'), edit_sow_path(sow,:contract_id=>@contract.id)  %>
-                        </td>  
-                        <td><%= sow.comment %></td>
-                        <td><%= link_to raw('<i class="icon-trash "></i>'), sow, confirm: 'Are you sure?', method: :delete %></td>
-                    </tr>  
-               
 
-            <% end %>
-             </table>      
+                    <% sow.sow_files.each do |file| %>
+                        <tr>
+                            <td>
+                                <%= Product.find(sow.product_id).name.upcase %>
+                            </td>
+                            <td>
+                                <%= " V#{file.version}" %>
+                            </td>
+                          
+                            <td>
+                                <% if  Product.find(sow.product_id).name.upcase == 'PAYORINTEL' %>
+                                    <% t = sow.payorintel_rates %> 
+                                <% elsif Product.find(sow.product_id).name.upcase == 'AUTOINTEL'%>
+                                    <% t = sow.autointel_rates %> 
+                                <% elsif Product.find(sow.product_id).name.upcase =~ /PAYMENT/  %>
+                                    <% t = sow.payment_rates %> 
+                                <% elsif  Product.find(sow.product_id).name.upcase =~ /CHARITY/ %>
+                                    <% t = sow.charity_rates %> 
+                                <% end %>
+                                
+                                <% t.each do |certain_details| %>
+                                  <% if certain_details.version == file.version %>
+                                    <%= certain_details.details %>
+                                  <% end %>
+                                <% end %>
+                                 
+                            </td>  
+                        </tr> 
+                    <% end %>
+              </table>      
+       <% end %>
 <% end %>
 <br />
 
 
  
-    <%= button_to "New Sow", new_contract_sow_path(@contract), :method => "get" %>
+    <%= button_to "New Sow", new_contract_sow_path(@contract), :method => "get" %>  
 </div>
 
 <script>

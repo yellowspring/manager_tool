@@ -7,7 +7,7 @@ class AutointelRate < ActiveRecord::Base
 		rvalue = ''
 		if self.send(col).nil?
 		else
-			if self.maintype.to_s.toLowerCase() == 'contingency'
+			if self.maintype.to_s.downcase() == 'contingency'
 				rvalue = self.send(col) + '%'
 			else
 				rvalue = '$' + self.send(col).to_s  
@@ -71,6 +71,17 @@ class AutointelRate < ActiveRecord::Base
 	      ['Wisconsin', 'WI'],
 	      ['Wyoming', 'WY']
 	    ]
+	end
+
+	def details
+		content = ''
+		us_states.each do |f|
+			st = f[1]
+			if   rate_with_sign(st) =~ /%/ or rate_with_sign(st) =~ /\$/ 
+				content  << "#{f[0]}:" + rate_with_sign(st) + '     '
+			end
+		end
+		content
 	end
 
     def standardise_numbers

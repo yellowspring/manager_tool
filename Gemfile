@@ -23,8 +23,9 @@ gem 'less-rails'
 gem 'therubyracer'
 #gem 'bootstrap-x-editable-rails'
 gem 'bootstrap-editable-rails'
-gem 'carrierwave'
+gem 'carrierwave', :git => "https://github.com/michaelkoper/carrierwave.git", :branch => 'master'
 gem 'jquery_datepicker'
+gem 'carrierwave-postgresql'
 
 group :production do
   gem 'pg'

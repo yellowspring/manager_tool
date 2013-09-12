@@ -18,6 +18,7 @@
     <%= collection_select(:sow, :product_id, Product.find_all_in(ary), :id, :formal_name, {:prompt => 'Please select the product'}, {:class=>'productselect'}) %>
   </div>
 
+
    <%= f.fields_for :sow_files, f.object.sow_files.build do |fi| %>
 
       <div id="file" >

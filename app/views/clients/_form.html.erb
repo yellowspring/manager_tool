@@ -1,4 +1,4 @@
-<%= form_for(@client) do |f| %>
+<%= form_for(@client, :html => { :multipart => true }) do |f| %>
   <% if @client.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@client.errors.count, "error") %> prohibited this client from being saved:</h2>
@@ -56,9 +56,9 @@
     <%= f.label :bid, "BAA Sign Date", :id=>"baasign" %> 
     <%= f.datepicker :baa_sign_at  %>  
   </div>  <br>
-   <%= f.fields_for :baafiles, f.object.baafiles.build  do |builder| %>
-    <p><%= builder.file_field :file %></p>
-    <p><%= builder.hidden_field :file_cache %></p>
+   <%= f.fields_for :baafiles, @client.baafiles.build  do |builder| %>
+    <p><%= builder.file_field :avatar %></p>
+    <p><%= builder.hidden_field :avatar_cache %></p>
   <% end %><br /> 
   </fieldset>
 
@@ -76,9 +76,9 @@
     <%= f.label :nid, "NDA sign date"  %> 
     <%= f.datepicker :nda_sign_at  %>   
   </div>  
-  <%= f.fields_for :ndafiles, f.object.ndafiles.build  do |builder| %>
-    <p><%= builder.file_field :file %></p>
-    <p><%= builder.hidden_field :file_cache %></p>
+  <%= f.fields_for :ndafiles, @client.ndafiles.build  do |builder| %>
+    <p><%= builder.file_field :avatar %></p>
+    <p><%= builder.hidden_field :avatar_cache %></p>
   <% end %><br /><br> 
   </fieldset>
 

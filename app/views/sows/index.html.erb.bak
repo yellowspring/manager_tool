@@ -1,7 +1,11 @@
-<div class="span2">
+<br /><br />
+<div class="row">
+<div class="span3">
 
       <!--Sidebar content-->
+
        <div class="well sidebar-nav">
+
         <h3>Contract details</h3>
         <table id="tb" class="table  table-condensed table-hover " cellspacing="0">
 
@@ -67,122 +71,109 @@
                     </td>
                 </tr>
                 <% end %>
-                <tr>
-                    <div>         
-                        <button id="enable" class="btn btn-primary">enable/disable edit</button>
-                    </div>  
-                </tr>
             </tbody>
         </table> 
+        <div class="span2">
+            <%= link_to 'Back to client level', clients_path(:clientid => @contract.client_id), :action => "index", :class=>"btn btn-small  ", :method => :get %>
+        </div><br /><br /><br />
+        <div class="span2">
+            <%= link_to 'Back to contract level', contracts_url,:class=>"btn btn-small  ", :method => :get %>
+        </div><br /><br /><br />
       </div><!--/.well -->
 </div>
-
-<div class="span8">
+ 
+<div class="span8-fluid">
 <!--Body content-->
 
-    <div id="container" class="container-fluid">
-        <h1>Listing SOWs </h1>
-        <% if @sows.empty? %> 
-            <div class="notice"> You do not have any SOW currently. please add one! </div>
-        <% else %>
-                <div class="accordion" id="accordion2">  
-                    <% @sows.each do |sow| %>
+<h1>Listing SOWs </h1><br /><br />
+    <div>         
+        <button id="enable" class="btn btn-primary">enable/disable edit</button>
+    </div>
+<br />
+<% if @sows.empty? %> 
+    <div class="notice"> You do not have any SOW currently. please add one! </div>
+<% else %>
+              <table id="tb" class="table  table-condensed table-hover table-bordered" cellspacing="0">
+                <thead>
+                <tr>
+                    <th class='hed'>Product </th>
+                    <th class='hed'>KickOff date </th>
+                    <th class='hed'>Production date</th>
+                    <th class='hed'>Start date </th>
+                    <th class='hed'>End date</th>
+                    <th class='hed'>Auto renew</th>
+                    <th class='hed'>Accept term (mo)</th>
+                    <th class='hed'>Renew times</th>
+                    <th class='hed'>Version </th>
+                    <th class='hed'>Uploade </th>
+                    <th class='hed'>Comment </th>
+                    <th class='hed'>Delete </th>
+                </tr>
+                </thead>
+        
+            <% @sows.each do |sow| %>
+       
                
-                        <div class="accordion-group">  
-                            <div class="accordion-heading">  
-                                
-                                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse<%= sow.id %>">  
-                                    <div class="alert alert-success">
-                                        <h3 class="text-info">Statement of Work ( Product: <%= Product.find(sow.product_id).name %> ) </h3>
-                                    </div>
-                                </a> 
-                            </div>  
-                            <div id="collapse<%= sow.id %>" class="accordion-body collapse" style="height: 0px; ">  
-                                <div class="accordion-inner">  
-                                    <h4 class="text-info">SOW Progress </h4>
-                                    <table id="tb" class="table table-striped table-condensed table-hover table-bordered" cellspacing="0">
-                                        <tr>
-                                            <th>KickOff date </th>
-                                            <th>Production date</th>
-                                            <th>SowStartDate </th>
-                                            <th>SowEndDate</th>
-                                            <th>Auto renew</th>
-                                            <th>Accept term (year)</th>
-                                            <th>Renewal</th>
-                                            <th>Renew times</th>
-                                            <th>Comment</th>
-                                            <th></th>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <a href="#" id="sow_ko_date" class="sow_date" data-resource="sow" data-type="date" data-pk="1" data-url="/sows/<%= sow.id %>"  data-original-title="Select date"><%= sow.sow_ko_date %></a>    
-                                            </td>
-                                             <td>
-                                                <a href="#" id="sow_production_date" class="sow_date" data-resource="sow" data-type="date" data-pk="1" data-url="/sows/<%= sow.id %>"  data-original-title="Select date"><%= sow.sow_production_date %></a>    
-                                            </td>
-                                             <td>
-                                                <a href="#" id="sow_start_date" class="sow_date" data-resource="sow" data-type="date" data-pk="1" data-url="/sows/<%= sow.id %>"  data-original-title="Select date"><%= sow.sow_start_date %></a>    
-                                            </td>
-                                             <td>
-                                                <a href="#" id="sow_end_date" class="sow_date" data-resource="sow" data-type="date" data-pk="1" data-url="/sows/<%= sow.id %>"  data-original-title="Select date"><%= sow.sow_end_date %></a>    
-                                            </td>
-                                            <td>
-                                                <a href="#" id="auto_renew" class="sow_yn"  data-resource="sow" data-type="select" data-pk="1" data-url="/sows/<%= sow.id %>" data-original-title="Select status"><%= sow.auto_renew %></a> 
-                                            </td>
-                                            <td>
-                                                <a href="#" id="accept_term" class="sow_int"  data-resource="sow" data-type="select" data-pk="1" data-url="/sows/<%= sow.id %>" data-original-title="Select status"><%= sow.accept_term %></a>   
-                                            </td>
-                                      
-                                            <td><%= sow.renew_times %></td>  
-                                            <td><%= sow.comment %></td>
-                                            <td><%= link_to 'Destroy', sow, confirm: 'Are you sure?', method: :delete %></td>
-                                        </tr>  
-                                    </table>
-  
+              
+                    <tr>
+                        <td>
+                            <%= Product.find(sow.product_id).name.upcase %>
+                        </td>
+                        <td>
+                            <a href="#" id="sow_ko_date" class="sow_date" data-resource="sow" data-type="date" data-pk="1" data-url="/sows/<%= sow.id %>"  data-original-title="Select date"><%= sow.sow_ko_date %></a>    
+                        </td>
+                         <td>
+                            <a href="#" id="sow_production_date" class="sow_date" data-resource="sow" data-type="date" data-pk="1" data-url="/sows/<%= sow.id %>"  data-original-title="Select date"><%= sow.sow_production_date %></a>    
+                        </td>
+                         <td>
+                            <a href="#" id="sow_start_date" class="sow_date" data-resource="sow" data-type="date" data-pk="1" data-url="/sows/<%= sow.id %>"  data-original-title="Select date"><%= sow.sow_start_date %></a>    
+                        </td>
+                         <td>
+                            <a href="#" id="sow_end_date" class="sow_date" data-resource="sow" data-type="date" data-pk="1" data-url="/sows/<%= sow.id %>"  data-original-title="Select date"><%= sow.sow_end_date %></a>    
+                        </td>
+                        <td>
+                            <a href="#" id="auto_renew" class="sow_yn"  data-resource="sow" data-type="select" data-pk="1" data-url="/sows/<%= sow.id %>" data-original-title="Select status"><%= sow.auto_renew %></a> 
+                        </td>
+                        <td>
+                            <a href="#" id="accept_term" class="sow_int"  data-resource="sow" data-type="select" data-pk="1" data-url="/sows/<%= sow.id %>" data-original-title="Select status"><%= sow.accept_term %></a>   
+                        </td>
+                  
+                        <td><% if  sow.renew_times.nil? %>
+                            0
+                            <% else %>
+                                <%= sow.renew_times %>
+                            <% end %>
+                        </td> 
+                        <td>
+                            <% if sow.sow_details.empty? %>
+                                N/A
+                            <% else %>
+                             <% count = 1 %>
+                             <% sow.sow_details.each do |f| %>
+                                <%= " V#{count}  " %>
+                                <%= link_to raw('<i class=" icon-download" ></i>'), "#{f.file}" %> 
+                                <% count = count + 1 %>
+                                <br />
+                             <% end %>
+                            <% end %>
+                        </td>  
+                        <td>
+                            <%= link_to raw('<i class="icon-upload"></i>'), edit_sow_path(sow,:contract_id=>@contract.id)  %>
+                        </td>  
+                        <td><%= sow.comment %></td>
+                        <td><%= link_to raw('<i class="icon-trash "></i>'), sow, confirm: 'Are you sure?', method: :delete %></td>
+                    </tr>  
+               
 
-                                    <!--sow draft part-->
-                                    <%= button_to "New Negotiation", new_sow_sow_detail_path(sow), :method => "get", class: "btn btn-primary btn-small"  %>
-                                    <h4 class="text-info">Listing Negotiations </h4>
-                                    <% if false %>
-                                    <% if ! sow.sow_details.nil? %>
-                                        <table id="tb" class="table table-striped table-condensed table-hover table-bordered" cellspacing="0">
-                                            <tr>
-                                                <th>Version </th>
-                                                <% SowDetail.columns.map {|c| c.name }.each do |col| %>
-                                                    <% if exclude_column(col) and  sow.sow_detail_template.send(col) %>
-                                                        <th><%=col.capitalize %> </th>
-                                                    <% end %>
-                                                <% end %>
-                                                <th>Created_at </th>
-                                            </tr>
-                                            <% sow.sow_details.each do |detail| %>
-                                                <tr>
-                                                    <th><%=detail.send(:version) %> </th>
-                                                    <% SowDetail.columns.map {|c| c.name }.each do |col| %>
-                                                        <% if exclude_column(col) and sow.sow_detail_template.send(col) %>
-                                                            <th><%=detail.send(col) %> </th>
-                                                        <% end %>
-                                                    <% end %>
-                                                    <th><%=detail.send(:created_at) %> </th>
-                                                </tr> 
-                                            <% end %>
-                                        </table>    
-                                    <% end %>
-                                    <% end %>
-
-                                    
-                                </div>
-                            </div>
-                        </div>    
-                    <% end %>          
-                </div>   
-        <% end %>
-        <br />
+            <% end %>
+             </table>      
+<% end %>
+<br />
 
 
  
-    <%= button_to "New Sow", new_contract_sow_path(@contract), :method => "get" %>
- 
+    <%= button_to "New Sow", new_contract_sow_path(@contract), :method => "get" %>  
+</div>
 
 <script>
  
@@ -251,5 +242,6 @@
 
     });
 </script>
-    </div>
+   
+
 </div>
