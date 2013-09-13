@@ -1,7 +1,7 @@
 class Client < ActiveRecord::Base
 	has_many :contracts, dependent: :destroy, :order => "id"
-	has_many :baafiles, dependent: :destroy
-	has_many :ndafiles, dependent: :destroy
+	has_many :baafiles, dependent: :destroy, :order => "id"
+	has_many :ndafiles, dependent: :destroy, :order => "id"
 	has_many :sales, dependent: :destroy
 	has_many :salespeople, through: :sales
 

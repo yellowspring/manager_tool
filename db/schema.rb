@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130912153715) do
+ActiveRecord::Schema.define(:version => 20130913201045) do
 
   create_table "autointel_rates", :force => true do |t|
     t.integer  "sow_id"
@@ -89,6 +89,7 @@ ActiveRecord::Schema.define(:version => 20130912153715) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "avatar"
+    t.integer  "version"
   end
 
   create_table "ca_files", :force => true do |t|
@@ -158,6 +159,7 @@ ActiveRecord::Schema.define(:version => 20130912153715) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "avatar"
+    t.integer  "version"
   end
 
   create_table "payment_rates", :force => true do |t|

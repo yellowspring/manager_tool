@@ -56,8 +56,14 @@
     <%= f.label :bid, "BAA Sign Date", :id=>"baasign" %> 
     <%= f.datepicker :baa_sign_at  %>  
   </div>  <br>
+   <% last_baa = @client.baafiles.last %>
    <%= f.fields_for :baafiles, @client.baafiles.build  do |builder| %>
     <p><%= builder.file_field :avatar %></p>
+    <% if last_baa.nil? %>
+     <p><%= builder.hidden_field :version, :value => 1 %></p>
+    <% else %>
+     <p><%= builder.hidden_field :version, :value => (last_baa.version + 1 )%></p>
+    <% end %>
     <p><%= builder.hidden_field :avatar_cache %></p>
   <% end %><br /> 
   </fieldset>
@@ -76,8 +82,14 @@
     <%= f.label :nid, "NDA sign date"  %> 
     <%= f.datepicker :nda_sign_at  %>   
   </div>  
+  <% last_nda = @client.ndafiles.last %>
   <%= f.fields_for :ndafiles, @client.ndafiles.build  do |builder| %>
     <p><%= builder.file_field :avatar %></p>
+     <% if last_nda.nil? %>
+     <p><%= builder.hidden_field :version, :value => 1 %></p>
+    <% else %>
+     <p><%= builder.hidden_field :version, :value => (last_nda.version + 1 )%></p>
+    <% end %>
     <p><%= builder.hidden_field :avatar_cache %></p>
   <% end %><br /><br> 
   </fieldset>

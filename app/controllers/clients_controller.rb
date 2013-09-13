@@ -17,6 +17,21 @@ class ClientsController < ApplicationController
     end
   end
 
+  def download
+    @client = Client.find(params[:id])
+    
+    if params[:type].to_s.downcase == 'baa'
+      if params[:version].nil?
+        baa_record = @client.baafiles.last
+      else
+        baa_record = Baafile.where(:client_id => @client.id, :version => params[:version]).last
+      end
+    end
+    
+    if params[:type].to_s.downcase == 'nda'
+    end
+  end
+
   # GET /clients/1
   # GET /clients/1.json
   def show
