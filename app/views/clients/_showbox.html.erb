@@ -108,7 +108,7 @@
                                     <% if session[:history].nil? || session[:history].upcase == 'CURRENT'  %>
                                     <span class="badge badge-important">
                                         <%= " V#{client.baafiles.count}  " %>
-                                        <%= link_to raw('<i class=" icon-download icon-white" ></i>'), "#{client.baafiles.last.file}" %> 
+                                        <%= link_to raw('<i class=" icon-download icon-white" ></i>'), download_client_path(client, :type=>'baa',:version=>client.baafiles.count) %> 
                                     </span>
                                     <% else %>
                                         <% count = 1 %>

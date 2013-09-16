@@ -57,7 +57,11 @@ class Client < ActiveRecord::Base
 
 		def child_invalide(attributes)
 			attributes.all? do  |key, value| 
+				if key == 'version'
+					true
+				else
 					value.blank?   
+				end
 			end	
 		end
 end

@@ -26,6 +26,7 @@ class ClientsController < ApplicationController
       else
         baa_record = Baafile.where(:client_id => @client.id, :version => params[:version]).last
       end
+      send_data baa_record.avatar.read,  :disposition => "inline", :type => "application/pdf", :filename => "#{@client.name}_BAA_V#{baa_record.version}.pdf"
     end
     
     if params[:type].to_s.downcase == 'nda'
