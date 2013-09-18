@@ -10,44 +10,10 @@
       </ul>
     </div>
   <% end %>
-
-  <div class="field">
-    <%= f.label :cname, "Client Name" %><br />
-    <%= f.text_field :name %>
-  </div>
-  <div class="field">
-    <%= f.label :state %><br />
-    <%= f.select :state , us_states %>
-  </div>
-  <div class="field">
-    <%= f.label :city %><br />
-    <%= f.text_field :city %>
-  </div>
-  <div class="field">
-    <%= f.label :cid, "Cust ID" %><br />
-    <%= f.text_field :cust_id %>
-  </div>
-  <div class="field">
-    <%= f.label :client_contact, "Client Contact Name", :id=>"contact" %><br />
-    <%= f.text_field :contact_name %>
-  </div><br />
-  <div class="field">
-    <%= f.label :contact_phone, "Contact Phone" %><br />
-    <%= f.text_field :phone %>
-  </div>
-  <div class="field">
-    <%= f.label :contact_email, "Contact Email" %><br />
-    <%= f.text_field :email %>
-  </div>
-
-  <div class="field">
-    <%= f.label :Sales %>  
-    <%= f.select :salesperson_ids, Salesperson.all.collect {|x| ["#{x.last_name},#{x.first_name}", x.id]}, {}, :multiple => true %>  
-  </div>
-
+ 
   <fieldset>
 
-  <div class="field" >
+  <div class="field" > 
     <%= f.label :bsd, "BAA send date" , :id=>"baa" %> 
     <%= f.datepicker :baa_send_at  %> 
     <br><br><br>  
@@ -91,17 +57,14 @@
      <p><%= builder.hidden_field :version, :value => (last_nda.version + 1 )%></p>
     <% end %>
     <p><%= builder.hidden_field :file_cache %></p>
-  <% end %><br /><br> 
-  </fieldset>
+  <% end %><br />
+  </fieldset><br /> <br /> 
 
 
-  <div class="field">
-    <%= f.label :comment %><br />
-    <%= f.text_area :comment, :cols => 20, :rows => 5%>
-  </div>
+ 
   <div class="actions">
-    <%= f.submit %>
-  </div>
+    <%= f.submit "Submit" %>
+  </div><br /> <br /> 
 <% end %>
 
 <script>

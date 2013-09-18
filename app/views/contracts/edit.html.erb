@@ -1,6 +1,12 @@
-<h1>Editing contract</h1>
+<div class="span1">
+</div>
+<div class="span11">
+<br /><br /><br />
+<h1>Upload new version</h1><br />
 
 <%= render 'form' %>
 
-<%= link_to 'Show', @contract %> |
-<%= link_to 'Back', contracts_path %>
+ 
+ 
+<%= link_to 'Back', clients_path(:clientid=>@contract.client.id) %>
+</div>

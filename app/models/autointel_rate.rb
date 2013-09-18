@@ -1,6 +1,7 @@
 class AutointelRate < ActiveRecord::Base
-	include 
+ 
 	belongs_to :sow
+	validate :check_consistency
 
 
 	def rate_with_sign(col)
@@ -92,4 +93,21 @@ class AutointelRate < ActiveRecord::Base
     		end       
     	end
     end
+
+     private
+	 	def check_consistency()
+	 		allempty = attributes.all? do  |key, value| 
+				if ["version", "sow_id", "sow_id", "maintype","created_at","updated_at" ].include?(key.to_s.downcase)
+					true
+				else
+					value.blank?   
+				end
+			end	
+	 	 	if allempty == true
+	 			errors.add(:value, ';You have to fill out at least one state!')
+	 			false
+	 		else
+	 			true
+	 		end
+	 	end
 end

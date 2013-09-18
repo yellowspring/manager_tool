@@ -2,6 +2,9 @@ class ClientsController < ApplicationController
   # GET /clients
   # GET /clients.json
   def index
+   
+
+    session[:current] = 'menu_clients'
     if params[:clientid].nil? || params[:clientid].to_s.empty?
       @clients = Client.all
       session[:clientid] = 0
@@ -26,10 +29,16 @@ class ClientsController < ApplicationController
       else
         baa_record = Baafile.where(:client_id => @client.id, :version => params[:version]).last
       end
-      send_data baa_record.avatar.read,  :disposition => "inline", :type => "application/pdf", :filename => "#{@client.name}_BAA_V#{baa_record.version}.pdf"
+      send_data baa_record.file.read,  :disposition => "inline", :type => "application/pdf", :filename => "#{@client.name}_BAA_V#{baa_record.version}.pdf"
     end
     
     if params[:type].to_s.downcase == 'nda'
+      if params[:version].nil?
+        nda_record = @client.ndafiles.last
+      else
+        nda_record = Ndafile.where(:client_id => @client.id, :version => params[:version]).last
+      end
+      send_data nda_record.file.read,  :disposition => "inline", :type => "application/pdf", :filename => "#{@client.name}_NDA_V#{baa_record.version}.pdf"
     end
   end
 
@@ -47,6 +56,7 @@ class ClientsController < ApplicationController
   # GET /clients/new
   # GET /clients/new.json
   def new
+    session[:current] = 'menu_clients'
     @client = Client.new
 
     respond_to do |format|
@@ -57,6 +67,7 @@ class ClientsController < ApplicationController
 
   # GET /clients/1/edit
   def edit
+    session[:current] = 'menu_clients'
     @client = Client.find(params[:id])
   end
 

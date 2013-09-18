@@ -21,9 +21,16 @@
     <%end%>
   </div>
 
+  <div class="field">
+      <%= f.label :test, "Test?" ,:id=>"test" %> 
+      <%= f.label :yes, "yes" %> 
+      <%= f.check_box :test ,:style => "float:left;"  %> 
+  </div> <br><br><br>   <br><br><br>  
+
    <%= f.fields_for :contractfiles, f.object.contractfiles.build  do |builder| %>
     <p><%= builder.file_field :file %></p>
     <p><%= builder.hidden_field :file_cache %></p>
+    <p><%= builder.hidden_field :version, :value => ( @contract.version + 1 ) %></p>
   <% end %><br />
 
 
@@ -38,14 +45,15 @@
 
   <fieldset  id="cadate" >
     <div class="field" >
-      <%= f.label "casenddate", "CA Send Date",:id=>"casend"  %>
+      <%= f.label "casenddate", "CA send date",:id=>"casend"  %>
       <%= f.datepicker :ca_send_at  %>  <br><br><br>  
-      <%= f.label "casigndate","CA Sign Date",:id=>"casigndate"  %> 
-      <%= f.datepicker :ca_sign_at  %>   <br><br><br> 
+      <%= f.label "casigndate","CA executed date",:id=>"casigndate"  %> 
+      <%= f.datepicker :ca_executed_at  %>   <br><br><br> 
     </div>  
     <%= f.fields_for :ca_files, f.object.ca_files.build  do |builder| %>
       <p><%= builder.file_field :file %></p>
       <p><%= builder.hidden_field :file_cache %></p>
+      <p><%= builder.hidden_field :version, :value => ( @contract.ca_version + 1 ) %></p>
     <% end %><br /><br> 
   </fieldset>
 </div>  

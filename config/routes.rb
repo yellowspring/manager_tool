@@ -1,13 +1,20 @@
 ManagerTool::Application.routes.draw do
   root :to => "clients#index"
- 
+  get "login/new"
+  post "login/check" => "login#check"
+
   resources :contracts  do 
     resources :sows, shallow: true
+
+     member do
+      get  :download
+    end
   end
  
   resources :sows do
-    resources :sow_details, shallow: true
-    resources :sow_detail_templates, shallow: true
+     member do
+      get  :download
+    end
   end
 
   resources :sow_details

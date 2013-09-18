@@ -2,6 +2,7 @@ class ProductsController < ApplicationController
   # GET /products
   # GET /products.json
   def index
+    session[:current] = 'menu_admin'
     @products = Product.all
 
     respond_to do |format|
@@ -24,6 +25,7 @@ class ProductsController < ApplicationController
   # GET /products/new
   # GET /products/new.json
   def new
+    session[:current] = 'menu_admin'
     @product = Product.new
 
     respond_to do |format|
@@ -34,6 +36,7 @@ class ProductsController < ApplicationController
 
   # GET /products/1/edit
   def edit
+    session[:current] = 'menu_admin'
     @product = Product.find(params[:id])
   end
 

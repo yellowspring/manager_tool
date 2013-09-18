@@ -10,7 +10,7 @@
       <div class="field"  id="autointel_type">
         <%= fa.label :maintype,"Type" %>
         <%= fa.select  :maintype, [['Per Hit'],['Contingency']], :prompt=>"Select" %><br /><br /><br />
-        <%= fa.hidden_field :version, :value => (@sow.version + 1) %>
+        <%= fa.hidden_field :version, :value => (@sow.version.to_i + 1) %>
       </div>
 
 

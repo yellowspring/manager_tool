@@ -118,7 +118,7 @@
                 </tbody>
             </table> -->
         <% else %>
-         <button id="enable" class="btn btn-small">enable/disable edit</button>
+         <button id="enable" class="btn btn-small">Enable Edit</button>
              <%= render 'showbox' %>
         <% end %>
 
@@ -183,7 +183,7 @@
          $('.sow_date').editable({
             format: 'yyyy-mm-dd',    
             viewformat: 'mm/dd/yyyy',    
-            mode: 'inline',
+           // mode: 'inline',
             datepicker: {
                     weekStart: 1
                }
@@ -232,6 +232,37 @@
 
         $('#enable').click(function() {
             $('#tb .editable').editable('toggleDisabled');
+            $(this).text(function(i, text){
+                return text === "Enable Edit" ? "Disnable Edit" : "Enable Edit";
+            })
+
+            //change baa version badge
+            if ( $('#baa_executed_at').text() == "" || $('#baa_executed_at').text() == "Empty" ) {
+                $('#baa_badge').addClass('badge-important').removeClass('badge-success');
+            } else {
+                $('#baa_badge').addClass('badge-success').removeClass('badge-important');
+            }
+
+             //change contract version badge
+            if ( $('#contract_executed_at').text() == "" || $('#contract_executed_at').text() == "Empty" ) {
+                $('#contract_badge').addClass('badge-important').removeClass('badge-success');
+            } else {
+                $('#contract_badge').addClass('badge-success').removeClass('badge-important');
+            }
+
+             //change sow version badge
+            if ( $('#sow_executed_at').text() == "" || $('#sow_executed_at').text() == "Empty" ) {
+                $('#sow_badge').addClass('badge-important').removeClass('badge-success');
+            } else {
+                $('#sow_badge').addClass('badge-success').removeClass('badge-important');
+            }
+
+             //change sow version badge
+            if ( $('#nda_executed_at').text() == "" || $('#nda_executed_at').text() == "Empty" ) {
+                $('#nda_badge').addClass('badge-important').removeClass('badge-success');
+            } else {
+                $('#nda_badge').addClass('badge-success').removeClass('badge-important');
+            }
         });  
 
         $('#myclient').change(function() {

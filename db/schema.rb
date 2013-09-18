@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130913201045) do
+ActiveRecord::Schema.define(:version => 20130918145854) do
 
   create_table "autointel_rates", :force => true do |t|
     t.integer  "sow_id"
@@ -84,20 +84,20 @@ ActiveRecord::Schema.define(:version => 20130913201045) do
 
   create_table "baafiles", :force => true do |t|
     t.integer  "client_id"
-    t.string   "file"
     t.binary   "filecontent"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "avatar"
+    t.integer  "file"
     t.integer  "version"
   end
 
   create_table "ca_files", :force => true do |t|
     t.integer  "contract_id"
-    t.string   "file"
     t.binary   "filecontent"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "version"
+    t.integer  "file"
   end
 
   create_table "charity_rates", :force => true do |t|
@@ -120,20 +120,23 @@ ActiveRecord::Schema.define(:version => 20130913201045) do
     t.text     "comment"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "city",         :limit => 30
+    t.string   "city",            :limit => 30
     t.string   "contact_name"
     t.boolean  "nda_flag"
     t.date     "baa_send_at"
     t.date     "baa_sign_at"
     t.date     "nda_sign_at"
     t.date     "nda_send_at"
+    t.date     "baa_executed_at"
+    t.date     "nda_executed_at"
   end
 
   create_table "contractfiles", :force => true do |t|
     t.integer  "contract_id"
-    t.string   "file"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "version"
+    t.integer  "file"
   end
 
   create_table "contracts", :force => true do |t|
@@ -142,7 +145,7 @@ ActiveRecord::Schema.define(:version => 20130913201045) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "client_state"
-    t.date     "contract_execute_date"
+    t.date     "contract_executed_at"
     t.integer  "client_id"
     t.string   "contract_type"
     t.date     "contract_send_at"
@@ -150,15 +153,16 @@ ActiveRecord::Schema.define(:version => 20130913201045) do
     t.boolean  "ca_flag"
     t.date     "ca_send_at"
     t.date     "ca_sign_at"
+    t.date     "ca_executed_at"
+    t.boolean  "test"
   end
 
   create_table "ndafiles", :force => true do |t|
     t.integer  "client_id"
-    t.string   "file"
     t.binary   "filecontent"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "avatar"
+    t.integer  "file"
     t.integer  "version"
   end
 
@@ -192,8 +196,8 @@ ActiveRecord::Schema.define(:version => 20130913201045) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "commercial_rate"
-    t.boolean  "medicare_rate"
     t.boolean  "medicaid_rate"
+    t.boolean  "medicare_rate"
     t.boolean  "transaction_fee"
     t.boolean  "score"
     t.boolean  "subscription_fee"
@@ -222,15 +226,6 @@ ActiveRecord::Schema.define(:version => 20130913201045) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-
-  create_table "salespeople_contracts", :id => false, :force => true do |t|
-    t.integer  "salesperson_id"
-    t.integer  "contract_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "salespeople_contracts", ["salesperson_id", "contract_id"], :name => "index_salespeople_contracts_on_salesperson_id_and_contract_id", :unique => true
 
   create_table "sow_detail_templates", :force => true do |t|
     t.boolean  "commercial_rate"
@@ -269,10 +264,10 @@ ActiveRecord::Schema.define(:version => 20130913201045) do
   create_table "sow_files", :force => true do |t|
     t.integer  "sow_id"
     t.integer  "version"
-    t.string   "file"
     t.binary   "file_content"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "file"
   end
 
   create_table "sows", :force => true do |t|
@@ -288,15 +283,17 @@ ActiveRecord::Schema.define(:version => 20130913201045) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "contract_id"
+    t.date     "sow_executed_at"
+    t.date     "sow_send_at"
   end
 
   create_table "users", :force => true do |t|
     t.string   "name"
     t.string   "email"
     t.string   "comment"
-    t.string   "admin"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "admin"
   end
 
 end

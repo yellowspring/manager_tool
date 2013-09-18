@@ -1,0 +1,17 @@
+
+ 
+<div id="loging_box"  >
+	<h2 > Welcome to Manager Tool,  please sign in </h2><br />
+<%= form_tag '/login/check', :method => :post do %>
+<%#= f.error_messages %>
+<p ><label>Username</label>
+<%= text_field_tag :username, params[:username] %>
+</p>
+<p ><label>Password</label>
+<%= password_field_tag :password, params[:password] %>
+</p><br />
+<%#=hidden_field_tag :user, :value=>params[:user]%>
+<p ><%= submit_tag "Login", :controller=>'login', :action=>'check' %></p>
+<% end %>
+</div>
+ 

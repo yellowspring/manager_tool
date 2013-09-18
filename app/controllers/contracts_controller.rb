@@ -2,6 +2,7 @@ class ContractsController < ApplicationController
   # GET /contracts
   # GET /contracts.json
   def index
+    session[:current] = 'menu_contracts'
     if ! params[:cid].nil? && params[:cid].to_i > 0
       session[:cid] = params[:cid]
       session[:history] = params[:history]
@@ -18,9 +19,32 @@ class ContractsController < ApplicationController
     end
   end
 
+   def download
+    @contract = Contract.find(params[:id])
+    
+    if params[:type].to_s.downcase == 'contract'
+      if params[:version].nil?
+        contract_record = @contract.contractfiles.last
+      else
+        contract_record = Contractfile.where(:contract_id => @contract.id, :version => params[:version]).last
+      end
+      send_data contract_record.file.read,  :disposition => "inline", :type => "application/pdf", :filename => "#{@contract.client.name}_contract_V#{contract_record.version}.pdf"
+    end
+    
+    if params[:type].to_s.downcase == 'ca'
+      if params[:version].nil?
+        ca_record =  @contract.ca_files.last
+      else
+        ca_record = CaFile.where(:contract_id => @contract.id, :version => params[:version]).last
+      end
+      send_data ca_record.file.read,  :disposition => "inline", :type => "application/pdf", :filename => "#{@contract.client.name}_CA_V#{ca_record.version}.pdf"
+    end
+  end
+
   # GET /contracts/1
   # GET /contracts/1.json
   def show
+    session[:current] = 'menu_contracts'
     @contract = Contract.find(params[:id])
     @client = Client.find(@contract.client_id)
 
@@ -33,6 +57,7 @@ class ContractsController < ApplicationController
   # GET /contracts/new
   # GET /contracts/new.json
   def new
+    session[:current] = 'menu_contracts'
     @contract = Contract.new
     @contract.contractfiles.build
     if params[:client_id]
@@ -48,6 +73,7 @@ class ContractsController < ApplicationController
 
   # GET /contracts/1/edit
   def edit
+    session[:current] = 'menu_contracts'
     @contract = Contract.find(params[:id])
     @contract.contractfiles.build
   end

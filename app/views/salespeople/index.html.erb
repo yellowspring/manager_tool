@@ -1,40 +1,49 @@
+ <div class="span1">
+      <!--Sidebar content-->
  
-<div class="span12">
-<!--Body content-->
-  <div id="container" class="container-fluid">
+</div>
 
-<table id="tb" class="table  table-condensed table-hover table-bordered " cellspacing="0">
-    <thead>
-      <tr>
-        <th class="hed">First Name</th>
-        <th class="hed">Last Name</th>
-        <th class="hed">Phone</th>
-        <th class="hed">Email</th>
-        <th class="hed">Comment</th>
-        <th class="hed">Edit</th>
-        <th class="hed">Delete</th>
-      </tr>
-    </thead>
-    <tbody>
-        <% @salespeople.each do |salesperson| %>
-            <tr>
-            <td><%= salesperson.first_name %></td>
-            <td><%= salesperson.last_name %></td>
-            <td><%= salesperson.phone %></td>
-            <td><%= salesperson.email %></td>
-            <td>
-                <div id="comment" class="sales_comment" data-resource="salesperson" data-type="wysihtml5" data-pk="1"  data-url="/salespeople/<%= salesperson.id %>" data-value = "<%= salesperson.comment %>" >
-                    
-                </div>
-            </td>
-            <td><%= link_to raw('<i class="icon-edit"></i>'), edit_salesperson_path(salesperson) %></td>
-            <td><%= link_to raw('<i class="icon-trash "></i>'), salesperson, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        </tr>
-        <% end %>
-        </tbody>
-  </table>
 
-<br />
+
+<div class="span10">
+  <br /><br /><br />
+<h2 class="my_h2">Listing Salespeople</h2>
+    
+        <table class="stats" style="width: 100%" >
+            <thead>
+              <tr>
+                <th class="hed">First Name</th>
+                <th class="hed">Last Name</th>
+                <th class="hed">Phone</th>
+                <th class="hed">Email</th>
+                <th class="hed">Comment</th>
+                <th class="hed">Edit</th>
+                <th class="hed">Delete</th>
+              </tr>
+            </thead>
+            <tbody>
+                <% @salespeople.each do |salesperson| %>
+                    <tr>
+                    <td><%= salesperson.first_name %></td>
+                    <td><%= salesperson.last_name %></td>
+                    <td><%= salesperson.phone %></td>
+                    <td><%= salesperson.email %></td>
+                    <td><%= salesperson.comment %>
+                     <!--    <div id="comment" class="sales_comment" data-resource="salesperson" data-type="wysihtml5" data-pk="1"  data-url="/salespeople/<%= salesperson.id %>" data-value = "<%= salesperson.comment %>" >
+                            
+                        </div> -->
+                    </td>
+                    <td><%= link_to raw('<i class="icon-edit"></i>'), edit_salesperson_path(salesperson) %></td>
+                    <td><%= link_to raw('<i class="icon-trash "></i>'), salesperson, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+                </tr>
+                <% end %>
+                </tbody>
+          </table>
+    </div>
+ 
+
+</div> <!--! end of #container -->
+ 
 
 <script>
  
@@ -52,5 +61,4 @@
     });
 </script>
 
-</div> <!--! end of #container -->
-</div>
+

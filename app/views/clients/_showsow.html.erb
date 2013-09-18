@@ -7,11 +7,27 @@
                 <tbody>
                     <tr>
                         <td class='hed'>SOW #: </td>
-                        <td><span class="badge badge-success"><%= contract.sows.index(sow) + 1 %></span> </td>
+                        <td><span class="badge badge-info"><%= contract.sows.index(sow) + 1 %></span> </td>
                     </tr>
                     <tr>
                         <td class='hed'>Product: </td>
                         <td><span class="badge badge-info"><%= sow.product %></span> </td>
+                    </tr>  
+                    <tr>
+                        <td class='hed'>Send date: </td>
+                        <td>
+                            <div id="sow_send_at" class="sow_date" data-resource="sow" data-type="date" data-pk="1"  data-url="/sows/<%= sow.id%>" data-value = "<%= sow.sow_send_at %>" >
+                            </div>
+                        </td>
+                       <!--  <td>
+                            <a href="#" id="sow_send_at" class="sow_date" data-resource="sow" data-type="date" data-pk="1" data-url="/sows/<%= sow.id %>"  data-original-title="Select date"><%= sow.sow_send_at %></a>    
+                        </td> -->
+                    </tr>  
+                    <tr>
+                        <td class='hed'>Executed date: </td>
+                        <td>
+                            <a href="#" id="sow_executed_at" class="sow_date" data-resource="sow" data-type="date" data-pk="1" data-url="/sows/<%= sow.id %>"  data-original-title="Select date"><%= sow.sow_executed_at %></a>    
+                        </td>
                     </tr>  
                     <tr>
                         <td class='hed'>Kickoff date: </td>
@@ -57,9 +73,13 @@
                         <% count = sow.sow_files.last.version %>
                         <td>
                             <% if session[:history].nil? || session[:history].upcase == 'CURRENT'  %>
-                                <span class="badge badge-important">
+                                <% if sow.sow_executed_at.nil? %>
+                                        <span class="badge badge-important" id="sow_badge">
+                                    <% else %>
+                                        <span class="badge badge-success" id="sow_badge">
+                                    <% end %>
                                     <%= " V#{sow.version}  " %>
-                                    <%= link_to raw('<i class=" icon-download icon-white" ></i>'), "#{sow.sow_files.last.file}" %>
+                                    <%= link_to raw('<i class=" icon-download icon-white" ></i>'), download_sow_path(sow, :version=>sow.sow_files.count) %>
                                  </span>
                             <% else %>
                                 <% sow.sow_files.each do |f| %>
@@ -70,9 +90,9 @@
                                     <% end %>
                                     <%= " V#{f.version}  " %>
                                     <% if f.version == count %>
-                                        <%= link_to raw('<i class=" icon-download icon-white" ></i>'), "#{f.file}" %> 
+                                        <%= link_to raw('<i class=" icon-download icon-white" ></i>'), download_sow_path(sow, :version=>sow.sow_files.count)  %> 
                                     <% else %>
-                                        <%= link_to raw('<i class=" icon-download icon-white" ></i>'), "#{f.file}" %> 
+                                        <%= link_to raw('<i class=" icon-download icon-white" ></i>'), download_sow_path(sow, :version=>sow.sow_files.count) %> 
                                     <% end %>
                                     </span>
                                     <br />
@@ -93,7 +113,7 @@
                         <td> <%= sow.created_at %>  </td>
                     </tr> 
                      <tr>
-                        <td>Delete </td>
+                        <td class='hed'>Delete </td>
                         <td><%= link_to raw('<i class="icon-trash "></i>'), sow, confirm: 'Are you sure?', method: :delete %></td>
                     </tr>
 

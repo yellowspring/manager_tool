@@ -11,6 +11,18 @@ class SowsController < ApplicationController
     end
   end
 
+  def download
+    @sow = Sow.find(params[:id])
+    
+     
+    if params[:version].nil?
+      sow_record = @sow.sow_files.last
+    else
+      sow_record = SowFile.where(:sow_id => @sow.id, :version => params[:version]).last
+    end
+    send_data sow_record.file.read,  :disposition => "inline", :type => "application/pdf", :filename => "#{@sow.contract.client.name}_sow_V#{sow_record.version}.pdf"  
+  end
+
   # GET /sows/1
   # GET /sows/1.json
   def show

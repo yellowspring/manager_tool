@@ -18,9 +18,7 @@
           </button>
           <a class="brand" href="#">Manager Tool</a>
           <div class="nav-collapse collapse">
-            <p class="navbar-text pull-right">
-              Logged in as <a href="#" class="navbar-link">Username</a>
-            </p>
+            
             <ul class="nav ">
               <li><%= link_to "Centcom","http://staging/centcom", :target => "_blank" %>
               <li><%= link_to "Recon 2","http://srv6/recon2/", :target => "_blank" %>
@@ -28,6 +26,7 @@
               <li><%= link_to "Redmine","http://srv6/redmine/", :target => "_blank" %>
             </ul>
           </div><!--/.nav-collapse -->
+
         </div>
       </div>
     </div>
@@ -37,23 +36,33 @@
 
       <div class="span12 ">
         <img style="display:block; float:left"  src="/assets/Medlytix_logo_w_tagline.jpg" alt="banner">
+          <p class="navbar-text pull-right" style="color:red;">
+              <% if session[:user].nil? %>
+              <% else %>
+                Welcome <%= session[:user] %>  <br />
+                <%= link_to  "Sign out", :controller => :login, :action => :new %>
+              <% end %>
+            </p>
       </div>
     </div>
   </div>
 
-
-    <div id="menu">
+  <div id="menu">
       <ul>
-            <li style="margin-left: 15px" class='selected' >
-              <a href="#">Home</a>
+            <%if session[:current].eql?('home') %>
+             <li style="margin-left: 15px" class='selected' >
+            <% else %>
+              <li style="margin-left: 15px"   >
+            <% end %>
+            <a href="#">Home</a>
             </li>
 
-             <%if session[:current].eql?('menu_clients') %>
+            <%if session[:current].to_s.eql?('menu_clients') %>
             <li class="selected">
             <% else %>
-              <li >
+            <li >
             <% end %>
-            <a href="#">Client Management </a>
+            <a href="#">Clients Management </a>
               <ul>
                 <li>
                   <a href="/clients">View </a>
@@ -65,7 +74,7 @@
             </li>
 
 
-            <%if session[:current].eql?('menu_regular_contracts') %>
+            <%if session[:current].eql?('menu_contracts') %>
             <li class="selected">
             <% else %>
               <li >
@@ -84,72 +93,43 @@
               </ul>
             </li>
 
-            <%if session[:current].eql?('menu_temporary_contracts') %>
-            <li class="selected">
-            <% else %>
-              <li >
-            <% end %>
-            <a href="#">Dummy contracts </a>
-              <ul>
-                <li><a href="#">View contracts <img src="/assets/right.gif" class="rightarrowclass" style="border:0;"></a>
-                  <ul>
-                    <li><a href="/contracts">Proposed Contracts </a></li>
-                    <li><a href="/#">Finished Contracts </a></li>
-                  </ul>
-                </li>
-                <li><a href="#">Add a new Contract <img src="/assets/right.gif" class="rightarrowclass" style="border:0;"></a>
-                  <ul>
-                    <li><a href="/contracts/new">New client </a></li>
-                    <li><a href="/#">Existed client </a></li>
-                  </ul>
-                </li>
-              </ul>
-            </li>
 
-            <%if session[:current].eql?('menu_sales') %>
-            <li class="selected">
-            <% else %>
-              <li >
-            <% end %>
-            <a href="#">Salespeople </a>
-              <ul>
-                <li>
-                  <a href="/salespeople">List of salespeople </a>
-                </li>
-                <li>
-                  <a href="/salespeople/new">Add a new salesperson </a>
-                </li>
-              </ul>
-            </li>
-
-            <%if session[:current].eql?('menu_products') %>
-            <li class="selected">
-            <% else %>
-              <li >
-            <% end %>
-            <a href="#">Products </a>
-              <ul>
-                <li>
-                  <a href="/products">List of Products </a>
-                </li>
-                <li>
-                  <a href="/products/new">Add a new Product </a>
-                </li>
-              </ul>
-            </li>
-
-            <%if session[:current].eql?('admin_user') %>
+            <%if session[:current].eql?('menu_admin') %>
             <li class="selected">
             <% else %>
               <li >
             <% end %>
             <a href="#">Admin </a>
               <ul>
-                <li>
-                  <a href="/users">List of users </a>
+                <li><a href="#">Users <img src="/assets/right.gif" class="rightarrowclass" style="border:0;"></a>
+                  <ul>
+                       <li>
+                          <a href="/users">View </a>
+                        </li>
+                        <li>
+                          <a href="/users/new">Add  </a>
+                        </li>
+                    </ul>
                 </li>
-                <li>
-                  <a href="/users/new">Add a new user </a>
+                <li><a href="#">Products <img src="/assets/right.gif" class="rightarrowclass" style="border:0;"></a>
+                    <ul>
+                      <li>
+                        <a href="/products">View </a>
+                      </li>
+                      <li>
+                        <a href="/products/new">Add </a>
+                      </li>
+                    </ul>
+                </li>
+                <li><a href="#">Salespeople <img src="/assets/right.gif" class="rightarrowclass" style="border:0;"></a>
+                    <ul>
+                       <li>
+                          <a href="/salespeople">View </a>
+                        </li>
+                        <li>
+                          <a href="/salespeople/new">Add </a>
+                        </li>
+                    </ul>
                 </li>
               </ul>
             </li>

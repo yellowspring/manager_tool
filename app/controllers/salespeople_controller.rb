@@ -2,6 +2,7 @@ class SalespeopleController < ApplicationController
   # GET /salespeople
   # GET /salespeople.json
   def index
+    session[:current] = 'menu_admin'
     @salespeople = Salesperson.all
 
     respond_to do |format|
@@ -24,6 +25,7 @@ class SalespeopleController < ApplicationController
   # GET /salespeople/new
   # GET /salespeople/new.json
   def new
+    session[:current] = 'menu_admin'
     @salesperson = Salesperson.new
 
     respond_to do |format|
@@ -34,6 +36,7 @@ class SalespeopleController < ApplicationController
 
   # GET /salespeople/1/edit
   def edit
+    session[:current] = 'menu_admin'
     @salesperson = Salesperson.find(params[:id])
   end
 

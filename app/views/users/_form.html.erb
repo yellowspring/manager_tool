@@ -23,10 +23,13 @@
     <%= f.label :comment %><br />
     <%= f.text_field :comment %>
   </div>
+
+
   <div class="field">
-    <%= f.label :admin %><br />
-    <%= f.text_field :admin %>
-  </div>
+    <%= f.label :admin, "Admin?"   %> 
+    <%= f.label :yes, "yes" %> 
+    <%= f.check_box :admin ,:style => "float:left;"  %>  
+  </div><br /><br /><br />
   <div class="actions">
     <%= f.submit %>
   </div>

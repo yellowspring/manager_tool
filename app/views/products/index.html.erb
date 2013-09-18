@@ -6,22 +6,23 @@
 
 
 <div class="span10">
-<h1>Listing products</h1>
+  <br /><br /><br />
+<h2 class="my_h2">Listing products</h2>
 
 <!--Body content-->
-  <div id="container" class="container-fluid">
+ 
 
-<table id="tb" class="table  table-condensed table-hover table-border" cellspacing="0">
+<table   class="stats" style="width: 100%">
     <thead>
       <tr>
         <th class="hed">Name </th>
         <th class="hed">Type </th>
-        <th class="hed">Medicaid </th>
+      <!--   <th class="hed">Medicaid </th>
         <th class="hed">Medicare</th>
         <th class="hed">Commercial</th>
         <th class="hed">Global </th>
         <th class="hed">Subscription_fee</th>
-        <th class="hed">Transaction_fee</th>
+        <th class="hed">Transaction_fee</th> -->
         <th class="hed">Edit</th>
         <th class="hed">Delete</th>
       </tr>
@@ -37,7 +38,7 @@
                 non-score
               <% end %>
           </td>
-          <td>
+         <!--  <td>
               <% if product.medicaid_rate %>
                 <i class="icon-ok"></i>
               <% else %>
@@ -78,7 +79,7 @@
               <% else %>
                 <i class="icon-remove"></i>
               <% end %>
-          </td>
+          </td> -->
 
           <td><%= link_to raw('<i class="icon-edit"></i>'), edit_product_path(product) %></td>
           <td><%= link_to 'Destroy', product, confirm: 'Are you sure?', method: :delete %></td>
@@ -89,6 +90,6 @@
 
 <br />
 
-<%= link_to 'New Product', new_product_path %>
+ 
 </div>
-</div>
+ 
