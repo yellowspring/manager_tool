@@ -79,7 +79,11 @@ $('#casend').tooltip({'trigger':'click hover focus', 'title': 'The date on which
 
 
   $(function(){
-    $("#cadate").hide();
+     if ( $("#casign").is(':checked') ) {
+        $("#cadate").show();
+     } else {
+      $("#cadate").hide();
+    }
 
      $('#casign').click(function(){
       $("#cadate").slideToggle();

@@ -13,18 +13,26 @@ class Contract < ActiveRecord::Base
 	validates_presence_of :contractfiles, :if => :is_normal_contract?
 
 	def version
-		if contractfiles.empty?
-			0
+		v = 0
+		if contractfiles.empty? ||  contractfiles.count == 0
+			v
 		else
-			contractfiles.last.version.to_i
+			Contractfile.find(:all, :conditions =>{:contract_id => self.id }).each do |c|
+				v = c.version.to_i if c.version.to_i > v
+			end
+			v
 		end
 	end
 
 	def ca_version
-		if ca_files.empty?
-			0
+		v = 0
+		if ca_files.empty? ||  ca_files.count == 0
+			v
 		else
-			ca_files.last.version.to_i
+			CaFile.find(:all, :conditions =>{:contract_id => self.id }).each do |c|
+				v = c.version.to_i if c.version.to_i > v
+			end
+			v
 		end
 	end
 

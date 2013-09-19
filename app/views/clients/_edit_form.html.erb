@@ -44,15 +44,15 @@
   <fieldset  id="ndadate" >
   <div class="field" >
     <%= f.label :nsd, "NDA send date"  %>
-    <%= f.datepicker :nda_send_at  %>  <br><br><br>  
+    <%= f.datepicker :nda_send_at  %>  <br /><br /><br />  
     <%= f.label :nid, "NDA executed date"  %> 
     <%= f.datepicker :nda_executed_at  %>   
-  </div>  
+  </div>  <br /> <br /> 
   <% last_nda = @client.ndafiles.last %>
   <%= f.fields_for :ndafiles, @client.ndafiles.build  do |builder| %>
     <p><%= builder.file_field :file %></p>
      <% if last_nda.nil? %>
-     <p><%= builder.hidden_field :version, :value => 1 %></p>
+     <p><%= builder.hidden_field :version, :value => 1 %></p><br /> 
     <% else %>
      <p><%= builder.hidden_field :version, :value => (last_nda.version + 1 )%></p>
     <% end %>

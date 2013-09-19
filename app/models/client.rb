@@ -10,6 +10,30 @@ class Client < ActiveRecord::Base
 	accepts_nested_attributes_for :baafiles,  :reject_if => :child_invalide,:allow_destroy => true 
 	accepts_nested_attributes_for :ndafiles,  :reject_if => :child_invalide,:allow_destroy => true 
 
+	def baa_version
+		v = 0
+		if baafiles.empty? ||  baafiles.count == 0
+			v
+		else
+			Baafile.find(:all, :conditions =>{:client_id => self.id }).each do |b|
+				v = b.version.to_i if b.version.to_i > v
+			end
+			v
+		end
+	end
+
+	def nda_version
+		v = 0
+		if ndafiles.empty?  ||  ndafiles.count == 0
+			v
+		else
+			Ndafile.find(:all, :conditions =>{:client_id => self.id }).each do |n|
+				v = n.version.to_i if n.version.to_i > v
+			end
+			v
+		end
+	end
+
 	def name_with_state
 		if city.nil? or city =~ /^\s*$/
 			"#{name}: #{state}"
@@ -50,8 +74,9 @@ class Client < ActiveRecord::Base
   	validates :name, presence: true
   	validates :salesperson_ids, presence: true
   	validates :cust_id, :numericality => { :greater_than_or_equal_to => 0 }, :allow_nil => true
-  	validates :phone, :allow_nil => true,:allow_blank => true, :numericality => true,:length => { :minimum => 10, :maximum => 15 }
+  	validates :phone, :allow_blank => true, :allow_nil => true, :numericality => true,:length => { :minimum => 10, :maximum => 15 }   
   	validates_format_of :email, :allow_blank => true, :presence => false, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i
+
 
   	private
 

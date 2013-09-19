@@ -81,7 +81,7 @@
              </p>
          </div><!-- .span4 -->
 
-         <div class="span3">
+         <div class="span3"><!-- .BAA NDA -->
          <h2>BAA Info </h2>
             <table id="tb" class="table  table-condensed table-hover mytable" cellspacing="0">
                 <tbody>
@@ -111,8 +111,8 @@
                                         <% else %>
                                             <span class="badge badge-success" id="baa_badge">
                                         <% end %>
-                                        <%= " V#{client.baafiles.count}  " %>
-                                        <%= link_to raw('<i class=" icon-download icon-white" ></i>'), download_client_path(client, :type=>'baa',:version=>client.baafiles.count) %> 
+                                        <%= " V#{client.baa_version}  " %>
+                                        <%= link_to raw('<i class=" icon-download icon-white" ></i>'), download_client_path(client, :type=>'baa',:version=>client.baa_version) %> 
                                     </span>
                                     <% else %>
                                         <% count = 1 %>

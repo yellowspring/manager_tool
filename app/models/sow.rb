@@ -28,10 +28,14 @@ class Sow < ActiveRecord::Base
 
 
 	def version
-		if sow_files.empty?
-			0
-		else
-			sow_files.last.version.to_i
+		v = 0
+		if sow_files.empty? ||  sow_files.count == 0
+			v
+		else 
+			SowFile.find(:all, :conditions =>{:sow_id => self.id }).each do |s|
+				v = s.version.to_i if s.version.to_i > v
+			end
+			v
 		end
 	end
 
