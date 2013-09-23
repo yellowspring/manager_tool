@@ -1,6 +1,6 @@
 class Contract < ActiveRecord::Base
 	belongs_to :client
-	has_many :sows, dependent: :destroy, :order => "id"
+	has_many :sows, dependent: :destroy, :order => "id", :conditions => ["deleted is null"]
 	has_many :contractfiles, dependent: :destroy,:order => "id"
 	has_many :ca_files, dependent: :destroy,:order => "id"
 	

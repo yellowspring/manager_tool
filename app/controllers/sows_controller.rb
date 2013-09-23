@@ -3,7 +3,7 @@ class SowsController < ApplicationController
   # GET /sows.json
   def index
     @contract = Contract.find(params[:contract_id])
-    @sows = Sow.find(:all, :conditions => [ "contract_id = ?", params[:contract_id]])
+    @sows = Sow.find(:all, :conditions => [ "deleted is null and contract_id = ?", params[:contract_id] ] )
 
     respond_to do |format|
       format.html # index.html.erb
@@ -60,6 +60,11 @@ class SowsController < ApplicationController
   def create
     @sow = Sow.new(params[:sow])
     @sow.contract = Contract.find(params[:contract_id])
+    if session[:user].nil? 
+       redirect_to :controller => "login", :action => "new"
+    else
+      @sow.updated_by = session[:user]
+    end
     
     respond_to do |format|
       if @sow.save
@@ -79,6 +84,11 @@ class SowsController < ApplicationController
   # PUT /sows/1.json
   def update
   @sow = Sow.find(params[:id])
+  if session[:user].nil? 
+     redirect_to :controller => "login", :action => "new"
+  else
+    @sow.updated_by = session[:user]
+  end
 
 
     respond_to do |format|
@@ -101,7 +111,14 @@ class SowsController < ApplicationController
   def destroy
     @sow = Sow.find(params[:id])
     @contract = @sow.contract
-    @sow.destroy
+    if session[:user].nil? 
+      redirect_to :controller => "login", :action => "new"
+    else
+      @sow.updated_by = session[:user]
+    end
+    @sow.deleted = true
+    @sow.save
+    #@sow.destroy
 
     respond_to do |format|
       format.html {redirect_to clients_path(:clientid => @sow.contract.client_id)}

@@ -11,7 +11,28 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130918145854) do
+ActiveRecord::Schema.define(:version => 20130922174649) do
+
+  create_table "audits", :force => true do |t|
+    t.integer  "auditable_id"
+    t.string   "auditable_type"
+    t.integer  "associated_id"
+    t.string   "associated_type"
+    t.integer  "user_id"
+    t.string   "user_type"
+    t.string   "username"
+    t.string   "action"
+    t.text     "audited_changes"
+    t.integer  "version",         :default => 0
+    t.string   "comment"
+    t.string   "remote_address"
+    t.datetime "created_at"
+  end
+
+  add_index "audits", ["associated_id", "associated_type"], :name => "associated_index"
+  add_index "audits", ["auditable_id", "auditable_type"], :name => "auditable_index"
+  add_index "audits", ["created_at"], :name => "index_audits_on_created_at"
+  add_index "audits", ["user_id", "user_type"], :name => "user_index"
 
   create_table "autointel_rates", :force => true do |t|
     t.integer  "sow_id"
@@ -89,6 +110,7 @@ ActiveRecord::Schema.define(:version => 20130918145854) do
     t.datetime "updated_at"
     t.integer  "file"
     t.integer  "version"
+    t.string   "updated_by"
   end
 
   create_table "ca_files", :force => true do |t|
@@ -98,6 +120,7 @@ ActiveRecord::Schema.define(:version => 20130918145854) do
     t.datetime "updated_at"
     t.integer  "version"
     t.integer  "file"
+    t.string   "updated_by"
   end
 
   create_table "charity_rates", :force => true do |t|
@@ -129,6 +152,8 @@ ActiveRecord::Schema.define(:version => 20130918145854) do
     t.date     "nda_send_at"
     t.date     "baa_executed_at"
     t.date     "nda_executed_at"
+    t.boolean  "detedted"
+    t.string   "updated_by"
   end
 
   create_table "contractfiles", :force => true do |t|
@@ -137,6 +162,7 @@ ActiveRecord::Schema.define(:version => 20130918145854) do
     t.datetime "updated_at"
     t.integer  "version"
     t.integer  "file"
+    t.string   "updated_by"
   end
 
   create_table "contracts", :force => true do |t|
@@ -155,6 +181,7 @@ ActiveRecord::Schema.define(:version => 20130918145854) do
     t.date     "ca_sign_at"
     t.date     "ca_executed_at"
     t.boolean  "test"
+    t.string   "updated_by"
   end
 
   create_table "ndafiles", :force => true do |t|
@@ -164,6 +191,7 @@ ActiveRecord::Schema.define(:version => 20130918145854) do
     t.datetime "updated_at"
     t.integer  "file"
     t.integer  "version"
+    t.string   "updated_by"
   end
 
   create_table "payment_rates", :force => true do |t|
@@ -196,8 +224,8 @@ ActiveRecord::Schema.define(:version => 20130918145854) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "commercial_rate"
-    t.boolean  "medicaid_rate"
     t.boolean  "medicare_rate"
+    t.boolean  "medicaid_rate"
     t.boolean  "transaction_fee"
     t.boolean  "score"
     t.boolean  "subscription_fee"
@@ -226,6 +254,15 @@ ActiveRecord::Schema.define(:version => 20130918145854) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "salespeople_contracts", :id => false, :force => true do |t|
+    t.integer  "salesperson_id"
+    t.integer  "contract_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "salespeople_contracts", ["salesperson_id", "contract_id"], :name => "index_salespeople_contracts_on_salesperson_id_and_contract_id", :unique => true
 
   create_table "sow_detail_templates", :force => true do |t|
     t.boolean  "commercial_rate"
@@ -268,6 +305,7 @@ ActiveRecord::Schema.define(:version => 20130918145854) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "file"
+    t.string   "updated_by"
   end
 
   create_table "sows", :force => true do |t|
@@ -285,6 +323,8 @@ ActiveRecord::Schema.define(:version => 20130918145854) do
     t.integer  "contract_id"
     t.date     "sow_executed_at"
     t.date     "sow_send_at"
+    t.string   "updated_by"
+    t.boolean  "deleted"
   end
 
   create_table "users", :force => true do |t|

@@ -24,6 +24,7 @@
       <div id="file" >
         <br /><br /><br />
         <p><%= fi.file_field :file %></p>
+        <%= fi.hidden_field :updated_by, :value => session[:user] %>
         <%= fi.hidden_field :version, :value => (@sow.version.to_i + 1) %>
         <%= fi.hidden_field :file_cache %><br /><br /><br />
       </div>
