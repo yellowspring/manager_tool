@@ -1,5 +1,5 @@
 class Client < ActiveRecord::Base
-	has_many :contracts, dependent: :destroy, :order => "id"
+	has_many :contracts, dependent: :destroy, :order => "id",:conditions => ["deleted is null"]
 	has_many :baafiles, dependent: :destroy, :order => "id"
 	has_many :ndafiles, dependent: :destroy, :order => "id"
 	has_many :sales, dependent: :destroy
@@ -82,7 +82,7 @@ class Client < ActiveRecord::Base
 
 		def child_invalide(attributes)
 			attributes.all? do  |key, value| 
-				if key == 'version'
+				if key == 'version' || key == 'updated_by'
 					true
 				else
 					value.blank?   

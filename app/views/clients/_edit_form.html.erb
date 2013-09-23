@@ -30,6 +30,7 @@
     <% else %>
      <p><%= builder.hidden_field :version, :value => (last_baa.version + 1 )%></p>
     <% end %>
+    <%= builder.hidden_field :updated_by, :value => session[:user] %>
     <p><%= builder.hidden_field :file_cache %></p>
   <% end %><br /> 
   </fieldset>
@@ -56,6 +57,7 @@
     <% else %>
      <p><%= builder.hidden_field :version, :value => (last_nda.version + 1 )%></p>
     <% end %>
+    <%= builder.hidden_field :updated_by, :value => session[:user] %>
     <p><%= builder.hidden_field :file_cache %></p>
   <% end %><br />
   </fieldset><br /> <br /> 

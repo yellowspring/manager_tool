@@ -64,6 +64,7 @@
     <% else %>
      <p><%= builder.hidden_field :version, :value => (last_baa.version + 1 )%></p>
     <% end %>
+    <%= builder.hidden_field :updated_by, :value => session[:user] %>
     <p><%= builder.hidden_field :file_cache %></p>
   <% end %><br /> 
   </fieldset>
@@ -81,7 +82,7 @@
     <%= f.datepicker :nda_send_at  %>  <br><br><br>  
     <%= f.label :nid, "NDA executed date"  %> 
     <%= f.datepicker :nda_executed_at  %>   
-  </div>  
+  </div>   <br /> <br /> 
   <% last_nda = @client.ndafiles.last %>
   <%= f.fields_for :ndafiles, @client.ndafiles.build  do |builder| %>
     <p><%= builder.file_field :file %></p>
@@ -90,6 +91,7 @@
     <% else %>
      <p><%= builder.hidden_field :version, :value => (last_nda.version + 1 )%></p>
     <% end %>
+     <%= builder.hidden_field :updated_by, :value => session[:user] %>
     <p><%= builder.hidden_field :file_cache %></p>
   <% end %><br /><br> 
   </fieldset>

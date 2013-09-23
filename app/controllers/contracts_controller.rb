@@ -3,10 +3,11 @@ class ContractsController < ApplicationController
   # GET /contracts.json
   def index
     session[:current] = 'menu_contracts'
+
     if ! params[:cid].nil? && params[:cid].to_i > 0
       session[:cid] = params[:cid]
       session[:history] = params[:history]
-      @contracts = Contract.where("client_id = #{params[:cid]}").order(:client_id)
+      @contracts = Contract.where("deleted is null and client_id = #{params[:cid]}")
     else
       session[:cid] = 0
       session[:history] = params[:history]
@@ -82,6 +83,12 @@ class ContractsController < ApplicationController
   # POST /contracts.json
   def create
     @contract = Contract.new(params[:contract])
+    if session[:user].nil? 
+       redirect_to :controller => "login", :action => "new"
+    else
+      @contract.updated_by = session[:user]
+    end
+    
 
     respond_to do |format|
       if @contract.save
@@ -98,6 +105,11 @@ class ContractsController < ApplicationController
   # PUT /contracts/1.json
   def update
     @contract = Contract.find(params[:id])
+    if session[:user].nil? 
+       redirect_to :controller => "login", :action => "new"
+    else
+      @contract.updated_by = session[:user]
+    end
 
     respond_to do |format|
       if @contract.update_attributes(params[:contract])
@@ -114,7 +126,18 @@ class ContractsController < ApplicationController
   # DELETE /contracts/1.json
   def destroy
     @contract = Contract.find(params[:id])
-    @contract.destroy
+    #@contract.destroy
+    if session[:user].nil? 
+      redirect_to :controller => "login", :action => "new"
+    else
+      @contract.updated_by = session[:user]
+      @contract.deleted = true
+    end
+    @contract.sows.each do |s|
+      s.updated_by = session[:user]
+      s.deleted = true
+    end
+    @contract.save
 
     respond_to do |format|
       if params[:permanent] == '1'

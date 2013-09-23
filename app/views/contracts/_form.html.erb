@@ -31,6 +31,7 @@
     <p><%= builder.file_field :file %></p>
     <p><%= builder.hidden_field :file_cache %></p>
     <p><%= builder.hidden_field :version, :value => ( @contract.version + 1 ) %></p>
+    <%= builder.hidden_field :updated_by, :value => session[:user] %>
   <% end %><br />
 
 
@@ -54,6 +55,7 @@
       <p><%= builder.file_field :file %></p>
       <p><%= builder.hidden_field :file_cache %></p>
       <p><%= builder.hidden_field :version, :value => ( @contract.ca_version + 1 ) %></p>
+      <%= builder.hidden_field :updated_by, :value => session[:user] %>
     <% end %><br /><br> 
   </fieldset>
 </div>  

@@ -74,10 +74,14 @@
             </tbody>
         </table> 
         <div class="span2">
-            <%= link_to 'Back to client level', clients_path(:clientid => @contract.client_id), :action => "index", :class=>"btn btn-small  ", :method => :get %>
+            <%= link_to  clients_path(:clientid => @contract.client_id), :action => "index", :class=>"btn btn-small", :method => :get do%>
+                 <i class="icon-arrow-left" ></i> Back to Client
+            <% end %>
         </div><br /><br /><br />
         <div class="span2">
-            <%= link_to 'Back to contract level', contracts_url,:class=>"btn btn-small  ", :method => :get %>
+            <%= link_to  contracts_url(:cid=>@contract.client.id, :history=>'current'),:class=>"btn btn-small ", :method => :get do%>
+             <i class="icon-arrow-left" ></i> Back to Contract
+            <% end %>
         </div><br /><br /><br />
       </div><!--/.well -->
 </div>
@@ -86,15 +90,15 @@
 <!--Body content-->
 
 <h1>Listing SOWs </h1><br /><br />
-    <div>         
+    <!-- <div>         
         <button id="enable" class="btn btn-primary">enable/disable edit</button>
-    </div>
+    </div> -->
 <br />
 <% if @sows.empty? %> 
     <div class="notice"> You do not have any SOW currently. please add one! </div>
 <% else %>
         <% @sows.each do |sow| %>
-              <table id="tb" class="table  table-condensed table-hover table-bordered" cellspacing="0">
+              <table id="tb" class=" stats"  >
                 <thead>
                 <tr>
                     <th class='hed'>Product </th>
@@ -110,6 +114,8 @@
                             </td>
                             <td>
                                 <%= " V#{file.version}" %>
+                                <%= link_to raw('<i class=" icon-download " ></i>'), download_sow_path(sow, :version=>file.version) %>
+                                
                             </td>
                           
                             <td>
@@ -135,12 +141,14 @@
               </table>      
        <% end %>
 <% end %>
-<br />
+<br /><br /><br />
 
-
- 
-    <%= button_to "New Sow", new_contract_sow_path(@contract), :method => "get" %>  
 </div>
+
+<!--          <div>
+           <p> <%= button_to "New Sow", new_contract_sow_path(@contract), :method => "get" %>  </p>
+        </div> -->
+
 
 <script>
  

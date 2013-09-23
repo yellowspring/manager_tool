@@ -140,6 +140,14 @@
 
         });
 
+        $('.clientname').editable({
+            ajaxOptions: {
+                type: 'PUT'
+            },
+            title: 'Enter Client Name',
+
+        });
+
         $('.cityname').editable({
             ajaxOptions: {
                 type: 'PUT'
@@ -217,6 +225,16 @@
                ]
         });
 
+        $('.statelist').editable({   
+          source: [
+               
+              <% us_states.each do |st| %>
+                {value: '<%= st[1] %>', text: '<%= st[0] %>'},
+               
+              <% end %>
+             ]
+        });
+
         $('.commenttext').editable({
           url: '/post',
           title: 'Enter comments',
@@ -243,11 +261,18 @@
                 $('#baa_badge').addClass('badge-success').removeClass('badge-important');
             }
 
-             //change contract version badge
+            //change contract version badge
             if ( $('#contract_executed_at').text() == "" || $('#contract_executed_at').text() == "Empty" ) {
                 $('#contract_badge').addClass('badge-important').removeClass('badge-success');
             } else {
                 $('#contract_badge').addClass('badge-success').removeClass('badge-important');
+            }
+
+             //change CA version badge
+            if ( $('#ca_executed_at').text() == "" || $('#ca_executed_at').text() == "Empty" ) {
+                $('#ca_badge').addClass('badge-important').removeClass('badge-success');
+            } else {
+                $('#ca_badge').addClass('badge-success').removeClass('badge-important');
             }
 
              //change sow version badge

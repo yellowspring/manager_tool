@@ -8,7 +8,6 @@ class Sow < ActiveRecord::Base
 	has_many :payorintel_rates, dependent: :destroy,:order => "id"
 	belongs_to :contract
 	 
-
 	validates :product_id, presence:true
 	 
 
@@ -41,9 +40,7 @@ class Sow < ActiveRecord::Base
 
 	def product
 		Product.find(product_id).name.upcase  
-	end
-
-	 
+	end	 
 
 	private
 

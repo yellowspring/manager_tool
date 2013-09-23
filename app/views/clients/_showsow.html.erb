@@ -79,7 +79,7 @@
                                         <span class="badge badge-success" id="sow_badge">
                                     <% end %>
                                     <%= " V#{sow.version}  " %>
-                                    <%= link_to raw('<i class=" icon-download icon-white" ></i>'), download_sow_path(sow, :version=>sow.sow_files.count) %>
+                                    <%= link_to raw('<i class=" icon-download icon-white" ></i>'), download_sow_path(sow, :version=>sow.version) %>
                                  </span>
                             <% else %>
                                 <% sow.sow_files.each do |f| %>
@@ -90,9 +90,9 @@
                                     <% end %>
                                     <%= " V#{f.version}  " %>
                                     <% if f.version == count %>
-                                        <%= link_to raw('<i class=" icon-download icon-white" ></i>'), download_sow_path(sow, :version=>sow.sow_files.count)  %> 
+                                        <%= link_to raw('<i class=" icon-download icon-white" ></i>'), download_sow_path(sow, :version=>sow.version)  %> 
                                     <% else %>
-                                        <%= link_to raw('<i class=" icon-download icon-white" ></i>'), download_sow_path(sow, :version=>sow.sow_files.count) %> 
+                                        <%= link_to raw('<i class=" icon-download icon-white" ></i>'), download_sow_path(sow, :version=>sow.version) %> 
                                     <% end %>
                                     </span>
                                     <br />

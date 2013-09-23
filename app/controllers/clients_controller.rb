@@ -75,6 +75,11 @@ class ClientsController < ApplicationController
   # POST /clients.json
   def create
     @client = Client.new(params[:client])
+    if session[:user].nil? 
+       redirect_to :controller => "login", :action => "new"
+    else
+      @client.updated_by = session[:user]
+    end
 
     respond_to do |format|
       if @client.save
@@ -91,6 +96,11 @@ class ClientsController < ApplicationController
   # PUT /clients/1.json
   def update
     @client = Client.find(params[:id])
+    if session[:user].nil? 
+       redirect_to :controller => "login", :action => "new"
+    else
+      @client.updated_by = session[:user]
+    end
 
     respond_to do |format|
       if @client.update_attributes(params[:client])

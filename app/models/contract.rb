@@ -51,7 +51,7 @@ class Contract < ActiveRecord::Base
 
 		def child_invalide(attributes)
 			attributes.all? do  |key, value| 
-				if key == 'version'
+				if key == 'version' || key == 'updated_by'
 					true
 				else
 					value.blank?   

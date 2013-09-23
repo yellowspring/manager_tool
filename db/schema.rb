@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130922174649) do
+ActiveRecord::Schema.define(:version => 20130923170601) do
 
   create_table "audits", :force => true do |t|
     t.integer  "auditable_id"
@@ -182,6 +182,7 @@ ActiveRecord::Schema.define(:version => 20130922174649) do
     t.date     "ca_executed_at"
     t.boolean  "test"
     t.string   "updated_by"
+    t.boolean  "deleted"
   end
 
   create_table "ndafiles", :force => true do |t|
@@ -224,8 +225,8 @@ ActiveRecord::Schema.define(:version => 20130922174649) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "commercial_rate"
-    t.boolean  "medicare_rate"
     t.boolean  "medicaid_rate"
+    t.boolean  "medicare_rate"
     t.boolean  "transaction_fee"
     t.boolean  "score"
     t.boolean  "subscription_fee"
@@ -254,15 +255,6 @@ ActiveRecord::Schema.define(:version => 20130922174649) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-
-  create_table "salespeople_contracts", :id => false, :force => true do |t|
-    t.integer  "salesperson_id"
-    t.integer  "contract_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "salespeople_contracts", ["salesperson_id", "contract_id"], :name => "index_salespeople_contracts_on_salesperson_id_and_contract_id", :unique => true
 
   create_table "sow_detail_templates", :force => true do |t|
     t.boolean  "commercial_rate"
