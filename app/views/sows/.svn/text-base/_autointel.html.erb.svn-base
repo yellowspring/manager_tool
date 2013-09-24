@@ -1,0 +1,123 @@
+  <% if sow.autointel_rates.empty? %>
+     <% sow.autointel_rates.build %>
+  <% else %>
+     <% sow.autointel_rates.build(sow.autointel_rates.last.dup.attributes) %>
+  <% end %>
+ 
+  
+  <%= f.fields_for :autointel_rates, sow.autointel_rates.last do |fa| %>
+ 
+      <div class="field"  id="autointel_type">
+        <%= fa.label :maintype,"Type" %>
+        <%= fa.select  :maintype, [['Per Hit'],['Contingency']], :prompt=>"Select" %><br /><br /><br />
+        <%= fa.hidden_field :version, :value => (@sow.version.to_i + 1) %>
+      </div>
+
+
+      <table id='autointel_table'>
+        <thead>
+          <th></th>
+          <th class="tablesign"></th>
+          <th></th>
+          <th class="tablesign"></th>
+          <th></th>
+          <th class="tablesign"></th>
+          <th></th>
+          <th class="tablesign"></th>
+        </thead>
+        <tbody>
+          <% state_index = 0 %>
+          <% column_num = 4 %>
+          <% row_num = ( us_states.length.to_f / column_num ).ceil %>
+          <% row_num.times do %>
+            <tr>
+              
+                <% if state_index < us_states.length %>
+                  <td style="width: 150px;text-align:right;">
+                    <%= us_states[state_index][0] %>
+                  </td> 
+                  <td>
+                    <%= fa.text_field us_states[state_index][1].to_sym,  :style => "color: red; width: 150px;margin: 10px",:class => "stateinput" %>
+                  </td>  
+                <% else %>
+                  <td></td><td></td>
+                <% end %>
+
+                <% if (state_index + row_num) < us_states.length %>
+                  <td style="width: 250px;text-align:right;">
+                    <%= us_states[state_index + row_num][0] %>
+                  </td> 
+                  <td>
+                    <%= fa.text_field us_states[state_index + row_num][1].to_sym,  :style => "color: red; width: 150px;margin: 10px",:class => "stateinput" %>
+                  </td>  
+                <% else %>
+                  <td></td><td></td>
+                <% end %>
+
+                <% if (state_index + 2 * row_num) < us_states.length %>
+                  <td style="width: 150px;text-align:right;">
+                    <%= us_states[state_index + 2 * row_num][0] %>
+                  </td> 
+                  <td>
+                    <%= fa.text_field us_states[state_index + 2 * row_num][1].to_sym,  :style => "color: red; width: 150px;margin: 10px",:class => "stateinput" %>
+                  </td>  
+                <% else %>
+                  <td></td><td></td>
+                <% end %>
+                
+                 <% if (state_index + 3 * row_num) < us_states.length %>
+                  <td style="width: 150px;text-align:right;">
+                    <%= us_states[state_index + 3 * row_num][0] %>
+                  </td> 
+                  <td>
+                    <%= fa.text_field us_states[state_index + 3 * row_num][1].to_sym, :style => "color: red; width: 150px;margin: 10px",:class => "stateinput" %>
+                  </td>  
+                <% else %>
+                  <td></td><td></td>
+                <% end %>
+            </tr>
+            <% state_index = state_index + 1 %>
+          <% end %>
+        </tbody>
+      </table>
+     
+   <% end %><br />
+
+
+   <script>
+  function hide_table() {
+    $("#autointel_table").hide();
+  }
+
+
+  $(function(){
+
+     if ($("#autointel_type  option:selected").text().toLowerCase() == "per hit" ) {
+       $(".tablesign").each(function() { $(this).html('$');});
+       $("#autointel_table").show();
+     } else  if (  $(".autointel_type  option:selected").text().toLowerCase() == "contingency" ) {
+       $(".tablesign").each(function() { $(this).html('%');});
+       $("#autointel_table").show();
+     } else {
+       $("#autointel_table").hide();
+     }
+
+     $("#autointel_type").bind("change", function () {
+        hide_table();
+        
+          if ($("#autointel_type option:selected").text().toLowerCase() == "per hit" ) {
+            $("#autointel_table").show();
+            $(".tablesign").each(function() { $(this).html('$');});
+            $(".stateinput").each(function() { $(this).val(''); });
+          } else if($("#autointel_type option:selected").text().toLowerCase() == "contingency" ) {
+              $("#autointel_table").show();
+              $(".tablesign").each(function() { $(this).html('%');});
+              $(".stateinput").each(function() { $(this).val(''); });
+          } else {
+            return;
+          }
+    });
+
+  });
+
+</script>

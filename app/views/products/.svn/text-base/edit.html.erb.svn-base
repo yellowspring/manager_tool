@@ -1,0 +1,12 @@
+<div class="span1">
+      <!--Sidebar content-->
+ 
+</div>
+
+<div class="span10">
+<h1>Editing product</h1>
+
+<%= render 'form' %>
+
+<%= link_to 'Back', products_path %>
+</div>

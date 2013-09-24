@@ -1,0 +1,47 @@
+<%= form_for(@salesperson) do |f| %>
+  <% if @salesperson.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@salesperson.errors.count, "error") %> prohibited this salesperson from being saved:</h2>
+
+      <ul>
+      <% @salesperson.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :first_name %><br />
+    <%= f.text_field :first_name %>
+  </div>
+  <div class="field">
+    <%= f.label :last_name %><br />
+    <%= f.text_field :last_name %>
+  </div>
+ 
+  <div class="field">
+    <%= f.label :phone %><br />
+    <%= f.text_field :phone %>
+  </div>
+  <div class="field">
+    <%= f.label :status %><br />
+    <%= f.select :status, ["active","inactive"]%>
+  </div>
+  <div class="field">
+    <%= f.label :join_date %><br />
+    <%= f.date_select :join_date, :start_year => 2006, :end_year => Time.now.year%>
+  </div>
+  <div class="field">
+    <%= f.label :comment %><br />
+    <%= f.text_field :comment %>
+  </div>
+  <div class="field">
+    <%= f.label :email %><br />
+    <%= f.text_field :email %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+

@@ -1,0 +1,132 @@
+<%= form_for(@client, :html => { :multipart => true }) do |f| %>
+  <% if @client.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@client.errors.count, "error") %> prohibited this client from being saved:</h2>
+
+      <ul>
+      <% @client.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :cname, "Client Name" %><br />
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :state %><br />
+    <%= f.select :state , us_states %>
+  </div>
+  <div class="field">
+    <%= f.label :city %><br />
+    <%= f.text_field :city %>
+  </div>
+  <div class="field">
+    <%= f.label :cid, "Cust ID" %><br />
+    <%= f.text_field :cust_id %>
+  </div>
+  <div class="field">
+    <%= f.label :client_contact, "Client Contact Name", :id=>"contact" %><br />
+    <%= f.text_field :contact_name %>
+  </div><br />
+  <div class="field">
+    <%= f.label :contact_phone, "Contact Phone" %><br />
+    <%= f.text_field :phone %>
+  </div>
+  <div class="field">
+    <%= f.label :contact_email, "Contact Email" %><br />
+    <%= f.text_field :email %>
+  </div>
+
+  <div class="field">
+    <%= f.label :Sales %>  
+    <%= f.select :salesperson_ids, Salesperson.all.collect {|x| ["#{x.last_name},#{x.first_name}", x.id]}, {}, :multiple => true %>  
+  </div>
+
+  <fieldset>
+
+  <div class="field" >
+    <%= f.label :bsd, "BAA send date" , :id=>"baa" %> 
+    <%= f.datepicker :baa_send_at  %> 
+    <br><br><br>  
+  </div>  
+  <div class="field">
+    <%= f.label :bid, "BAA executed date", :id=>"baasign" %> 
+    <%= f.datepicker :baa_executed_at  %>  
+  </div>  <br>
+   <% last_baa = @client.baafiles.last %>
+   <%= f.fields_for :baafiles, @client.baafiles.build  do |builder| %>
+    <p><%= builder.file_field :file %></p>
+    <% if last_baa.nil? %>
+     <p><%= builder.hidden_field :version, :value => 1 %></p>
+    <% else %>
+     <p><%= builder.hidden_field :version, :value => (last_baa.version + 1 )%></p>
+    <% end %>
+    <%= builder.hidden_field :updated_by, :value => session[:user] %>
+    <p><%= builder.hidden_field :file_cache %></p>
+  <% end %><br /> 
+  </fieldset>
+
+  <div class="field">
+    <%= f.label :sn, "Sign NDA ?" , :id=>"nda" %> 
+    <%= f.label :yes, "yes"   %> 
+    <%= f.check_box :nda_flag ,:style => "float:left;", :id=>"ndacheck"%> 
+    <br><br><br>  
+  </div>  
+
+  <fieldset  id="ndadate" >
+  <div class="field" >
+    <%= f.label :nsd, "NDA send date"  %>
+    <%= f.datepicker :nda_send_at  %>  <br><br><br>  
+    <%= f.label :nid, "NDA executed date"  %> 
+    <%= f.datepicker :nda_executed_at  %>   
+  </div>   <br /> <br /> 
+  <% last_nda = @client.ndafiles.last %>
+  <%= f.fields_for :ndafiles, @client.ndafiles.build  do |builder| %>
+    <p><%= builder.file_field :file %></p>
+     <% if last_nda.nil? %>
+     <p><%= builder.hidden_field :version, :value => 1 %></p>
+    <% else %>
+     <p><%= builder.hidden_field :version, :value => (last_nda.version + 1 )%></p>
+    <% end %>
+     <%= builder.hidden_field :updated_by, :value => session[:user] %>
+    <p><%= builder.hidden_field :file_cache %></p>
+  <% end %><br /><br> 
+  </fieldset>
+
+
+  <div class="field">
+    <%= f.label :comment %><br />
+    <%= f.text_area :comment, :cols => 20, :rows => 5%>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+
+<script>
+$('#contact').tooltip({'trigger':'click hover focus', 'title': 'Please input the client contact name here' });
+  $('#baa').tooltip({'trigger':'click hover focus', 'title': 'The date on which we send business associate agreement to the client' });
+  $('#baasign').tooltip({'trigger':'click hover focus', 'title': 'The date on which we sign business associate agreement' });
+  $('#nda').tooltip({'trigger':'click hover focus', 'title': 'Please check this checkbox if you need sign non-disclosure agreement' });
+  $('#ndasign').tooltip({'trigger':'click hover focus', 'title': 'The date on which we sign non-disclosure agreement' });
+
+  $(function(){
+    
+
+    if ($('#ndacheck').is(':checked')) {
+        $("#ndadate").show();
+    } else {
+        $("#ndadate").hide();
+    } 
+
+    $('#ndacheck').click(function(){
+      $("#ndadate").slideToggle();
+    });
+
+  });
+
+</script>
+

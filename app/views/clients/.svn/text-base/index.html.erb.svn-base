@@ -1,0 +1,300 @@
+ <!--Body content-->
+    <div id="container" class="container-fluid">
+        <div class="row-fluid">
+            <br \>
+
+            <div class="span4" >
+
+                 <form class="form-inline " method="get">
+                      <ul class="nav nav-pills">
+                        <li>
+                            <h1>
+                                <span class="label label-warning">CLIENT
+                                <% option_status = Client.clients_id_and_name %>
+                                <%= select_tag("clientid", options_for_select(option_status, session[:clientid]), :id=>"myclient", :prompt => "Please select") %> </span>
+                            </h1>
+                        </li>
+                      </ul>
+                </form>    
+               
+        
+            </div> 
+            <div class="span8">
+                
+                   
+                   
+                 
+            </div><!--end of span9-->
+        </div><!--end of row--> <br \> 
+
+        
+
+        <% if session[:clientid].to_s == '0' %>
+           
+            <!-- <div id="table-container" style="overflow:auto; height: 500px;"> -->
+            <!--<table id="tb" class="table  table-condensed table-hover table-bordered" cellspacing="1" style="margin-right:50px;" >
+                <thead>
+                  <tr>
+                    <th class="hed">Name </th>
+                    <th class="hed">State </th>
+                     <th class="hed">City </th>
+                    <th class="hed">Cust_id </th>
+                    <th class="hed">BAA send date </th>
+                    <th class="hed">BAA sign date </th>
+                    <th class="hed">NDA send date </th>
+                    <th class="hed">NDA sign date </th>
+                    <th class="hed">Contact Name </th>
+                    <th class="hed">Contact Phone </th>
+                    <th class="hed">Contact Email </th>
+                    <th class="hed">Sales </th>
+                    <th class="hed">View Contracts </th>
+                    <th class="hed">Delete</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    <% @clients.each do |client| %>
+                      <tr>
+                        <td><%= client.name %></td>
+                        <td><%=  client.state %></td>
+     
+                        <td>
+                             <div id="city" class="cityname" data-resource="client" data-type="text" data-pk="1"  data-url="/clients/<%= client.id%>" data-value = "<%= client.city %>" >
+                            </div>
+                        </td> 
+
+                        <td>
+                             <div id="cust_id" class="ct_date" data-resource="client" data-type="text" data-pk="1"  data-url="/clients/<%= client.id%>" data-value = "<%= client.cust_id %>" >
+                            </div>
+                        </td> 
+
+                        <td>
+                             <div id="baa_send_at" class="ct_date" data-resource="client" data-type="date" data-pk="1"  data-url="/clients/<%= client.id%>" data-value = "<%= client.baa_send_at %>" >
+                            </div>
+                        </td>
+                        <td>
+                             <div id="baa_sign_at" class="ct_date" data-resource="client" data-type="date" data-pk="1"  data-url="/clients/<%= client.id%>" data-value = "<%= client.baa_sign_at %>" >
+                            </div>
+                        </td>
+                        <% if client.nda_flag == false %>
+                            <td><%= client.nda_send_at %>N/A</td>
+                            <td><%= client.nda_sign_at %>N/A</td>
+                        <% else %>
+                             <td>
+                                <div id="nda_send_at" class="ct_date" data-resource="client" data-type="date" data-pk="1"  data-url="/clients/<%= client.id%>" data-value = "<%= client.nda_send_at %>" >
+                                </div>
+                             </td>
+                             <td>
+                                <div id="nda_sign_at" class="ct_date" data-resource="client" data-type="date" data-pk="1"  data-url="/clients/<%= client.id%>" data-value = "<%= client.nda_sign_at %>" >
+                                </div>
+                             </td>
+                        <% end %>
+
+                        <td>
+                             <div id="contact_name" class="contactname" data-resource="client" data-type="text" data-pk="1"  data-url="/clients/<%= client.id%>" data-value = "<%= client.contact_name %>" >
+                            </div>
+                        </td> 
+
+                        <td>
+                             <div id="phone" class="phonenum" data-resource="client" data-type="text" data-pk="1"  data-url="/clients/<%= client.id%>" data-value = "<%= client.phone %>" >
+                            </div>
+                        </td> 
+
+                        <td>
+                             <div id="email" class="emailaddress" data-resource="client" data-type="text" data-pk="1"  data-url="/clients/<%= client.id%>" data-value = "<%= client.email %>" >
+                            </div>
+                        </td> 
+
+                        <td>
+                             <div id="salesperson_ids" class="sp" data-resource="client" data-type="checklist" data-pk="1"  data-url="/clients/<%= client.id%>"  
+                                 data-value = [<%= client.ids_of_sales %>] data-original-title="Select Salespeople" >
+                            </div>
+                        </td> 
+
+                   
+                        <td><%= link_to raw('<i class="icon-eye-open"></i>'), contracts_path(:cid=>client.id) %></td>
+                        <td><%= link_to raw('<i class="icon-trash "></i>'), client, confirm: 'Are you sure?', method: :delete %></td>
+                      </tr>
+                    <% end %>
+                </tbody>
+            </table> -->
+        <% else %>
+         <button id="enable" class="btn btn-small">Enable Edit</button>
+             <%= render 'showbox' %>
+        <% end %>
+
+        <br />
+    </div> <!--! end of #container -->
+
+    <script>
+ 
+    $(function(){
+        $('.ct_date').editable({
+            ajaxOptions: {
+                type: 'PUT'
+            },
+            format: 'yyyy-mm-dd',    
+            viewformat: 'mm/dd/yyyy',    
+            datepicker: {
+                    weekStart: 1
+            }
+
+        });
+
+        $('.clientname').editable({
+            ajaxOptions: {
+                type: 'PUT'
+            },
+            title: 'Enter Client Name',
+
+        });
+
+        $('.cityname').editable({
+            ajaxOptions: {
+                type: 'PUT'
+            },
+            title: 'Enter City Name',
+
+        });
+
+        $('.contactname').editable({
+            ajaxOptions: {
+                type: 'PUT'
+            },
+            title: 'Enter Contact Name',
+
+        });
+
+        $('.phonenum').editable({
+            ajaxOptions: {
+                type: 'PUT'
+            },
+            title: 'Enter Phone Number',
+
+        });
+
+        $('.emailaddress').editable({
+            ajaxOptions: {
+                type: 'PUT'
+            },
+            title: 'Enter Email Address',
+
+        });
+
+        $('.sp').editable({   
+            source: [
+            <% Salesperson.find(:all).each do |p| %>
+                {value: <%= p.id %>, text: <%="'#{p.first_name} #{p.last_name}'".gsub(/&/, "&amp;").gsub(/\"/, "&quot;").html_safe %>},
+            <% end %>  
+            ]
+        });
+
+         $('.sow_date').editable({
+            format: 'yyyy-mm-dd',    
+            viewformat: 'mm/dd/yyyy',    
+           // mode: 'inline',
+            datepicker: {
+                    weekStart: 1
+               }
+        });
+
+        $('.sow_yn').editable({
+            source: [
+                  {value: 'Y', text: 'Y'},
+                  {value: 'N', text: 'N'},
+               ]
+        });
+
+        $('.sow_int').editable({
+            mode: 'inline',
+            source: [
+                  {value: 1, text: '1'},
+                  {value: 2, text: '2'},
+                  {value: 3, text: '3'},
+                  {value: 4, text: '4'},
+                  {value: 5, text: '5'},
+                  {value: 6, text: '6'},
+                  {value: 7, text: '7'},
+                  {value: 8, text: '8'},
+                  {value: 9, text: '9'},
+                  {value: 10, text: '10'},
+                  {value: 11, text: '11'},
+                  {value: 12, text: '12'},
+                  {value: 13, text: '13'},
+                  {value: 14, text: '14'},
+                  {value: 15, text: '15'},
+               ]
+        });
+
+        $('.statelist').editable({   
+          source: [
+               
+              <% us_states.each do |st| %>
+                {value: '<%= st[1] %>', text: '<%= st[0] %>'},
+               
+              <% end %>
+             ]
+        });
+
+        $('.commenttext').editable({
+          url: '/post',
+          title: 'Enter comments',
+          rows: 16,
+         display: function(value, response) {
+              if(! response && ! value ) { $(this).empty();}
+              else {
+                $(this).html(value.substring(0,30) + '...');
+              }
+          }
+        });
+
+
+        $('#enable').click(function() {
+            $('#tb .editable').editable('toggleDisabled');
+            $(this).text(function(i, text){
+                return text === "Enable Edit" ? "Disnable Edit" : "Enable Edit";
+            })
+
+            //change baa version badge
+            if ( $('#baa_executed_at').text() == "" || $('#baa_executed_at').text() == "Empty" ) {
+                $('#baa_badge').addClass('badge-important').removeClass('badge-success');
+            } else {
+                $('#baa_badge').addClass('badge-success').removeClass('badge-important');
+            }
+
+            //change contract version badge
+            if ( $('#contract_executed_at').text() == "" || $('#contract_executed_at').text() == "Empty" ) {
+                $('#contract_badge').addClass('badge-important').removeClass('badge-success');
+            } else {
+                $('#contract_badge').addClass('badge-success').removeClass('badge-important');
+            }
+
+             //change CA version badge
+            if ( $('#ca_executed_at').text() == "" || $('#ca_executed_at').text() == "Empty" ) {
+                $('#ca_badge').addClass('badge-important').removeClass('badge-success');
+            } else {
+                $('#ca_badge').addClass('badge-success').removeClass('badge-important');
+            }
+
+             //change sow version badge
+            if ( $('#sow_executed_at').text() == "" || $('#sow_executed_at').text() == "Empty" ) {
+                $('#sow_badge').addClass('badge-important').removeClass('badge-success');
+            } else {
+                $('#sow_badge').addClass('badge-success').removeClass('badge-important');
+            }
+
+             //change sow version badge
+            if ( $('#nda_executed_at').text() == "" || $('#nda_executed_at').text() == "Empty" ) {
+                $('#nda_badge').addClass('badge-important').removeClass('badge-success');
+            } else {
+                $('#nda_badge').addClass('badge-success').removeClass('badge-important');
+            }
+        });  
+
+        $('#myclient').change(function() {
+            this.form.submit();
+        });
+
+        $('#tb .editable').editable('toggleDisabled');
+
+    });
+</script>

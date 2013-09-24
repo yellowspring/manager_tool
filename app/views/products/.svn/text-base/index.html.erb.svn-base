@@ -1,0 +1,95 @@
+<div class="span1">
+      <!--Sidebar content-->
+ 
+</div>
+
+
+
+<div class="span10">
+  <br /><br /><br />
+<h2 class="my_h2">Listing products</h2>
+
+<!--Body content-->
+ 
+
+<table   class="stats" style="width: 100%">
+    <thead>
+      <tr>
+        <th class="hed">Name </th>
+        <th class="hed">Type </th>
+      <!--   <th class="hed">Medicaid </th>
+        <th class="hed">Medicare</th>
+        <th class="hed">Commercial</th>
+        <th class="hed">Global </th>
+        <th class="hed">Subscription_fee</th>
+        <th class="hed">Transaction_fee</th> -->
+        <th class="hed">Edit</th>
+        <th class="hed">Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @products.each do |product| %>
+        <tr>
+          <td><%= product.name %></td>
+          <td>
+              <% if product.score %>
+                 score
+              <% else %>
+                non-score
+              <% end %>
+          </td>
+         <!--  <td>
+              <% if product.medicaid_rate %>
+                <i class="icon-ok"></i>
+              <% else %>
+                <i class="icon-remove"></i>
+              <% end %>
+          </td>
+          <td>
+              <% if product.medicare_rate  %>
+                <i class="icon-ok"></i>
+              <% else %>
+                <i class="icon-remove"></i>
+              <% end %>
+          </td>
+          <td>
+              <% if product.commercial_rate %>
+                <i class="icon-ok"></i>
+              <% else %>
+                <i class="icon-remove"></i>
+              <% end %>
+          </td>
+          <td>
+              <% if product.global_rate %>
+                <i class="icon-ok"></i>
+              <% else %>
+                <i class="icon-remove"></i>
+              <% end %>
+          </td>
+          <td>
+              <% if product.transaction_fee %>
+                <i class="icon-ok"></i>
+              <% else %>
+                <i class="icon-remove"></i>
+              <% end %>
+          </td>
+          <td>
+              <% if product.subscription_fee  %>
+                <i class="icon-ok"></i>
+              <% else %>
+                <i class="icon-remove"></i>
+              <% end %>
+          </td> -->
+
+          <td><%= link_to raw('<i class="icon-edit"></i>'), edit_product_path(product) %></td>
+          <td><%= link_to 'Destroy', product, confirm: 'Are you sure?', method: :delete %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+<br />
+
+ 
+</div>
+ 

@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  sow_id: 1
+  version: 1
+  state: MyString
+  rate: 1.5
+  term: 1
+  maintype: MyString
+
+two:
+  sow_id: 1
+  version: 1
+  state: MyString
+  rate: 1.5
+  term: 1
+  maintype: MyString

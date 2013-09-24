@@ -1,0 +1,9 @@
+<div class="span1">
+</div>
+
+<div class="span11">
+<h2>New salesperson</h2>
+
+<%= render 'form' %>
+ 
+</div>

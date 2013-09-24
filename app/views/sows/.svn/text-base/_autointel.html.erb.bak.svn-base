@@ -1,0 +1,20 @@
+  <% sow.autointel_rates.build %>
+  <%= f.fields_for :autointel_rates do |auto_rate_form| %>
+
+    
+  	 
+
+      <div class="field"  id="type">
+        <%= auto_rate_form.label :maintype,"Type" %>
+        <%= auto_rate_form.select  :maintype, [['Per Hit'],['Contingency']], :prompt=>"Select" %><br /><br /><br />
+      </div>
+
+      <div id="autointel">
+         <%= auto_rate_form.label :autolabel, "States" %> 
+         <input type="button" value="Add State" class="btn" id="addstate" /><br /><br />
+          <fieldset id="autointelstate">
+          </fieldset>
+          
+      </div>
+     
+   <% end %><br />

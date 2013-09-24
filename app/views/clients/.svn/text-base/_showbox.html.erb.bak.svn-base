@@ -1,0 +1,354 @@
+ <% client = @clients.first %>
+ <div class="row">
+         <div class="span3">
+             <h2>Client Info </h2>
+
+             <table id="tb" class="table  table-condensed table-hover " cellspacing="0">
+ 
+                <tbody>
+                    <tr>
+                        <td class='hed'>Client name: </td>
+                        <td><%= client.name %> </td>
+                    </tr>
+                    <tr>
+                        <td class='hed'>Client state: </td>
+                         <td><%= client.state %> </td>    
+                    </tr>
+                    <tr>
+                        <td class='hed'>Client city: </td>
+                        <td>
+                             <div id="city" class="cityname" data-resource="client" data-type="text" data-pk="1"  data-url="/clients/<%= client.id%>" data-value = "<%= client.city %>" >
+                            </div>
+                        </td> 
+                    </tr>
+                    <tr>
+                        <td class='hed'>Real cust_id: </td>
+                        <td>
+                             <div id="cust_id" class="ct_date" data-resource="client" data-type="text" data-pk="1"  data-url="/clients/<%= client.id%>" data-value = "<%= client.cust_id %>" >
+                            </div>
+                        </td> 
+
+                    </tr>
+                    <tr>
+                        <td class='hed'>Contact name: </td>
+                        <td>
+                             <div id="contact_name" class="contactname" data-resource="client" data-type="text" data-pk="1"  data-url="/clients/<%= client.id%>" data-value = "<%= client.contact_name %>" >
+                            </div>
+                        </td> 
+                    </tr>
+                    <tr>
+                        <td class='hed'>Contact phone: </td>
+                        <td>
+                             <div id="phone" class="phonenum" data-resource="client" data-type="text" data-pk="1"  data-url="/clients/<%= client.id%>" data-value = "<%= client.phone %>" >
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class='hed'>Contact email: </td>
+                        <td>
+                             <div id="email" class="emailaddress" data-resource="client" data-type="text" data-pk="1"  data-url="/clients/<%= client.id%>" data-value = "<%= client.email %>" >
+                            </div>
+                        </td> 
+                    </tr>
+                    <tr>
+                        <td class='hed'>Sales: </td>
+                        <td>
+                             <div id="salesperson_ids" class="sp" data-resource="client" data-type="checklist" data-pk="1"  data-url="/clients/<%= client.id%>"  
+                                 data-value = [<%= client.ids_of_sales %>] data-original-title="Select Salespeople" >
+                            </div>
+                        </td> 
+                    </tr>
+                    <tr>
+                        <td class='hed'>Create date: </td>
+                        <td> <%= client.created_at %> </td>
+                    </tr>
+                    <tr>
+                        <td>Delete </td>
+                        <td><%= link_to raw('<i class="icon-trash "></i>'), client, confirm: 'Are you sure?', method: :delete %></td>
+                    </tr>
+                    <!--
+                    <tr>
+                        <div>         
+                            <button id="enable" class="btn btn-primary">enable/disable edit</button>
+                        </div>  
+                    </tr>
+                    -->
+                </tbody>
+            </table> 
+
+             <p>
+                 
+             </p>
+         </div><!-- .span4 -->
+
+         <div class="span3">
+         <h2>BAA Info </h2>
+            <table id="tb" class="table  table-condensed table-hover " cellspacing="0">
+                <tbody>
+                    <tr>
+                        <td class='hed'>BAA send date: </td>
+                        <td>
+                            <div id="baa_send_at" class="ct_date" data-resource="client" data-type="date" data-pk="1"  data-url="/clients/<%= client.id%>" data-value = "<%= client.baa_send_at %>" >
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class='hed'>BAA sign date: </td>
+                         <td>
+                             <div id="baa_sign_at" class="ct_date" data-resource="client" data-type="date" data-pk="1"  data-url="/clients/<%= client.id%>" data-value = "<%= client.baa_sign_at %>" >
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                            <td class='hed'>BAA File: </td>
+                            <td> 
+                                <% if client.baafiles.empty? %>
+                                    N/A
+                                <% else %>
+                                    <% if session[:history].nil? || session[:history].upcase == 'CURRENT'  %>
+                                    <span class="badge badge-important">
+                                        <%= " V#{client.baafiles.count}  " %>
+                                        <%= link_to raw('<i class=" icon-download icon-white" ></i>'), "#{client.baafiles.last.file}" %> 
+                                    </span>
+                                    <% else %>
+                                        <% count = 1 %>
+                                        <% client.baafiles.each do |f| %>
+                                            <%= " V#{count}  " %>
+                                            <%= link_to raw('<i class=" icon-download" ></i>'), "#{f.file}" %> 
+                                            <% count = count + 1 %>
+                                            <br />
+                                        <% end %>
+                                    <% end %>
+                                <% end %>
+                            </td>
+                    </tr>
+                    <tr>
+                        <td class='hed'>New BAA version: </td>
+                         <td>
+                            <span class="badge  badge-inverse">
+                            <%= link_to raw('<i class="icon-upload  icon-white"></i>'), edit_client_path(client)  %>
+                            </span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class='hed'>NDA send date: </td>
+                        <td> <%= client.baa_send_at %> </td>
+                    </tr>
+                    <tr>
+                        <td class='hed'>NDA sign date: </td>
+                        <td> <%= client.nda_sign_at %> </td>
+                    </tr> 
+                </tbody>
+            </table> 
+         
+         </div><!-- .span4 -->
+   
+        <div class="span3"><!-- .start of contract -->
+        <h2>Contract Info </h2>
+            <% if client.contracts.count > 1 %>
+                <div class="accordion" id="accordion2">
+                <% client.contracts.each do |contract| %>
+                      <div class="accordion-group">
+                        <div class="accordion-heading">
+                          <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse<%= client.contracts.index(contract) %>">
+                            <i class="icon-chevron-down"></i>
+                            Contract #<%= client.contracts.index(contract) + 1 %>: <span class="badge badge-info"><%= contract.product_list%></span>
+                          </a>
+                          <br />
+                        </div>
+                        <div id="collapse<%= client.contracts.index(contract) %>" class="accordion-body collapse ">
+                          <div class="accordion-inner" >
+                                <table id="tb" class="table  table-condensed table-hover table-bordered " cellspacing="0">
+             
+                                    <tbody>
+                                        <tr>
+                                            <td class='hed'>Send date: </td>
+                                            <td>
+                                                <div id="contract_send_at" class="ct_date" data-resource="contract" data-type="date" data-pk="1"  data-url="/contracts/<%= contract.id%>" data-value = "<%= contract.contract_send_at %>" >
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class='hed'>Sign date: </td>
+                                            <td>
+                                                <div id="contract_sign_at" class="ct_date" data-resource="contract" data-type="date" data-pk="1"  data-url="/contracts/<%= contract.id%>" data-value = "<%= contract.contract_sign_at %>" >
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class='hed'>File: </td>
+                                            <td> 
+                                                <% if contract.contractfiles.empty? %>
+                                                    N/A
+                                                <% else %>
+                                                    <% if session[:history].nil? || session[:history].upcase == 'CURRENT'  %>
+                                                    <span class="badge badge-important">
+                                                        <%= " V#{contract.contractfiles.count}  " %>
+                                                        <%= link_to raw('<i class=" icon-download icon-white" ></i>'), "#{contract.contractfiles.last.file}" %> 
+                                                    </span>
+                                                    <% else %>
+                                                        <% count = 1 %>
+                                                        <% contract.contractfiles.each do |f| %>
+                                                            <%= " V#{count}  " %>
+                                                            <%= link_to raw('<i class=" icon-download" ></i>'), "#{f.file}" %> 
+                                                            <% count = count + 1 %>
+                                                            <br />
+                                                        <% end %>
+                                                    <% end %>
+                                                <% end %>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class='hed'>New version: </td>
+                                             <td>
+                                                <span class="badge  badge-inverse">
+                                                <%= link_to raw('<i class="icon-upload  icon-white"></i>'), edit_contract_path(contract)  %>
+                                                </span>
+                                            </td>
+                                        </tr>
+                                        
+                                        <tr>
+                                            <td class='hed'>Create date: </td>
+                                            <td> <%= client.contracts.first.created_at %> </td>
+                                        </tr>
+                          
+                                        <tr>
+                                            <td>Delete </td>
+                                            <td><%= link_to raw('<i class="icon-trash "></i>'), contract, confirm: 'Are you sure?', method: :delete %></td>
+                                        </tr>
+
+                                    </tbody>
+                                </table> <br />
+                                
+                          </div>
+                        </div>
+                      </div>
+                     
+                <% end %> <!-- .end of each -->
+                </div> <!--end of accordion2-->
+            <% elsif client.contracts.count == 1 %>
+                <% contract = client.contracts.first %>
+                 <table id="tb" class="table  table-condensed table-hover " cellspacing="0">
+                    <tbody>
+                        <tr>
+                            <td class='hed'>Contract #: </td>
+                            <td><span class="badge badge-success"><%= client.contracts.index(contract) + 1 %></span> </td>
+                        </tr>
+                        <tr>
+                            <td class='hed'>Products: </td>
+                            <td> <%= contract.product_list%></td>
+                        </tr>
+                        <tr>
+                            <td class='hed'>Send date: </td>
+                            <td>
+                                <div id="contract_send_at" class="ct_date" data-resource="contract" data-type="date" data-pk="1"  data-url="/contracts/<%= contract.id%>" data-value = "<%= contract.contract_send_at %>" >
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class='hed'>Sign date: </td>
+                            <td>
+                                <div id="contract_sign_at" class="ct_date" data-resource="contract" data-type="date" data-pk="1"  data-url="/contracts/<%= contract.id%>" data-value = "<%= contract.contract_sign_at %>" >
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class='hed'>File: </td>
+                            <td> 
+                                <% if contract.contractfiles.empty? %>
+                                    N/A
+                                <% else %>
+                                    <% if session[:history].nil? || session[:history].upcase == 'CURRENT'  %>
+                                    <span class="badge badge-important">
+                                        <%= " V#{contract.contractfiles.count}  " %>
+                                        <%= link_to raw('<i class=" icon-download icon-white" ></i>'), "#{contract.contractfiles.last.file}" %> 
+                                    </span>
+                                    <% else %>
+                                        <% count = 1 %>
+                                        <% contract.contractfiles.each do |f| %>
+                                            <%= " V#{count}  " %>
+                                            <%= link_to raw('<i class=" icon-download" ></i>'), "#{f.file}" %> 
+                                            <% count = count + 1 %>
+                                            <br />
+                                        <% end %>
+                                    <% end %>
+                                <% end %>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class='hed'>New version: </td>
+                             <td>
+                                <span class="badge  badge-inverse">
+                                <%= link_to raw('<i class="icon-upload  icon-white"></i>'), edit_contract_path(contract)  %>
+                                </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class='hed'>Comment: </td>
+                            <td
+                            <div id="comment" class="commenttext" data-resource="contract" data-type="textarea" data-pk="1"  data-url="/contracts/<%= contract.id%>" data-value = "<%= contract.comment %>" >
+                            </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class='hed'>Create date: </td>
+                            <td> <%= client.contracts.first.created_at %> </td>
+                        </tr>
+                        <tr>
+                            <td>Delete </td>
+                            <td><%= link_to raw('<i class="icon-trash "></i>'), contract, confirm: 'Are you sure?', method: :delete %></td>
+                        </tr>
+                    </tbody>
+                </table> <br />
+
+               
+             <% end %><!-- .end of if -->
+              <%=link_to "New Contract", new_contract_path(:client_id=>client.id)%> 
+         </div><!-- .end of contracts -->
+         
+
+        <% if client.contracts.count > 1 %>
+            <% client.contracts.each do |contract| %>
+                <div class="span3 allsows"  id="collapse<%= client.contracts.index(contract) %>sows" >
+                  <%= render 'showsow', contract: contract %>
+                </div> 
+            <% end %> <!-- .end of  client.contracts.each -->
+        <% elsif client.contracts.count == 1 %>
+            <% contract = client.contracts.first %>
+            <div class="span3" >
+                <%= render 'showsow', contract: contract %>   
+            </div> 
+        <% else %>
+            <% contract = nil %>
+            <div class="span3" >
+                <%= render 'showsow', contract: contract %>   
+            </div> 
+        <% end %><!-- .end of sows -->
+
+  
+   
+ </div><!-- .row -->
+
+ <script>
+ $(function(){
+    $('.allsows').hide(); // hide div's on load using parent class as a starting point     
+
+
+    $(".myswitch>a").hover(function(){
+        $('.iswitch').toggleClass('icon-white');
+    });
+    
+    <% client.contracts.each do |contract| %>
+        $("#collapse<%= client.contracts.index(contract) %>").on('show', function() {
+            $('.allsows').hide();
+            $("#collapse<%= client.contracts.index(contract) %>").siblings(".accordion-heading").find('.accordion-toggle i').toggleClass('icon-chevron-down icon-chevron-up');
+            $("#collapse<%= client.contracts.index(contract) %>sows").show();
+        });
+        $("#collapse<%= client.contracts.index(contract) %>").on('hide', function() {
+            $('.allsows').hide();
+            $(".icon-chevron-up").removeClass("icon-chevron-up").addClass("icon-chevron-down");
+        });
+    <% end %>
+  
+    });
+ </script>

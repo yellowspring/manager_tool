@@ -1,0 +1,148 @@
+<%= form_for(@path) do |f| %>
+  <% if @sow.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@sow.errors.count, "error") %> prohibited this sow from being saved:</h2>
+
+      <ul>
+      <% @sow.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+ 
+  <div class="field">
+    <%= f.label :product, "Product Name",:id=>"productname" %><br />
+    <% ary = Array.new() %>
+    <% ary << @sow.product_id %>
+    <%= collection_select(:sow, :product_id, Product.find_all_in(ary), :id, :formal_name, {:prompt => 'Please select the product'}, {:class=>'productselect'}) %>
+  </div>
+
+   <% new_version = @sow.version.to_i + 1 %>
+   <%= f.fields_for :sow_files, f.object.sow_files.build do |fi| %>
+
+      <div id="file" >
+        <br /><br /><br />
+        <p><%= fi.file_field :file %></p>
+        <%= fi.hidden_field :updated_by, :value => session[:user] %>
+        <%= fi.hidden_field :version, :value => (@sow.version.to_i + 1) %>
+        <%= fi.hidden_field :file_cache %><br /><br /><br />
+      </div>
+   <% end %>
+
+  <div id="payorintel">
+    <%= render :partial=>"payorintel",:locals=>{:f=>f,:sow=>@sow} %>
+  </div>
+
+  <div id="autointel">
+    <%= render :partial=>"autointel",:locals=>{:f=>f,:sow=>@sow} %>
+  </div>
+
+  <div id="payment">
+    <%= render :partial=>"payment",:locals=>{:f=>f,:sow=>@sow} %>
+  </div>
+
+  <div id="charity">
+    <%= render :partial=>"charity",:locals=>{:f=>f,:sow=>@sow} %>
+  </div>
+
+ <br> 
+  <div class="actions" id = "submitbutton">
+    <%= f.submit %>
+  </div>
+<% end %>
+
+
+<script>
+  $('#productname').tooltip({'trigger':'click hover focus', 'title': 'Please select the product name' });
+  //$('#casend').tooltip({'trigger':'click hover focus', 'title': 'The date on which we send credit agreement to the client' });
+  //$('#ca').tooltip({'trigger':'click hover focus', 'title': 'Please check this checkbox if you need sign credit agreement' });
+  //$('#casigndate').tooltip({'trigger':'click hover focus', 'title': 'The date on which we sign credit agreement' });
+
+  function reset_alllevel() {
+
+    $("#autointel").hide();
+    $("#payorintel").hide();
+    $("#charity").hide();
+    $("#payment").hide();
+    $("#submitbutton").hide();
+  }
+
+ 
+  $(function(){
+    //$("#cadate").hide();
+    reset_alllevel();
+
+    if ($(".productselect  option:selected").text().toLowerCase() == "payorintel" ) {
+              $("#payorintel").show();     
+              $("#file").show();
+              $("#submitbutton").show();
+    } else if (  $(".productselect  option:selected").text().toLowerCase() == "autointel" ) {
+              $("#file").show();
+              $("#autointel").show();
+              $("#submitbutton").show();
+    } else if($(".productselect  option:selected").text().toLowerCase() == "charity" ) {
+              $("#file").show();
+              $("#charity").show();
+              $("#submitbutton").show();
+    } else if(  $(".productselect  option:selected").text().toLowerCase() == "payment") {
+              $("#file").show();
+              $("#payment").show();
+              $("#submitbutton").show();
+
+    } else if ($(".productselect  option:selected").text().toLowerCase() == "payment and charity") {
+              $("#file").show();
+              $("#payment").show();
+              $("#charity").show();
+              $("#submitbutton").show();
+
+    }
+
+
+
+
+    $(".productselect").bind("change", function () {
+        reset_alllevel();
+        if ($(".productselect  option:selected").text().toLowerCase() == "payorintel" ) {
+            $("#payorintel").show();
+            $("#file").show();
+            $("#submitbutton").show();
+        } else if ( $(".productselect  option:selected").text().toLowerCase() == "autointel" ) {
+            $("#autointel").show();
+            $("#file").show();
+            $("#submitbutton").show();
+
+        } else if($(".productselect  option:selected").text().toLowerCase() == "charity" ) {
+              $("#file").show();
+              $("#charity").show();
+              $("#submitbutton").show();
+        } else if( $(".productselect  option:selected").text().toLowerCase() == "payment") {
+              $("#file").show();
+              $("#payment").show();
+              $("#submitbutton").show();
+        } else if( $(".productselect  option:selected").text().toLowerCase() == "payment and charity") {
+              $("#file").show();
+              $("#payment").show();
+              $("#charity").show();
+              $("#submitbutton").show();
+        }
+    });
+
+   
+
+     $('#new_sow').submit(function() {
+      //alert('Handler for .submit() called.');
+       $('.stateinput').each( function() {
+             //return amount without $
+            var isthePrice = $(this).val().replace(/[^\d\.]/, '');
+            $(this).val( isthePrice );
+       });
+    });
+
+     $('#casign').click(function(){
+      $("#cadate").slideToggle();
+    });
+
+  });
+
+</script>

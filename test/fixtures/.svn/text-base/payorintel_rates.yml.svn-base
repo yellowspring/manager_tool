@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  sow_id: 1
+  version: 1
+  term: 1
+  maintype: MyString
+  subtype: MyString
+  commercial: 1.5
+  medicare: 1.5
+  medicaid: 1.5
+  global: 1.5
+
+two:
+  sow_id: 1
+  version: 1
+  term: 1
+  maintype: MyString
+  subtype: MyString
+  commercial: 1.5
+  medicare: 1.5
+  medicaid: 1.5
+  global: 1.5

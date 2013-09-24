@@ -1,0 +1,49 @@
+<h1>Listing salespeople</h1>
+
+<table>
+  <tr>
+    <th>First name</th>
+    <th>Last name</th>
+    <th>Middle name</th>
+    <th>Dob</th>
+    <th>Gender</th>
+    <th>Join date</th>
+    <th>Status</th>
+    <th>Email</th>
+    <th>Street</th>
+    <th>State</th>
+    <th>City</th>
+    <th>Mobile phone</th>
+    <th>Home phone</th>
+    <th>Comment</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @salespeople.each do |salesperson| %>
+  <tr>
+    <td><%= salesperson.first_name %></td>
+    <td><%= salesperson.last_name %></td>
+    <td><%= salesperson.middle_name %></td>
+    <td><%= salesperson.dob %></td>
+    <td><%= salesperson.gender %></td>
+    <td><%= salesperson.join_date %></td>
+    <td><%= salesperson.status %></td>
+    <td><%= salesperson.email %></td>
+    <td><%= salesperson.street %></td>
+    <td><%= salesperson.state %></td>
+    <td><%= salesperson.city %></td>
+    <td><%= salesperson.mobile_phone %></td>
+    <td><%= salesperson.home_phone %></td>
+    <td><%= salesperson.comment %></td>
+    <td><%= link_to 'Show', salesperson %></td>
+    <td><%= link_to 'Edit', edit_salesperson_path(salesperson) %></td>
+    <td><%= link_to 'Destroy', salesperson, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Salesperson', new_salesperson_path %>

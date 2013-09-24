@@ -1,0 +1,11 @@
+<div class="span1">
+</div>
+<div class="span11">
+	<br /><br /><br />
+<h1>Upload new version</h1><br />
+
+<%= render 'edit_form' %>
+
+ 
+<%= link_to 'Back', clients_path(:clientid=>@client.id) %>
+</div>

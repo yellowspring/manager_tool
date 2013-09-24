@@ -1,0 +1,55 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Sow ko date:</b>
+  <%= @sow.sow_ko_date %>
+</p>
+
+<p>
+  <b>Sow production date:</b>
+  <%= @sow.sow_production_date %>
+</p>
+
+<p>
+  <b>Sow start date:</b>
+  <%= @sow.sow_start_date %>
+</p>
+
+<p>
+  <b>Sow end date:</b>
+  <%= @sow.sow_end_date %>
+</p>
+
+<p>
+  <b>Auto renew:</b>
+  <%= @sow.auto_renew %>
+</p>
+
+<p>
+  <b>Accept term:</b>
+  <%= @sow.accept_term %>
+</p>
+
+<p>
+  <b>Renewal:</b>
+  <%= @sow.renewal %>
+</p>
+
+<p>
+  <b>Renew times:</b>
+  <%= @sow.renew_times %>
+</p>
+
+<p>
+  <b>Product:</b>
+  <%= @sow.product_id %>
+</p>
+
+<p>
+  <b>Comment:</b>
+  <%= @sow.comment %>
+</p>
+
+
+<%= link_to 'Edit', edit_sow_path(@sow) %> |
+<%= link_to 'Back', sows_path %>

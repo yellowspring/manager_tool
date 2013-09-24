@@ -1,0 +1,12 @@
+<div class="span2">
+</div>
+
+<div class="span10">
+
+<h1>Editing salesperson</h1>
+
+<%= render 'form' %>
+
+<%= link_to 'Show', @salesperson %> |
+<%= link_to 'Back', salespeople_path %>
+</div>

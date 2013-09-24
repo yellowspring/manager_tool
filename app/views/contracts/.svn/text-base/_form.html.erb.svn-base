@@ -1,0 +1,96 @@
+<%= form_for(@contract, :html => {:multipart => true}) do |f| %>
+  <% if @contract.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@contract.errors.count, "error") %> prohibited this contract from being saved:</h2>
+
+      <ul>
+      <% @contract.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+  <div class="field">
+    <%= f.label :client%>
+    <% if ! @client.nil? %>
+      <%= collection_select(:contract, :client_id, [@client], :id, :name_with_state,{}) %>
+    <% else %>
+      <%= collection_select(:contract, :client_id, Client.find(:all), :id, :name_with_state, {:prompt => 'Please select the client'}) %>
+    <%end%>
+  </div>
+
+  <div class="field">
+      <%= f.label :test, "Test?" ,:id=>"test" %> 
+      <%= f.label :yes, "yes" %> 
+      <%= f.check_box :test ,:style => "float:left;"  %> 
+  </div> <br><br><br>   <br><br><br>  
+
+   <%= f.fields_for :contractfiles, f.object.contractfiles.build  do |builder| %>
+    <p><%= builder.file_field :file %></p>
+    <p><%= builder.hidden_field :file_cache %></p>
+    <p><%= builder.hidden_field :version, :value => ( @contract.version + 1 ) %></p>
+    <%= builder.hidden_field :updated_by, :value => session[:user] %>
+  <% end %><br />
+
+
+
+  <div id="ca_part">
+    <div class="field" >
+      <%= f.label :credit_aggrement, "Sign CA" ,:id=>"ca" %> 
+      <%= f.label :yes, "yes" %> 
+      <%= f.check_box :ca_flag ,:style => "float:left;", :id=>"casign" %> 
+      <br><br><br>  
+    </div>  
+
+  <fieldset  id="cadate" >
+    <div class="field" >
+      <%= f.label "casenddate", "CA send date",:id=>"casend"  %>
+      <%= f.datepicker :ca_send_at  %>  <br><br><br>  
+      <%= f.label "casigndate","CA executed date",:id=>"casigndate"  %> 
+      <%= f.datepicker :ca_executed_at  %>   <br><br><br> 
+    </div>  
+    <%= f.fields_for :ca_files, f.object.ca_files.build  do |builder| %>
+      <p><%= builder.file_field :file %></p>
+      <p><%= builder.hidden_field :file_cache %></p>
+      <p><%= builder.hidden_field :version, :value => ( @contract.ca_version + 1 ) %></p>
+      <%= builder.hidden_field :updated_by, :value => session[:user] %>
+    <% end %><br /><br> 
+  </fieldset>
+</div>  
+   
+ 
+  <div class="field">
+    <%= f.label :comment %> 
+    <%= f.text_field :comment %>
+  </div><br><br>
+
+ 
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+ 
+<script>
+$(".popover-tx").popover();
+$('#casend').tooltip({'trigger':'click hover focus', 'title': 'The date on which we send credit agreement to the client' });
+  $('#ca').tooltip({'trigger':'click hover focus', 'title': 'Please check this checkbox if you need sign credit agreement' });
+  $('#casigndate').tooltip({'trigger':'click hover focus', 'title': 'The date on which we sign credit agreement' });
+
+
+  $(function(){
+     if ( $("#casign").is(':checked') ) {
+        $("#cadate").show();
+     } else {
+      $("#cadate").hide();
+    }
+
+     $('#casign').click(function(){
+      $("#cadate").slideToggle();
+    });
+
+  });
+
+</script>
