@@ -41,12 +41,22 @@
         </table> 
 
         <hr>
-        	<%= button_to 'Back to client level', clients_path(:clientid => @contract.client_id),:class=>"btn btn-small  ", :method => :get %>
-            <%= button_to 'Back to contract level', contracts_url,:class=>"btn btn-small  ", :method => :get %>
-      
-         
-            <%= button_to 'Back to sow level', contract_sows_path(@contract),:class=>"btn btn-small", :method => :get %>
-     
+        	<div class="span2">
+                     <%= link_to  clients_path(:clientid => @contract.client_id), :action => "index", :class=>"btn btn-small", :method => :get do%>
+                     <i class="icon-arrow-left" ></i> Back to Client
+                     <% end %>
+            </div><br /><br /><br />
+            <div class="span2">
+                <%= link_to  contracts_url(:cid=>@contract.client.id, :history=>'current'),:class=>"btn btn-small ", :method => :get do%>
+                 <i class="icon-arrow-left" ></i> Back to Contract
+                <% end %>
+            </div><br /><br /><br />
+            <div class="span2">
+                <%= link_to  contract_sows_path(@contract),:class=>"btn btn-small ", :method => :get do%>
+                 <i class="icon-arrow-left" ></i> Back to SOW
+                <% end %>
+            </div>
+ <br /><br /><br /><br />
       </div><!--/.well -->
 </div>
 
@@ -59,6 +69,5 @@
 <h1>Editing sow</h1>
 
 <%= render 'form' %>
-
-<%= link_to 'Back', contract_sows_path(@contract) %>
+ 
 </div>
